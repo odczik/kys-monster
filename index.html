@@ -104,7 +104,7 @@
             x: 0,
             y: 0
         }
-        document.addEventListener("mousemove", (e) => {
+        const handleKys = (e) => {
             if(check.checked){
                 // thanks to:
                     //https://www.calculator.net/distance-calculator.html
@@ -142,7 +142,9 @@
             createKys(e)
             lastPos.x = e.x
             lastPos.y = e.y
-        })
+        }
+        document.addEventListener("mousemove", (e) => handleKys(e))
+        document.addEventListener("touch", (e) => handleKys(e.touches[0]))
     </script>
 </body>
 </html>
