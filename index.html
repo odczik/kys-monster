@@ -106,6 +106,10 @@
         }
         document.addEventListener("mousemove", (e) => {
             if(check.checked){
+                // thanks to:
+                    //https://www.calculator.net/distance-calculator.html
+                    //https://www.calculatorsoup.com/calculators/geometry-plane/midpoint-calculator.php
+                //for making these scaryass calculations kinda easy (still pain tho)
                 if(Math.floor(Math.sqrt(Math.pow(lastPos.x - e.x, 2) + Math.pow(lastPos.y - e.y, 2))) > threshold){
                     createKys({x: Math.abs((lastPos.x + e.x) / 2), y: Math.abs((lastPos.y + e.y) / 2)})
                 }
