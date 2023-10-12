@@ -110,23 +110,23 @@
                     //https://www.calculator.net/distance-calculator.html
                     //https://www.calculatorsoup.com/calculators/geometry-plane/midpoint-calculator.php
                 //for making these scaryass calculations kinda easy (still pain tho)
-                if(Math.floor(Math.sqrt(Math.pow(lastPos.x - e.x, 2) + Math.pow(lastPos.y - e.y, 2))) > threshold){
-                    createKys({x: Math.abs((lastPos.x + e.x) / 2), y: Math.abs((lastPos.y + e.y) / 2)})
+                if(Math.floor(Math.sqrt(Math.pow(lastPos.x - e.pageX, 2) + Math.pow(lastPos.y - e.pageY, 2))) > threshold){
+                    createKys({x: Math.abs((lastPos.x + e.pageX) / 2), y: Math.abs((lastPos.y + e.pageY) / 2)})
                 }
             }
             if(check1.checked){
-                if(Math.abs(e.x - lastPos.x) > threshold){
-                    createKys({x: Math.abs((lastPos.x + e.x) / 2), y: e.y})
+                if(Math.abs(e.pageX - lastPos.x) > threshold){
+                    createKys({x: Math.abs((lastPos.x + e.pageX) / 2), y: e.pageY})
                 }
                 if(Math.abs(e.y - lastPos.y) > threshold){
-                    createKys({x: e.x, y: Math.abs((lastPos.y + e.y) / 2)})
+                    createKys({x: e.pageX, y: Math.abs((lastPos.y + e.pageY) / 2)})
                 }
             }
             if(check2.checked){
-                if(Math.floor(Math.sqrt(Math.pow(lastPos.x - e.x, 2) + Math.pow(lastPos.y - e.y, 2))) > threshold){
-                    createKys({x: lastPos.x + Math.abs((lastPos.x - e.x) / 4),       y: lastPos.y + Math.abs((lastPos.y - e.y) / 4)})
-                    createKys({x: lastPos.x + Math.abs((lastPos.x - e.x) / 2),       y: lastPos.y + Math.abs((lastPos.y - e.y) / 2)})
-                    createKys({x: lastPos.x + Math.abs(((lastPos.x - e.x) / 4) * 3), y: lastPos.y + Math.abs(((lastPos.y - e.y) / 4) * 3)})
+                if(Math.floor(Math.sqrt(Math.pow(lastPos.x - e.pageX, 2) + Math.pow(lastPos.y - e.y, 2))) > threshold){
+                    createKys({x: lastPos.pageX + Math.abs((lastPos.pageX - e.x) / 4),       y: lastPos.pageY + Math.abs((lastPos.y - e.pageY) / 4)})
+                    createKys({x: lastPos.pageX + Math.abs((lastPos.pageX - e.x) / 2),       y: lastPos.pageY + Math.abs((lastPos.y - e.pageY) / 2)})
+                    createKys({x: lastPos.pageX + Math.abs(((lastPos.pageX - e.x) / 4) * 3), y: lastPos.pageY + Math.abs(((lastPos.y - e.pageY) / 4) * 3)})
                 }
                 /*if(Math.abs(e.x - lastPos.x) > threshold){
                     createKys({x: lastPos.x + Math.abs((lastPos.x - e.x) / 4), y: e.y})
@@ -140,11 +140,11 @@
                 }*/
             }
             createKys(e)
-            lastPos.x = e.x
-            lastPos.y = e.y
+            lastPos.x = e.pageX
+            lastPos.y = e.pageY
         }
         document.addEventListener("mousemove", (e) => handleKys(e))
-        document.addEventListener("touch", (e) => handleKys(e.touches[0]))
+        document.addEventListener("touchmove", (e) => handleKys(e.touches[0]))
     </script>
 </body>
 </html>
