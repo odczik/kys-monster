@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta content="Go KYS monster" property="og:title" />
+    <meta content="jk <3 u" property="og:description" />
+    <meta content="#ffffff" data-react-helmet="true" name="theme-color" />
+    <title>kys</title>
+    <style>
+        body{
+            cursor: none;
+            overflow: hidden;
+        }
+
+        .switchCont{
+            position: absolute;
+            cursor: auto;
+            z-index: 999;
+            left: 10px;
+            top: 10px;
+            width: 110px;
+            height: 20px;
+        }
+        .switchCont1{
+            position: absolute;
+            cursor: auto;
+            z-index: 999;
+            left: 10px;
+            top: 30px;
+            width: 110px;
+        }
+        .switchCont2{
+            position: absolute;
+            cursor: auto;
+            z-index: 999;
+            left: 10px;
+            top: 70px;
+            width: 110px;
+        }
+
+        .container{
+            cursor: none;
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+        }
+        #txt{
+            cursor: none;
+            font-size: 700%;
+            font-family: sans-serif;
+            animation: rotate 2s infinite linear;
+        }
+
+        @keyframes rotate{
+            0%{
+                rotate: 0deg;
+                opacity: 1;
+            }
+            100%{
+                rotate: 360deg;
+                opacity: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="switchCont">
+        <input type="checkbox" id="switch" style="cursor: pointer;"><label for="switch" class="label" style="cursor: pointer; user-select: none;">Smoothening</label>
+    </div>
+    <div class="switchCont1">
+        <input type="checkbox" id="switch1" style="cursor: pointer;"><label for="switch1" class="label" style="cursor: pointer; user-select: none;">Smoothening &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(legacy)</label>
+    </div>
+    <div class="switchCont2">
+        <input type="checkbox" id="switch2" style="cursor: pointer;"><label for="switch2" class="label" style="cursor: pointer; user-select: none;">Smoothening &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(experimental)</label>
+    </div>
+    <div class="container">
+        <div id="txt">kys</div>
+    </div>
+
+    <script>
+        const threshold = 20
+        const check = document.getElementById("switch")
+        const check1 = document.getElementById("switch1")
+        const check2 = document.getElementById("switch2")
+
+        const createKys = (e) => {
+            const kys = document.createElement("div")
+            kys.innerText = "kys"
+            kys.style.position = "absolute"
+            kys.style.left = e.x + "px"
+            kys.style.top = e.y + "px"
+            kys.style.fontSize = "300%"
+            kys.style.animation = "rotate 1.5s infinite linear"
+            kys.style.cursor = "none"
+            kys.style.zIndex = "1"
+            document.body.appendChild(kys)
+            setTimeout(() => {
+                kys.remove()
+            }, 1500)
+        }
+        let lastPos = {
+            x: 0,
+            y: 0
+        }
+        document.addEventListener("mousemove", (e) => {
+            if(check.checked){
+                if(Math.floor(Math.sqrt(Math.pow(lastPos.x - e.x, 2) + Math.pow(lastPos.y - e.y, 2))) > threshold){
+                    createKys({x: Math.abs((lastPos.x + e.x) / 2), y: Math.abs((lastPos.y + e.y) / 2)})
+                }
+            }
+            if(check1.checked){
+                if(Math.abs(e.x - lastPos.x) > threshold){
+                    createKys({x: Math.abs((lastPos.x + e.x) / 2), y: e.y})
+                }
+                if(Math.abs(e.y - lastPos.y) > threshold){
+                    createKys({x: e.x, y: Math.abs((lastPos.y + e.y) / 2)})
+                }
+            }
+            if(check2.checked){
+                if(Math.floor(Math.sqrt(Math.pow(lastPos.x - e.x, 2) + Math.pow(lastPos.y - e.y, 2))) > threshold){
+                    createKys({x: lastPos.x + Math.abs((lastPos.x - e.x) / 4),       y: lastPos.y + Math.abs((lastPos.y - e.y) / 4)})
+                    createKys({x: lastPos.x + Math.abs((lastPos.x - e.x) / 2),       y: lastPos.y + Math.abs((lastPos.y - e.y) / 2)})
+                    createKys({x: lastPos.x + Math.abs(((lastPos.x - e.x) / 4) * 3), y: lastPos.y + Math.abs(((lastPos.y - e.y) / 4) * 3)})
+                }
+                /*if(Math.abs(e.x - lastPos.x) > threshold){
+                    createKys({x: lastPos.x + Math.abs((lastPos.x - e.x) / 4), y: e.y})
+                    createKys({x: lastPos.x + Math.abs((lastPos.x - e.x) / 2), y: e.y})
+                    createKys({x: lastPos.x + Math.abs(((lastPos.x - e.x) / 4) * 3), y: e.y})
+                }
+                if(Math.abs(e.y - lastPos.y) > threshold){
+                    createKys({x: e.x, y: lastPos.y + Math.abs((lastPos.y - e.y) / 4)})
+                    createKys({x: e.x, y: lastPos.y + Math.abs((lastPos.y - e.y) / 2)})
+                    createKys({x: e.x, y: lastPos.y + Math.abs(((lastPos.y - e.y) / 4) * 3)})
+                }*/
+            }
+            createKys(e)
+            lastPos.x = e.x
+            lastPos.y = e.y
+        })
+    </script>
+</body>
+</html>
