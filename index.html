@@ -123,7 +123,7 @@
                 }
             }
             if(check2.checked){
-                if(Math.floor(Math.sqrt(Math.pow(lastPos.x - e.pageX, 2) + Math.pow(lastPos.y - e.y, 2))) > threshold){
+                if(Math.floor(Math.sqrt(Math.pow(lastPos.x - e.pageX, 2) + Math.pow(lastPos.y - e.pageY, 2))) > threshold){
                     createKys({x: lastPos.pageX + Math.abs((lastPos.pageX - e.pageX) / 4),       y: lastPos.pageY + Math.abs((lastPos.y - e.pageY) / 4)})
                     createKys({x: lastPos.pageX + Math.abs((lastPos.pageX - e.pageX) / 2),       y: lastPos.pageY + Math.abs((lastPos.y - e.pageY) / 2)})
                     createKys({x: lastPos.pageX + Math.abs(((lastPos.pageX - e.pageX) / 4) * 3), y: lastPos.pageY + Math.abs(((lastPos.y - e.pageY) / 4) * 3)})
