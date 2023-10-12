@@ -139,7 +139,7 @@
                     createKys({x: e.x, y: lastPos.y + Math.abs(((lastPos.y - e.y) / 4) * 3)})
                 }*/
             }
-            createKys(e)
+            createKys({x: e.pageX, y: e.pageY})
             lastPos.x = e.pageX
             lastPos.y = e.pageY
         }
