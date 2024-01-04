@@ -16,7 +16,7 @@ const createKys = (e) => {
     kys.style.animation = "rotate 1.5s infinite linear"
     kys.style.cursor = "none"
     kys.style.zIndex = "1",
-    kys.sytle.transform = "-50%, -50%"
+    kys.style.transform = "-50%, -50%"
     document.body.appendChild(kys)
     setTimeout(() => {
         kys.remove()
