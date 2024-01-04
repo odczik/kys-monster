@@ -16,8 +16,7 @@ const createKys = (e) => {
     kys.style.animation = "rotate 1.5s infinite linear"
     kys.style.cursor = "none"
     kys.style.zIndex = "1",
-    kys.style.transform = "translateX(-50%)"
-    kys.style.WebkitTransform = "translateX(-50%)"
+    kys.style.transform = "translate(-50%, -50%)"
     document.body.appendChild(kys)
     setTimeout(() => {
         kys.remove()
