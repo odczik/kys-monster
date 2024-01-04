@@ -17,6 +17,7 @@ const createKys = (e) => {
     kys.style.cursor = "none"
     kys.style.zIndex = "1",
     kys.style.transform = "translate(-50%, -50%)"
+    kys.style.WebkitTransform = "translate(-50%, -50%)"
     document.body.appendChild(kys)
     setTimeout(() => {
         kys.remove()
