@@ -7,9 +7,21 @@ function Fruit(){
         ctx.fillRect(this.x, this.y, scale, scale)
     }
 
-    this.eat = () => {
-        this.x = Math.floor(Math.random() * (cols - 1)) * scale
-        this.y = Math.floor(Math.random() * (rows - 1)) * scale
+    const hasNode = (tail, ntail) => {
+        for(let i = 0; i < ntail; i++){
+            if(tail[i].x == this.x && tail[i].y == this.y){
+                return 1;
+            }
+        }
+        return 0;
+    }
+
+    this.eat = (tail, ntail) => {
+        do {
+            this.x = Math.floor(Math.random() * (cols - 1)) * scale
+            this.y = Math.floor(Math.random() * (rows - 1)) * scale
+        } while(hasNode(tail, ntail))
+
         this.draw();
     }
 }
