@@ -49,11 +49,12 @@ window.addEventListener("keydown", (e) => {
     } else {
         if(e.key == "e") snake.addNode()
         if(e.code == "Space"){
+            document.getElementById("patternCheckbox").checked = false
             boost = !boost
             clearInterval(interval)
             interval = setInterval(() => {
                 update()
-            }, boost ? 10 : 100)
+            }, boost ? 0 : 100)
         }
     }
 })
