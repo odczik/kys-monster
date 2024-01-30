@@ -6,7 +6,7 @@ const follow_func = () => {
         }, boost ? 10 : 100)
     }
 
-    if(snake.x == 0 && snake.y == 0){
+    if(snake.x != canvas.width - scale && snake.y == 0){
         snake.dir = 3
     }
 

@@ -3,7 +3,7 @@ function Snake(){
     this.y = canvas.height / 2
     this.tail = []
     this.ntail = 0
-    this.dir = 0
+    this.dir = 3
 
     this.draw = () => {
         // Head
@@ -54,6 +54,15 @@ function Snake(){
         this.ntail++;
     }
 
+    this.hasNode = (tail, ntail) => {
+        for(let i = 0; i < ntail; i++){
+            if(tail[i].x == this.x && tail[i].y == this.y){
+                return 1;
+            }
+        }
+        return 0;
+    }
+
     this.update = (fruit) => {
         switch(this.dir){
             case 0:
@@ -68,6 +77,14 @@ function Snake(){
             case 3:
                 this.x += scale;
                 break;
+        }
+
+        if(this.hasNode(this.tail, this.ntail)){
+            if(!document.getElementById("patternCheckbox").checked){
+                clearInterval(interval)
+                ctx.clearRect(0, 0, canvas.width, canvas.height)
+                return
+            }
         }
 
         if(document.getElementById("mirrorCheckbox").checked){

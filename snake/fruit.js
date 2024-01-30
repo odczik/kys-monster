@@ -7,7 +7,7 @@ function Fruit(){
         ctx.fillRect(this.x, this.y, scale, scale)
     }
 
-    const hasNode = (tail, ntail) => {
+    this.hasNode = (tail, ntail) => {
         for(let i = 0; i < ntail; i++){
             if(tail[i].x == this.x && tail[i].y == this.y){
                 return 1;
@@ -20,7 +20,7 @@ function Fruit(){
         do {
             this.x = Math.floor(Math.random() * (cols - 1)) * scale
             this.y = Math.floor(Math.random() * (rows - 1)) * scale
-        } while(hasNode(tail, ntail))
+        } while(this.hasNode(tail, ntail))
 
         this.draw();
     }

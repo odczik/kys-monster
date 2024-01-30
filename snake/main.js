@@ -54,7 +54,45 @@ window.addEventListener("keydown", (e) => {
             clearInterval(interval)
             interval = setInterval(() => {
                 update()
-            }, boost ? 0 : 100)
+            }, boost ? 10 : 100)
+        }
+    }
+})
+
+document.getElementById("patternCheckbox").checked = false
+document.getElementById("boostCheckbox").checked = false
+document.getElementById("boostCheckbox").addEventListener("change", e => {
+    if(e.target.checked){
+        boost = true;
+    } else {
+        boost = false;
+    }
+    clearInterval(interval)
+    interval = setInterval(() => {
+        update()
+    }, boost ? 10 : 100)
+})
+
+let startTouch = {}
+window.addEventListener("touchstart", e => {
+    startTouch = {x: e.touches[0].clientX, y: e.touches[0].clientY}
+})
+window.addEventListener("touchend", e => {
+    let endTouch = {x: e.changedTouches[0].clientX, y: e.changedTouches[0].clientY}
+    let diffX = startTouch.x - endTouch.x
+    let diffY = startTouch.y - endTouch.y
+    document.getElementById("text").innerText = "diff x: " +  diffX + " diff y: " +  diffY
+    if(Math.abs(diffX) > Math.abs(diffY)){
+        if(diffX > 0){
+            snake.dir = 2
+        } else {
+            snake.dir = 3
+        }
+    } else {
+        if(diffY > 0){
+            snake.dir = 0
+        } else {
+            snake.dir = 1
         }
     }
 })
