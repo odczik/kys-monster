@@ -84,15 +84,15 @@ window.addEventListener("touchend", e => {
     document.getElementById("text").innerText = "diff x: " +  diffX + " diff y: " +  diffY
     if(Math.abs(diffX) > Math.abs(diffY)){
         if(diffX > 0){
-            snake.dir = 2
+            if(snake.dir != 3) snake.dir = 2
         } else {
-            snake.dir = 3
+            if(snake.dir != 2) snake.dir = 3
         }
     } else {
         if(diffY > 0){
-            snake.dir = 0
+            if(snake.dir != 1) snake.dir = 0
         } else {
-            snake.dir = 1
+            if(snake.dir != 0) snake.dir = 1
         }
     }
 })
