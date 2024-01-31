@@ -31,19 +31,19 @@ window.addEventListener("keydown", (e) => {
         switch(direction){
             case "w":
             case "Up":
-                snake.dir = 0;
+                if(snake.dir != 1) snake.dir = 0;
                 break;
             case "s":
             case "Down":
-                snake.dir = 1;
+                if(snake.dir != 0) snake.dir = 1;
                 break;
             case "a":
             case "Left":
-                snake.dir = 2;
+                if(snake.dir != 3) snake.dir = 2;
                 break;
             case "d":
             case "Right":
-                snake.dir = 3;
+                if(snake.dir != 2) snake.dir = 3;
                 break;
         }
     } else {
