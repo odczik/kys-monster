@@ -10,6 +10,8 @@ canvas.width = 28 * scale
 const rows = canvas.height / scale
 const cols = canvas.width / scale
 
+let score = 0;
+
 const matrix = [
     [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1],
     [1,2,2,2,2,2,2,0,0,0,0,0,0,1,1,0,0,0,0,0,0,0,0,0,0,0,0,1],
@@ -67,10 +69,15 @@ const drawMap = () => {
 const update = () => {
     ctx.clearRect(0, 0, canvas.width, canvas.height)
 
-    drawMap();
-
     pacman.update()
     pacman.draw()
+
+    if(matrix[pacman.realY][pacman.realX] == 2){
+        matrix[pacman.realY][pacman.realX] = 0;
+        score++;
+    }
+    
+    drawMap();
 }
 
 let interval = setInterval(() => {
