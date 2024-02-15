@@ -11,9 +11,12 @@ const rows = canvas.height / scale
 const cols = canvas.width / scale
 
 let start = {x: 0, y: 0}
-let end = {x: 0, y: 0}
+let end = {x: 29, y: 29}
 let toChange = 0;
 let lastNode = {x: 0, y: 0}
+
+let held = false;
+let erase = false;
 
 let matrix = [
     [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
@@ -49,7 +52,11 @@ let matrix = [
 ]
 
 const drawMatrix = () => {
-    matrix.forEach((row, rowI) => {
+    let tempMatrix = matrix;
+    tempMatrix[start.y][start.x] = 2;
+    tempMatrix[end.y][end.x] = 2;
+
+    tempMatrix.forEach((row, rowI) => {
         row.forEach((col, colI) => {
             switch(col){
                 case 0:
@@ -86,6 +93,14 @@ const update = () => {
 }
 
 let interval = setInterval(() => {
+    if(held){
+        if(erase){
+            matrix[lastNode.y][lastNode.x] = 1;
+        } else {
+            matrix[lastNode.y][lastNode.x] = 3;
+        }
+    }
+
     update()
 }, 1)
 
@@ -104,38 +119,41 @@ canvas.addEventListener("mousemove", (e) => {
 })
 
 canvas.addEventListener("click", () => {
-    if(matrix[lastNode.y][lastNode.x] == 2){
-        matrix[lastNode.y][lastNode.x] = 1;
+    if(!toChange){
+        start = {x: lastNode.x, y: lastNode.y};
+        document.getElementById("start").innerText = `Start: (${start.x}, ${start.y})`
+        toChange = 1;
     } else {
-        matrix[lastNode.y][lastNode.x] = 2;
-        if(!toChange){
-            start = {x: lastNode.x, y: lastNode.y};
-            document.getElementById("start").innerText = `Start: (${start.x}, ${start.y})`
-            toChange = 1;
-        } else {
-            end = {x: lastNode.x, y: lastNode.y};
-            document.getElementById("end").innerText = `End: (${end.x}, ${end.y})`
-            toChange = 0;
-        }
+        end = {x: lastNode.x, y: lastNode.y};
+        document.getElementById("end").innerText = `End: (${end.x}, ${end.y})`
+        toChange = 0;
     }
 })
-// listen for right click
-canvas.addEventListener("contextmenu", (e) => {
-    e.preventDefault();
 
+canvas.addEventListener("mousedown", (e) => {
+    if(e.button !== 2) return;
+    held = true;
     if(matrix[lastNode.y][lastNode.x] == 3){
-        matrix[lastNode.y][lastNode.x] = 1;
+        erase = true;
     } else {
-        matrix[lastNode.y][lastNode.x] = 3;
+        erase = false;
     }
+})
+document.addEventListener("mouseup", () => {
+    held = false;
+})
+document.addEventListener("contextmenu", (e) => {
+    e.preventDefault();
 })
 
 document.getElementById("find").addEventListener("click", () => {
     matrix.forEach((row, rowI) => {
         row.forEach((col, colI) => {
-            if(matrix[rowI][colI] === 4) matrix[rowI][colI] = 0;
+            if(matrix[rowI][colI] === 4 || matrix[rowI][colI] === 1) matrix[rowI][colI] = 0;
         })
     })
+
+    let timer = Date.now();
 
     let path = findPath(matrix, start, end)
     console.log(path)
@@ -143,4 +161,7 @@ document.getElementById("find").addEventListener("click", () => {
         if(matrix[node.y][node.x] !== 2) matrix[node.y][node.x] = 0
         matrix[node.y][node.x] = 4
     })
+
+    timer = Date.now() - timer;
+    document.getElementById("time").innerText = `Time: ${timer}ms`
 })

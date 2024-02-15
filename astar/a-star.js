@@ -9,9 +9,13 @@ function findPath(matrix, start, end) {
     let closedSet = []
     let path = []
 
-    start.g = 0
-    start.f = heuristic(start, end)
-
+    if(document.getElementById('idk').checked){
+        start.g = 0
+        start.f = heuristic(start, end)
+    } else {
+        start = {x: start.x, y: start.y}
+    }
+    
     let current = start
 
     openSet.push(start)
