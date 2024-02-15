@@ -120,10 +120,12 @@ canvas.addEventListener("mousemove", (e) => {
 
 canvas.addEventListener("click", () => {
     if(!toChange){
+        matrix[start.y][start.x] = 0;
         start = {x: lastNode.x, y: lastNode.y};
         document.getElementById("start").innerText = `Start: (${start.x}, ${start.y})`
         toChange = 1;
     } else {
+        matrix[end.y][end.x] = 0;
         end = {x: lastNode.x, y: lastNode.y};
         document.getElementById("end").innerText = `End: (${end.x}, ${end.y})`
         toChange = 0;
