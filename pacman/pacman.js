@@ -1,8 +1,8 @@
 function Pacman(){
-    this.dir = 3;
-    this.nextDir = 3;
-    this.x = scale;
-    this.y = scale * 14;
+    this.dir = 4;
+    this.nextDir = 4;
+    this.x = scale * 13;
+    this.y = scale * 11;
     this.realX = 0;
     this.realY = 0;
 
@@ -41,7 +41,7 @@ function Pacman(){
         }
 
         // debug
-        console.log("dir:", this.dir, "nextDir:", this.nextDir, "x:", this.x, "y:", this.y, "realX:", this.realX, "realY:", this.realY)
+        //console.log("dir:", this.dir, "nextDir:", this.nextDir, "x:", this.x, "y:", this.y, "realX:", this.realX, "realY:", this.realY)
 
         // change dir to nextDir if can
         if(this.dir !== this.nextDir){
