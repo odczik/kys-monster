@@ -73,22 +73,22 @@ function Pacman(){
         switch(this.dir){
             case 0: // up
                 if(matrix[this.realY - 1][this.realX] !== 1){
-                    this.y--;
+                    this.y-=3;
                 }
                 break;
             case 1: // down
                 if(matrix[this.realY + 1][this.realX] !== 1){
-                    this.y++;
+                    this.y+=3;
                 }
                 break;
             case 2: // left
                 if(matrix[this.realY][this.realX - 1] !== 1){
-                    this.x--;
+                    this.x-=3;
                 }
                 break;
             case 3: // right
                 if(matrix[this.realY][this.realX + 1] !== 1){
-                    this.x++;
+                    this.x+=3;
                 }
                 break;
         }

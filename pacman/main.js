@@ -93,7 +93,7 @@ const update = () => {
 
 let interval = setInterval(() => {
     update()
-}, 5)
+}, 10)
 
 window.addEventListener("keydown", (e) => {
     if(e.key.includes("Arrow") || e.key=="w" || e.key=="a" || e.key=="s" || e.key=="d"){

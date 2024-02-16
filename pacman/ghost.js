@@ -1,7 +1,6 @@
 function Ghost({who, startX, startY, delay, color}){
     this.dir = 0;
     this.nextDir = 4;
-    //this.x = scale * 13.5;
     this.x = scale * startX;
     this.y = scale * startY;
     this.realX = 0;
@@ -127,22 +126,22 @@ function Ghost({who, startX, startY, delay, color}){
         switch(this.dir){
             case 0: // up
                 if(matrix[this.realY - 1][this.realX] !== 1){
-                    this.y--;
+                    this.y-=2;
                 }
                 break;
             case 1: // down
                 if(matrix[this.realY + 1][this.realX] !== 1){
-                    this.y++;
+                    this.y+=2;
                 }
                 break;
             case 2: // left
                 if(matrix[this.realY][this.realX - 1] !== 1){
-                    this.x--;
+                    this.x-=2;
                 }
                 break;
             case 3: // right
                 if(matrix[this.realY][this.realX + 1] !== 1){
-                    this.x++;
+                    this.x+=2;
                 }
                 break;
         }
