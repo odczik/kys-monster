@@ -4,12 +4,12 @@ function heuristic (pos0, pos1) {
     return Math.sqrt(d1 + d2);
 }
 
-function findPath(matrix, start, end) {
+function findPath(matrix, start, end, startingWeights) {
     let openSet = []
     let closedSet = []
     let path = []
 
-    if(document.getElementById('idk').checked){
+    if(startingWeights){
         start.g = 0
         start.f = heuristic(start, end)
     } else {
@@ -29,6 +29,9 @@ function findPath(matrix, start, end) {
         }
 
         current = openSet[winner]
+
+        /*ctx.fillStyle = "#8ff";
+        ctx.fillRect(current.x * scale, current.y * scale, scale, scale);*/
 
         if (current.x === end.x && current.y === end.y) {
             let temp = current
@@ -62,6 +65,7 @@ function findPath(matrix, start, end) {
         for (let i = 0; i < neighbors.length; i++) {
             let neighbor = neighbors[i]
             let tempG = current.g + 1
+            
 
             if (openSet.includes(neighbor)) {
                 if (tempG < neighbor.g) {
