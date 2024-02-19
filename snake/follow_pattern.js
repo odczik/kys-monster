@@ -24,8 +24,24 @@ const follow_func = () => {
     }
 }
 
+document.getElementById("patternCheckbox").addEventListener("change", () => {
+    shouldDispatch = true
+})
+const boostCheckbox = document.getElementById("boostCheckbox")
+let shouldDispatch = false
 setInterval(() => {
     if(document.getElementById("patternCheckbox").checked){
+        if(shouldDispatch){
+            boostCheckbox.checked = true
+            boostCheckbox.dispatchEvent(new Event("change"))
+            shouldDispatch = false
+        }
         follow_func()
+    } else {
+        if(shouldDispatch){
+            boostCheckbox.checked = false
+            boostCheckbox.dispatchEvent(new Event("change"))
+            shouldDispatch = false
+        }
     }
 }, 10)

@@ -31,19 +31,19 @@ window.addEventListener("keydown", (e) => {
         switch(direction){
             case "w":
             case "Up":
-                if(snake.dir != 1) snake.dir = 0;
+                snake.dir = 0;
                 break;
             case "s":
             case "Down":
-                if(snake.dir != 0) snake.dir = 1;
+                snake.dir = 1;
                 break;
             case "a":
             case "Left":
-                if(snake.dir != 3) snake.dir = 2;
+                snake.dir = 2;
                 break;
             case "d":
             case "Right":
-                if(snake.dir != 2) snake.dir = 3;
+                snake.dir = 3;
                 break;
         }
     } else {
@@ -84,15 +84,15 @@ window.addEventListener("touchend", e => {
     document.getElementById("text").innerText = "diff x: " +  diffX + " diff y: " +  diffY
     if(Math.abs(diffX) > Math.abs(diffY)){
         if(diffX > 0){
-            if(snake.dir != 3) snake.dir = 2
+            snake.dir = 2
         } else {
-            if(snake.dir != 2) snake.dir = 3
+            snake.dir = 3
         }
     } else {
         if(diffY > 0){
-            if(snake.dir != 1) snake.dir = 0
+            snake.dir = 0
         } else {
-            if(snake.dir != 0) snake.dir = 1
+            snake.dir = 1
         }
     }
 })

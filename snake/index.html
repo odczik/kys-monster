@@ -8,12 +8,23 @@
 </head>
 <body>
     <input type="checkbox" id="mirrorCheckbox" checked="true"><b>Mirror walls</b></input>
+    <br>
+    <input type="checkbox" id="astarCheckbox" checked="false"><b>A* pathfinding</b></input>
+    <br>
     <input type="checkbox" id="patternCheckbox" checked="false"><b>Follow pattern</b></input>
+    <br>
     <input type="checkbox" id="boostCheckbox" checked="false"><b>Boost</b></input>
+    <br>
     <b id="text"></b>
+    <br>
+    <b id="msText"></b>
+    <br>
+    <b id="msTextMax"></b>
 
     <canvas id="canvas" width="300" height="300"></canvas>
+    <canvas id="debugCanvas" width="300" height="300"></canvas>
 
+    <script src="a-star.js"></script>
     <script src="snake.js"></script>
     <script src="fruit.js"></script>
     <script src="main.js"></script>
