@@ -10,3 +10,13 @@ canvas {
     transform: translate(-50%, -50%);
     border: 1px solid white;
 }
+
+#text {
+    color: white;
+    font-size: larger;
+    font-family: Arial, Helvetica, sans-serif;
+    position: absolute;
+    top: 50%;
+    left: 100px;
+    transform: translateY(-50%);
+}
