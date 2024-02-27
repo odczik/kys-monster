@@ -22,7 +22,7 @@ setInterval(() => {
 
 document.addEventListener('keydown', (e) => {
     if(e.key === ' ' || e.key === 'ArrowUp' || e.key === 'w'){
-        ball.velocityY = -10;
+        ball.velocityY += -10;
     }
     if(e.key === 'ArrowDown' || e.key === 's'){
         ball.velocityY += 10;
@@ -32,5 +32,9 @@ document.addEventListener('keydown', (e) => {
     }
     if(e.key === 'ArrowRight' || e.key === 'd'){
         ball.velocityX += 5;
+    }
+    if(e.key === 'r'){
+        ball.velocityX = 0;
+        ball.velocityY = 0;
     }
 })
