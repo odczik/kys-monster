@@ -20,6 +20,10 @@ setInterval(() => {
     }
 }, 1);
 
+document.getElementById("slider").addEventListener("change", e => {
+    console.log(e)
+})
+
 document.addEventListener('keydown', (e) => {
     if(e.key === ' ' || e.key === 'ArrowUp' || e.key === 'w'){
         ball.velocityY += -10;
