@@ -1,7 +1,7 @@
 const canvas = document.querySelector('canvas');
 const ctx = canvas.getContext('2d');
 
-const scale = 60;
+var scale = 60;
 
 var ball = new Ball();
 
