@@ -252,6 +252,7 @@ function Snake(){
             }
         } else {
             this.path = []
+            document.getElementById("debugCanvas").style.display = "none"
         }
     }
 }
