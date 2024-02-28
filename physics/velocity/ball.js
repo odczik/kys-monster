@@ -7,6 +7,7 @@ function Ball(){
     this.velocityY = 0;
     this.veloctityDir = 0;
     this.velocitySize = 0;
+    this.top = this.y - scale / 2;
     this.bot = this.y + scale / 2;
     this.left = this.x - scale / 2;
     this.right = this.x + scale / 2;
@@ -35,8 +36,14 @@ function Ball(){
         this.velocityY += 0.7;
         this.y += this.velocityY;
 
+        this.top = this.y - scale / 2;
         this.bot = this.y + scale / 2;
         
+        if(this.top < 0){
+            this.y = scale / 2;
+            this.velocityY *= -0.8;
+            //this.velocityY *= -1;
+        }
         if(this.bot > canvas.height){
             this.y = canvas.height - scale / 2;
             this.velocityY *= -0.8;
