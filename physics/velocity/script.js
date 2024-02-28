@@ -21,7 +21,7 @@ setInterval(() => {
 }, 1);
 
 document.getElementById("slider").addEventListener("change", e => {
-    console.log(e.target.value)
+    scale = e.target.value;
 })
 
 document.addEventListener('keydown', (e) => {
