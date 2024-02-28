@@ -59,6 +59,7 @@ window.addEventListener("keydown", (e) => {
     }
 })
 
+document.getElementById("mirrorCheckbox").checked = true
 document.getElementById("patternCheckbox").checked = false
 document.getElementById("boostCheckbox").checked = false
 document.getElementById("boostCheckbox").addEventListener("change", e => {

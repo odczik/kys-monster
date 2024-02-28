@@ -3,90 +3,25 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta content="Go KYS monster" property="title" />
-    <meta content="jk <3 u" property="description" />
-    <meta content="Go KYS monster" property="og:title" />
-    <meta content="jk <3 u" property="og:description" />
-    <meta content="#ffffff" data-react-helmet="true" name="theme-color" />
-    <meta name="google-site-verification" content="pnR01FIi0VpYUUmXuXEP-LaR4iNMqW5VVNjFr6qIg68" />
-    <title>kys</title>
-    <style>
-        body{
-            cursor: none;
-            overflow: hidden;
-        }
-
-        .switchCont{
-            position: absolute;
-            cursor: auto;
-            z-index: 999;
-            left: 10px;
-            top: 35px;
-            width: 110px;
-            height: 20px;
-        }
-        .switchCont1{
-            position: absolute;
-            cursor: auto;
-            z-index: 999;
-            left: 10px;
-            top: 55px;
-            width: 110px;
-        }
-        .switchCont2{
-            position: absolute;
-            cursor: auto;
-            z-index: 999;
-            left: 10px;
-            top: 95px;
-            width: 110px;
-        }
-
-        .container{
-            cursor: none;
-            position: absolute;
-            left: 50%;
-            top: 50%;
-            transform: translate(-50%, -50%);
-        }
-        #txt{
-            cursor: none;
-            font-size: 700%;
-            font-family: sans-serif;
-            animation: rotate 2s infinite linear;
-        }
-
-        @keyframes rotate{
-            0%{
-                transform: rotateZ(0deg);
-                -webkit-transform: rotateZ(0deg);
-                opacity: 1;
-            }
-            100%{
-                transform: rotateZ(360deg);
-                -webkit-transform: rotateZ(360deg);
-                opacity: 0;
-            }
-        }
-    </style>
+    <title>KYS Monster</title>
 </head>
 <body>
-    <div class="inpCont">
-        <input type="text" id="txtInp" style="cursor: text;" value="kys">
+    <div id="container">
+        <h1>Menu</h1>
+        <ul>
+            <li><a href="/physics/">Physics</a></li>
+            <ul>
+                <li><a href="/physics/velocity/">Velocity</a></li>
+            </ul>
+            <li>Games</li>
+            <ul>
+                <li><a href="/games/snake/">Snake</a></li>
+                <li><a href="/games/pacman/">Pacman</a></li>
+                <!--<li><a href="/games/flappybird/">Flappy bird</a></li>-->
+            </ul>
+            <li><a href="/astar/">A* Pathfinding</a></li>
+            <li><a href="/kys/">kys</a></li>
+        </ul>
     </div>
-    <div class="switchCont">
-        <input type="checkbox" id="switch" style="cursor: pointer;" checked="true"><label for="switch" class="label" style="cursor: pointer; user-select: none;">Interpolation</label>
-    </div>
-    <div class="switchCont1">
-        <input type="checkbox" id="switch1" style="cursor: pointer;"><label for="switch1" class="label" style="cursor: pointer; user-select: none;">Interpolation &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(legacy)</label>
-    </div>
-    <div class="switchCont2">
-        <input type="checkbox" id="switch2" style="cursor: pointer;"><label for="switch2" class="label" style="cursor: pointer; user-select: none;">Interpolation &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(experimental)</label>
-    </div>
-    <div class="container">
-        <div id="txt">kys</div>
-    </div>
-
-    <script src="script.js" defer></script>
 </body>
 </html>

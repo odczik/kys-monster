@@ -8,9 +8,17 @@
 </head>
 <body>
     <div id="text">
-        Scale
+        Scale: <span id="scaleTxt">50</span>
         <br>
-        <input type="range" min="10" max="150" value="50" id="slider">
+        <input type="range" min="10" max="150" value="50" id="scaleSlider">
+        <br>
+        Force: <span id="forceTxt">10</span>
+        <br>
+        <input type="range" min="5" max="30" value="10" id="forceSlider" disabled>
+        <br>
+        Air resistance: <span id="airTxt">0.025</span>
+        <br>
+        <input type="range" min="0" max="100" value="25" id="airSlider">
         <br>
         <br>
         W - up
