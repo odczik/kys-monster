@@ -20,7 +20,7 @@ setInterval(() => {
     }
 }, 1);
 
-document.getElementById("slider").addEventListener("change", e => {
+document.getElementById("slider").addEventListener("input", e => {
     scale = e.target.value;
 })
 
