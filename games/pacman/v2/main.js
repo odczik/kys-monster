@@ -374,7 +374,8 @@ const matrix = [[8,6,6,6,6,6,6,6,6,6,6,6,6,20,21,6,6,6,6,6,6,6,6,6,6,6,6,9],[4,2
 
 var pacman = new Pacman()
 var blinky = new Ghost({who: "blinky", startX: 13.5, startY: 14, delay: 3000, color: "#f00"})
-var inky = new Ghost({who: "inky", startX: 11.5, startY: 14, delay: 6000, color: "#35d0d0"})
+//var inky = new Ghost({who: "inky", startX: 11.5, startY: 14, delay: 6000, color: "#35d0d0"})
+var inky = new Ghost({who: "inky", startX: 11.5, startY: 14, delay: 60000, color: "#35d0d0"})
 
 const drawBlock = (x, y, block, color) => {
     if(color){

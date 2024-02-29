@@ -84,7 +84,7 @@ function Ghost({who, startX, startY, delay, color}){
         this.realY = Math.round(this.y / scale);
         
 
-        let dest;
+        let dest = {x: pacman.x + scale / 2, y: pacman.y + scale / 2};
         switch(who){
             case "blinky":
                 dest = {x: pacman.x + scale / 2, y: pacman.y + scale / 2};
@@ -128,7 +128,7 @@ function Ghost({who, startX, startY, delay, color}){
         }
 
         // change dir towards dest point
-        const paths = [this.dir - 1, this.dir, this.dir + 1];
+        /*const paths = [this.dir - 1, this.dir, this.dir + 1];
         paths.forEach((path, i) => {
             switch(path){
                 case -1:
@@ -138,9 +138,39 @@ function Ghost({who, startX, startY, delay, color}){
                     paths[i] = 0;
                     break;
             }
-        })
-        console.log(dest, paths)
-        
+        })*/
+        const paths = [];
+        for(let i = 0; i < 4; i++){
+            if(paths[i] == this.dir - 2 || paths[i] == this.dir + 2){
+                paths.splice(i, 1);
+            } else {
+                paths.push(i)
+            }
+            switch(i){
+                case 0:
+                    if(matrix[this.realY - 1][this.realX] !== 0 || matrix[this.realY - 1][this.realX] !== 2){
+                        paths.splice(i, 1);
+                    }
+                    break;
+                case 1:
+                    if(matrix[this.realY][this.realX + 1] !== 0 || matrix[this.realY][this.realX + 1] !== 2){
+                        paths.splice(i, 1);
+                    }
+                    break;
+                case 2:
+                    if(matrix[this.realY + 1][this.realX] !== 0 || matrix[this.realY + 1][this.realX] !== 2){
+                        paths.splice(i, 1);
+                    }
+                    break;
+                case 3:
+                    if(matrix[this.realY][this.realX - 1] !== 0 || matrix[this.realY][this.realX - 1] !== 2){
+                        paths.splice(i, 1);
+                    }
+                    break;
+            }
+        }
+        console.log(this.realX, this.realY, paths)
+
         if(this.x + scale / 2 < dest.x){
             
             /*paths.forEach(path => {
