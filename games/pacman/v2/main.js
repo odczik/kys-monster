@@ -478,9 +478,19 @@ const drawMap = () => {
 }
 
 const update = () => {
+    let pacmanTimer = Date.now(), blinkyTimer = Date.now(), inkyTimer = Date.now();
+
     pacman.update()
+    pacmanTimer = Date.now() - pacmanTimer;
+
     blinky.update()
+    blinkyTimer = Date.now() - blinkyTimer;
+
     inky.update()
+    inkyTimer = Date.now() - inkyTimer;
+
+    console.log("pacman: " + pacmanTimer + " blinky: " + blinkyTimer + " inky: " + inkyTimer)
+
 
     if(matrix[pacman.realY][pacman.realX] == 2){
         matrix[pacman.realY][pacman.realX] = 0;
@@ -503,6 +513,30 @@ setInterval(() => {
     if(Date.now() - timer >= 1000 / 120){
         render();
         timer = Date.now();
+    }
+}, 1);
+
+let pacmanTimer = 0;
+setInterval(() => {
+    if(Date.now() - pacmanTimer >= 1000 / 24){
+
+        if(pacman.x == pacman.lastX && pacman.y == pacman.lastY) return;
+
+        if(!pacman.stateChange){
+            if(pacman.state == 2){
+                pacman.stateChange = 1;
+                return;
+            }
+            pacman.state++;
+        } else {
+            if(pacman.state == 0){
+                pacman.stateChange = 0;
+                return;
+            }
+            pacman.state--;
+        }
+
+        pacmanTimer = Date.now();
     }
 }, 1);
 

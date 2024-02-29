@@ -2,22 +2,125 @@ function Pacman(){
     this.dir = 4;
     this.nextDir = 4;
     this.x = scale * 13;
-    this.y = scale * 11;
+    this.y = scale * 17;
+    this.lastX = scale * 13;
+    this.lastY = scale * 17;
     this.realX = 0;
     this.realY = 0;
+    this.state = 0;
+    this.stateChange = 0;
+
+    const pacman = [
+        [
+            [0,0,0,0,1,1,1,1,1,0,0,0,0],
+            [0,0,1,1,1,1,1,1,1,1,1,0,0],
+            [0,1,1,1,1,1,1,1,1,1,1,1,0],
+            [0,0,0,1,1,1,1,1,1,1,1,1,0],
+            [0,0,0,0,0,0,1,1,1,1,1,1,1],
+            [0,0,0,0,0,0,0,0,0,1,1,1,1],
+            [0,0,0,0,0,0,0,0,0,1,1,1,1],
+            [0,0,0,0,0,0,0,0,0,1,1,1,1],
+            [0,0,0,0,0,0,1,1,1,1,1,1,1],
+            [0,0,0,1,1,1,1,1,1,1,1,1,0],
+            [0,1,1,1,1,1,1,1,1,1,1,1,0],
+            [0,0,1,1,1,1,1,1,1,1,1,0,0],
+            [0,0,0,0,1,1,1,1,1,0,0,0,0]
+        ],
+        [
+            [0,0,0,0,1,1,1,1,1,0,0,0,0],
+            [0,0,1,1,1,1,1,1,1,1,1,0,0],
+            [0,1,1,1,1,1,1,1,1,1,1,1,0],
+            [0,1,1,1,1,1,1,1,1,1,1,1,0],
+            [0,0,0,1,1,1,1,1,1,1,1,1,1],
+            [0,0,0,0,0,0,1,1,1,1,1,1,1],
+            [0,0,0,0,0,0,0,0,0,1,1,1,1],
+            [0,0,0,0,0,0,1,1,1,1,1,1,1],
+            [0,0,0,1,1,1,1,1,1,1,1,1,1],
+            [0,1,1,1,1,1,1,1,1,1,1,1,0],
+            [0,1,1,1,1,1,1,1,1,1,1,1,0],
+            [0,0,1,1,1,1,1,1,1,1,1,0,0],
+            [0,0,0,0,1,1,1,1,1,0,0,0,0]
+        ],
+        [
+            [0,0,0,0,1,1,1,1,1,0,0,0,0],
+            [0,0,1,1,1,1,1,1,1,1,1,0,0],
+            [0,1,1,1,1,1,1,1,1,1,1,1,0],
+            [0,1,1,1,1,1,1,1,1,1,1,1,0],
+            [1,1,1,1,1,1,1,1,1,1,1,1,1],
+            [1,1,1,1,1,1,1,1,1,1,1,1,1],
+            [1,1,1,1,1,1,1,1,1,1,1,1,1],
+            [1,1,1,1,1,1,1,1,1,1,1,1,1],
+            [1,1,1,1,1,1,1,1,1,1,1,1,1],
+            [0,1,1,1,1,1,1,1,1,1,1,1,0],
+            [0,1,1,1,1,1,1,1,1,1,1,1,0],
+            [0,0,1,1,1,1,1,1,1,1,1,0,0],
+            [0,0,0,0,1,1,1,1,1,0,0,0,0]
+        ]
+    ]
+
+    const rotateMatrix = (pacmanMatrix) => {
+        let newMatrix = [];
+        for(let i = 0; i < pacmanMatrix.length; i++){
+            newMatrix.push([]);
+        }
+
+        for(let i = 0; i < pacmanMatrix.length; i++){
+            for(let j = 0; j < pacmanMatrix[i].length; j++){
+                newMatrix[j].push(pacmanMatrix[i][j]);
+            }
+        }
+
+        return newMatrix;
+    }
+    const flipMatrixVertically = (pacmanMatrix) => {
+        let newMatrix = [];
+        for(let i = 0; i < pacmanMatrix.length; i++){
+            newMatrix.push([]);
+        }
+
+        for(let i = 0; i < pacmanMatrix.length; i++){
+            for(let j = 0; j < pacmanMatrix[i].length; j++){
+                newMatrix[i].unshift(pacmanMatrix[i][j]);
+            }
+        }
+
+        return newMatrix;
+    }
+
+    const drawPacman = (x, y) => {
+        ctx.fillStyle = "#ff0";
+        
+        let rotatedPacman;
+        switch(this.dir){
+            case 0: // up
+                rotatedPacman = rotateMatrix(pacman[this.state]);
+                break;
+            case 1: // down
+                // TODO: flip vertically
+                rotatedPacman = rotateMatrix(flipMatrixVertically(pacman[this.state]));
+                break;
+            case 2: // left
+                rotatedPacman = pacman[this.state];
+                break;
+            case 3: // right
+                rotatedPacman = flipMatrixVertically(pacman[this.state]);
+                break;
+            case 4:
+                rotatedPacman = pacman[2];
+                break;
+        }
+        
+        rotatedPacman.forEach((row, rowI) => {
+            row.forEach((col, colI) => {
+                if(col){
+                    ctx.fillRect(x - (scale / 4) + (colI * 4), y - (scale / 4) + (rowI * 4), 4, 4);
+                }
+            })
+        })
+    }
 
     this.draw = () => {
-        ctx.beginPath();
-        ctx.fillStyle = "#ff0";
-        ctx.arc(this.x + (scale / 2), this.y + (scale / 2), scale - 6, 0, Math.PI * 2);
-        ctx.fill();
-
-        /*ctx.beginPath();
-        ctx.fillStyle = "#000";
-        ctx.moveTo(this.x + (scale / 2), this.y + (scale / 2));
-        ctx.lineTo(this.x + (scale / 2), (this.y + (scale / 2)) + 25);
-        ctx.lineTo(this.x + (scale / 2), (this.y + (scale / 2)) - 25);
-        ctx.fill();*/
+        drawPacman(this.x, this.y);
     }
 
     this.update = () => {
@@ -68,6 +171,9 @@ function Pacman(){
                     break;
             }
         }
+
+        this.lastX = this.x;
+        this.lastY = this.y;
 
         // movement
         switch(this.dir){
