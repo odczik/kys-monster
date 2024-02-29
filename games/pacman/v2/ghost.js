@@ -10,19 +10,71 @@ function Ghost({who, startX, startY, delay, color}){
     this.lastPathEnd = {x: 0, y: 0};
     this.path = [];
     this.timer = Date.now();
+    this.state = 0;
+
+    const ghost = [
+        [
+            [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+            [0,0,0,0,0,0,1,1,1,1,0,0,0,0,0,0],
+            [0,0,0,0,1,1,1,1,1,1,1,1,0,0,0,0],
+            [0,0,0,1,1,1,1,1,1,1,1,1,1,0,0,0],
+            [0,0,1,1,1,1,1,1,1,1,1,1,1,1,0,0],
+            [0,0,1,1,1,1,1,1,1,1,1,1,1,1,0,0],
+            [0,0,1,1,1,1,1,1,1,1,1,1,1,1,0,0],
+            [0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0],
+            [0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0],
+            [0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0],
+            [0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0],
+            [0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0],
+            [0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0],
+            [0,1,1,0,1,1,1,0,0,1,1,1,0,1,1,0],
+            [0,1,0,0,0,1,1,0,0,1,1,0,0,0,1,0],
+            [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
+        ],
+        [
+            [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+            [0,0,0,0,0,0,1,1,1,1,0,0,0,0,0,0],
+            [0,0,0,0,1,1,1,1,1,1,1,1,0,0,0,0],
+            [0,0,0,1,1,1,1,1,1,1,1,1,1,0,0,0],
+            [0,0,1,1,1,1,1,1,1,1,1,1,1,1,0,0],
+            [0,0,1,1,1,1,1,1,1,1,1,1,1,1,0,0],
+            [0,0,1,1,1,1,1,1,1,1,1,1,1,1,0,0],
+            [0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0],
+            [0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0],
+            [0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0],
+            [0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0],
+            [0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0],
+            [0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0],
+            [0,1,1,1,1,0,1,1,1,1,0,1,1,1,1,0],
+            [0,0,1,1,0,0,0,1,1,0,0,0,1,1,0,0]
+        ],
+    ]
+
+    const drawGhost = (x, y, color) => {
+        ghost[this.state].forEach((row, rowI) => {
+            row.forEach((col, colI) => {
+                switch(col){
+                    case 1:
+                        ctx.fillStyle = color;
+                        break;
+                    case 2:
+                        ctx.fillStyle = "#fff";
+                        break;
+                    case 3:
+                        ctx.fillStyle = "#000";
+                        break;
+                    default:
+                        ctx.fillStyle = "transparent";
+                        return;
+                }
+                //ctx.fillRect(x + (colI * scale / 10) *1.2 - 14, y + (rowI * scale / 10) * 1.2 - 14, scale / 10 * 1.2, scale / 10 * 1.2);
+                ctx.fillRect(x + (colI * scale / 8) - (scale / 2), y + (rowI * scale / 8) - (scale / 2), scale / 8, scale / 8);
+            })
+        })
+    }
 
     this.draw = () => {
-        ctx.beginPath();
-        ctx.fillStyle = color;
-        ctx.arc(this.x + (scale / 2), this.y + (scale / 2), scale / 2, 0, Math.PI * 2);
-        ctx.fill();
-
-        /*ctx.beginPath();
-        ctx.fillStyle = "#000";
-        ctx.moveTo(this.x + (scale / 2), this.y + (scale / 2));
-        ctx.lineTo(this.x + (scale / 2), (this.y + (scale / 2)) + 25);
-        ctx.lineTo(this.x + (scale / 2), (this.y + (scale / 2)) - 25);
-        ctx.fill();*/
+        drawGhost(this.x, this.y, color);
     }
 
     this.update = () => {
@@ -30,62 +82,33 @@ function Ghost({who, startX, startY, delay, color}){
 
         this.realX = Math.round(this.x / scale);
         this.realY = Math.round(this.y / scale);
+        
 
-        // find path to pacman if he or ghost moves
-        if(
-        this.lastPathEnd.x !== pacman.realX || 
-        this.lastPathEnd.y !== pacman.realY ||
-        this.lastRealX !== this.realX ||
-        this.lastRealY !== this.realY /*||
-        this.lastPathEnd.x !== this.path[this.path.length - 2].x || 
-        this.lastPathEnd.y !== this.path[this.path.length - 2].y*/){ // if pacman or ghost moved or path changed
-
-            let dest;
-            switch(who){
-                case "blinky":
-                    dest = {x: pacman.realX, y: pacman.realY};
-                    break;
-                case "inky":
-                    switch(pacman.dir){
-                        case 0: // up
-                            dest = {x: pacman.realX, y: pacman.realY - 4};
-                            break;
-                        case 1: // down
-                            dest = {x: pacman.realX, y: pacman.realY + 4};
-                            break;
-                        case 2: // left
-                            dest = {x: pacman.realX - 4, y: pacman.realY};
-                            break;
-                        case 3: // right
-                            dest = {x: pacman.realX + 4, y: pacman.realY};
-                            break;
-                    }
-                    break;
-                case "pinky":
-                    break;
-                case "clyde":
-                    break;
-            }
-
-            let timer = Date.now()
-            //this.path = findPath(matrix, {x: this.realX, y: this.realY}, dest, true, 1)
-            timer = Date.now() - timer
-            console.log(timer, "ms")
-
-            this.lastPathEnd = {x: pacman.realX, y: pacman.realY}
-        }
-
-        if(color){
-            let lastNode = this.path[0];
-            this.path.forEach((node, i) => {
-                ctx.beginPath();
-                ctx.moveTo((lastNode.x * scale) + (scale / 2), (lastNode.y * scale) + (scale / 2));
-                ctx.lineTo((node.x * scale) + (scale / 2), (node.y * scale) + (scale / 2));
-                ctx.lineWidth = 1;
-                ctx.strokeStyle = color;
-                ctx.stroke();
-                lastNode = node;
-            })
+        let dest;
+        switch(who){
+            case "blinky":
+                dest = {x: pacman.x + scale / 2, y: pacman.y + scale / 2};
+                break;
+            case "inky":
+                switch(pacman.dir){
+                    case 0: // up
+                        dest = {x: (pacman.x + scale / 2) - scale * 2, y: (pacman.y + scale / 2) - scale * 2};
+                        break;
+                    case 1: // right
+                        dest = {x: (pacman.x + scale / 2) + scale * 2, y: (pacman.y + scale / 2) - scale * 2};
+                        break;
+                    case 2: // down
+                        dest = {x: (pacman.x + scale / 2), y: (pacman.y + scale / 2) + scale * 2};
+                        break;
+                    case 3: // left
+                        dest = {x: (pacman.x + scale / 2) - scale * 2, y: (pacman.y + scale / 2)};
+                        break;
+                }
+                break;
+            case "pinky":
+                break;
+            case "clyde":
+                break;
         }
 
         // round real position by direction
@@ -93,55 +116,79 @@ function Ghost({who, startX, startY, delay, color}){
             case 0: // up
                 this.realY = Math.ceil(this.y / scale)
                 break;
-            case 1: // down
+            case 1: // right
+                this.realX = Math.floor(this.x / scale)
+                break;
+            case 2: // down
                 this.realY = Math.floor(this.y / scale)
                 break;
-            case 2: // left
+            case 3: // left
                 this.realX = Math.ceil(this.x / scale)
-                break;
-            case 3: // right
-                this.realX = Math.floor(this.x / scale)
                 break;
         }
 
-        // change dir towards next node
-        if(this.realX !== this.lastRealX || this.realY !== this.lastRealY){
-            let nextNode = this.path[this.path.length - 2];
-            if(nextNode){
-                if(this.realX < nextNode.x){
-                    this.dir = 3;
-                } else if(this.realX > nextNode.x){
-                    this.dir = 2;
-                } else if(this.realY < nextNode.y){
-                    this.dir = 1;
-                } else if(this.realY > nextNode.y){
-                    this.dir = 0;
-                }
+        // change dir towards dest point
+        const paths = [this.dir - 1, this.dir, this.dir + 1];
+        paths.forEach((path, i) => {
+            switch(path){
+                case -1:
+                    paths[i] = 3;
+                    break;
+                case 4:
+                    paths[i] = 0;
+                    break;
             }
-            this.lastRealX = this.realX;
-            this.lastRealY = this.realY;
+        })
+        console.log(dest, paths)
+        
+        if(this.x + scale / 2 < dest.x){
+            
+            /*paths.forEach(path => {
+                switch(path){
+                    case 0: // up
+                        if(matrix[this.realY - 1][this.realX] == 0 || matrix[this.realY - 1][this.realX] == 2 || matrix[this.realY - 1][this.realX] == 34){
+                            if(this.x == this.realX * scale) this.dir = 0;
+                        }
+                        break;
+                    case 1: // right
+                        if(matrix[this.realY][this.realX + 1] == 0 || matrix[this.realY][this.realX + 1] == 2 || matrix[this.realY][this.realX + 1] == 34){
+                            if(this.y == this.realY * scale) this.dir = 1;
+                        }
+                        break;
+                    case 2: // down
+                        if(matrix[this.realY + 1][this.realX] == 0 || matrix[this.realY + 1][this.realX] == 2 || matrix[this.realY + 1][this.realX] == 34){
+                            if(this.x == this.realX * scale) this.dir = 2;
+                        }
+                        break;
+                    case 3: // left
+                        if(matrix[this.realY][this.realX - 1] == 0 || matrix[this.realY][this.realX - 1] == 2 || matrix[this.realY][this.realX - 1] == 34){
+                            if(this.y == this.realY * scale) this.dir = 3;
+                        }
+                        break;
+                }
+            }*/
         }
 
         // movement
         switch(this.dir){
             case 0: // up
-                if(matrix[this.realY - 1][this.realX] == 0 || matrix[this.realY - 1][this.realX] == 2){
+                if(matrix[this.realY - 1][this.realX] == 0 || matrix[this.realY - 1][this.realX] == 2 || matrix[this.realY - 1][this.realX] == 34){
                     this.y-=2;
                 }
                 break;
-            case 1: // down
-                if(matrix[this.realY + 1][this.realX] == 0 || matrix[this.realY + 1][this.realX] == 2){
+            case 1: // right
+                if(matrix[this.realY][this.realX + 1] == 0 || matrix[this.realY][this.realX + 1] == 2 || matrix[this.realY][this.realX + 1] == 34){
+                    this.x+=2;
+                }
+                break;
+            case 2: // down
+                if(matrix[this.realY + 1][this.realX] == 0 || matrix[this.realY + 1][this.realX] == 2 || matrix[this.realY + 1][this.realX] == 34){
                     this.y+=2;
                 }
                 break;
-            case 2: // left
-                if(matrix[this.realY][this.realX - 1] == 0 || matrix[this.realY][this.realX - 1] == 2){
+            case 3: // left
+                if(matrix[this.realY][this.realX - 1] == 0 || matrix[this.realY][this.realX - 1] == 2 || matrix[this.realY][this.realX - 1] == 34){
                     this.x-=2;
-                }
-                break;
-            case 3: // right
-                if(matrix[this.realY][this.realX + 1] == 0 || matrix[this.realY][this.realX + 1] == 2){
-                    this.x+=2;
                 }
                 break;
         }
