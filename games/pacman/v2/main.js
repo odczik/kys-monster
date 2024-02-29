@@ -631,7 +631,7 @@ window.addEventListener("touchend", e => {
 })
 
 // requires scale to be at 20
-let tmp = 30;
+/*let tmp = 30;
 canvas.addEventListener("click", e => {
     const rect = e.target.getBoundingClientRect();
     const x = Math.floor((e.clientX - rect.left) / scale);
@@ -639,4 +639,4 @@ canvas.addEventListener("click", e => {
     matrix[y][x] = 34;
     tmp++
     console.log(JSON.stringify(matrix))
-})
+})*/
