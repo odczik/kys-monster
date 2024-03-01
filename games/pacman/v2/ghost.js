@@ -50,6 +50,12 @@ function Ghost({who, startX, startY, delay, color}){
         ],
     ]
 
+    const heuristic = (pos0, pos1) => {
+        var d1 = Math.pow(Math.abs(pos1.x - pos0.x), 2);
+        var d2 = Math.pow(Math.abs(pos1.y - pos0.y), 2);
+        return Math.sqrt(d1 + d2);
+    }
+
     const drawGhost = (x, y, color) => {
         ghost[this.state].forEach((row, rowI) => {
             row.forEach((col, colI) => {
@@ -127,98 +133,62 @@ function Ghost({who, startX, startY, delay, color}){
                 break;
         }
 
-        // change dir towards dest point
-        /*const paths = [this.dir - 1, this.dir, this.dir + 1];
+        // get available paths
+        let paths = [];
+        if(matrix[this.realY - 1][this.realX] === 0 || matrix[this.realY - 1][this.realX] === 2) paths.push(0);
+        if(matrix[this.realY][this.realX + 1] === 0 || matrix[this.realY][this.realX + 1] === 2) paths.push(1);
+        if(matrix[this.realY + 1][this.realX] === 0 || matrix[this.realY + 1][this.realX] === 2) paths.push(2);
+        if(matrix[this.realY][this.realX - 1] === 0 || matrix[this.realY][this.realX - 1] === 2) paths.push(3);
+        // can't go back
+        paths.forEach((path, i) => {
+            if(path - 2 === this.dir || path + 2 === this.dir) paths.splice(i, 1);
+        })
+
         paths.forEach((path, i) => {
             switch(path){
-                case -1:
-                    paths[i] = 3;
+                case 0: // up
+                    paths[i] = {x: this.realX, y: this.realY - 1, weight: heuristic({x: this.realX, y: this.realY - 1}, {x: pacman.realX, y: pacman.realY})};
                     break;
-                case 4:
-                    paths[i] = 0;
+                case 1: // right
+                    paths[i] = {x: this.realX + scale, y: this.realY, weight: heuristic({x: this.realX + 1, y: this.realY}, {x: pacman.realX, y: pacman.realY})};
                     break;
-            }
-        })*/
-        const paths = [];
-        for(let i = 0; i < 4; i++){
-            if(paths[i] == this.dir - 2 || paths[i] == this.dir + 2){
-                paths.splice(i, 1);
-            } else {
-                paths.push(i)
-            }
-            switch(i){
-                case 0:
-                    if(matrix[this.realY - 1][this.realX] !== 0 || matrix[this.realY - 1][this.realX] !== 2){
-                        paths.splice(i, 1);
-                    }
+                case 2: // down
+                    paths[i] = {x: this.realX, y: this.realY + 1, weight: heuristic({x: this.realX, y: this.realY + 1}, {x: pacman.realX, y: pacman.realY})};
                     break;
-                case 1:
-                    if(matrix[this.realY][this.realX + 1] !== 0 || matrix[this.realY][this.realX + 1] !== 2){
-                        paths.splice(i, 1);
-                    }
-                    break;
-                case 2:
-                    if(matrix[this.realY + 1][this.realX] !== 0 || matrix[this.realY + 1][this.realX] !== 2){
-                        paths.splice(i, 1);
-                    }
-                    break;
-                case 3:
-                    if(matrix[this.realY][this.realX - 1] !== 0 || matrix[this.realY][this.realX - 1] !== 2){
-                        paths.splice(i, 1);
-                    }
+                case 3: // left
+                    paths[i] = {x: this.realX - scale, y: this.realY, weight: heuristic({x: this.realX - 1, y: this.realY}, {x: pacman.realX, y: pacman.realY})};
                     break;
             }
-        }
-        console.log(this.realX, this.realY, paths)
+        })
+        paths.sort((a, b) => a.weight - b.weight);
+        const nextNode = paths[0];
+        //console.log(this.realX, this.realY, this.dir, paths);
 
-        if(this.x + scale / 2 < dest.x){
-            
-            /*paths.forEach(path => {
-                switch(path){
-                    case 0: // up
-                        if(matrix[this.realY - 1][this.realX] == 0 || matrix[this.realY - 1][this.realX] == 2 || matrix[this.realY - 1][this.realX] == 34){
-                            if(this.x == this.realX * scale) this.dir = 0;
-                        }
-                        break;
-                    case 1: // right
-                        if(matrix[this.realY][this.realX + 1] == 0 || matrix[this.realY][this.realX + 1] == 2 || matrix[this.realY][this.realX + 1] == 34){
-                            if(this.y == this.realY * scale) this.dir = 1;
-                        }
-                        break;
-                    case 2: // down
-                        if(matrix[this.realY + 1][this.realX] == 0 || matrix[this.realY + 1][this.realX] == 2 || matrix[this.realY + 1][this.realX] == 34){
-                            if(this.x == this.realX * scale) this.dir = 2;
-                        }
-                        break;
-                    case 3: // left
-                        if(matrix[this.realY][this.realX - 1] == 0 || matrix[this.realY][this.realX - 1] == 2 || matrix[this.realY][this.realX - 1] == 34){
-                            if(this.y == this.realY * scale) this.dir = 3;
-                        }
-                        break;
-                }
-            }*/
-        }
+        if(nextNode.x < this.realX) this.dir = 3;
+        if(nextNode.x > this.realX) this.dir = 1;
+        if(nextNode.y < this.realY) this.dir = 0;
+        if(nextNode.y > this.realY) this.dir = 2;
 
         // movement
         switch(this.dir){
             case 0: // up
                 if(matrix[this.realY - 1][this.realX] == 0 || matrix[this.realY - 1][this.realX] == 2 || matrix[this.realY - 1][this.realX] == 34){
-                    this.y-=2;
+                    this.y-=4;
                 }
                 break;
             case 1: // right
                 if(matrix[this.realY][this.realX + 1] == 0 || matrix[this.realY][this.realX + 1] == 2 || matrix[this.realY][this.realX + 1] == 34){
-                    this.x+=2;
+                    this.x+=4;
                 }
                 break;
             case 2: // down
                 if(matrix[this.realY + 1][this.realX] == 0 || matrix[this.realY + 1][this.realX] == 2 || matrix[this.realY + 1][this.realX] == 34){
-                    this.y+=2;
+                    this.y+=4;
                 }
                 break;
             case 3: // left
                 if(matrix[this.realY][this.realX - 1] == 0 || matrix[this.realY][this.realX - 1] == 2 || matrix[this.realY][this.realX - 1] == 34){
-                    this.x-=2;
+                    this.x-=4;
                 }
                 break;
         }
