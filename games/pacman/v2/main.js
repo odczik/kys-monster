@@ -534,10 +534,15 @@ const render = () => {
 }
 
 let timer = 0;
+let updateTook = 0;
 setInterval(() => {
     if(Date.now() - timer >= 1000 / 120){
+        updateTook = Date.now();
         update();
         render();
+        updateTook = Date.now() - updateTook;
+        console.log("Update took: " + updateTook + "ms");
+
         timer = Date.now();
     }
 }, 1);
