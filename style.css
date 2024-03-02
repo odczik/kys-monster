@@ -16,6 +16,14 @@ body {
     left: 7vw;
 }
 
+footer {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    font-weight: 400;
+    font-size: 0.7em;
+}
+
 li {
     padding: 3px;
     list-style-type: none;
@@ -41,9 +49,8 @@ a {
     display: block;
     position: absolute;
     top: 0;
-    left: 0;
-    bottom: 0;
-    right: 0;
+    width: 100vw;
+    height: 100vh;
     background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%), linear-gradient(90deg, rgba(255, 0, 0, 0.06), rgba(0, 255, 0, 0.02), rgba(0, 0, 255, 0.06));
     z-index: 2;
     background-size: 100% 4px, 10px 100%;
@@ -55,9 +62,8 @@ a {
     display: block;
     position: absolute;
     top: 0;
-    left: 0;
-    bottom: 0;
-    right: 0;
+    width: 100vw;
+    height: 100vh;
     background: rgba(18, 16, 16, 0.217);
     opacity: 0;
     z-index: 2;
