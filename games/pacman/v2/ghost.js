@@ -11,6 +11,7 @@ function Ghost({who, startX, startY, delay, color}){
     this.path = [];
     this.timer = Date.now();
     this.state = 0;
+    this.dest = {x: 0, y: 0};
 
     const ghost = [
         [
@@ -81,6 +82,10 @@ function Ghost({who, startX, startY, delay, color}){
 
     this.draw = () => {
         drawGhost(this.x, this.y, color);
+
+        // draw dest
+        ctx.fillStyle = color;
+        ctx.fillRect(this.dest.x * scale - 10, this.dest.y * scale - 10, 20, 20);
     }
 
     this.update = () => {
@@ -90,28 +95,28 @@ function Ghost({who, startX, startY, delay, color}){
         this.realY = Math.round(this.y / scale);
         
 
-        let dest = {x: pacman.x + scale / 2, y: pacman.y + scale / 2};
+        this.dest = {x: pacman.realX + 0.5, y: pacman.realY + 0.5};
         switch(who){
             case "blinky":
-                dest = {x: pacman.x + scale / 2, y: pacman.y + scale / 2};
+                this.dest = {x: pacman.realX + 0.5, y: pacman.realY + 0.5};
                 break;
             case "inky":
-                switch(pacman.dir){
-                    case 0: // up
-                        dest = {x: (pacman.x + scale / 2) - scale * 2, y: (pacman.y + scale / 2) - scale * 2};
-                        break;
-                    case 1: // right
-                        dest = {x: (pacman.x + scale / 2) + scale * 2, y: (pacman.y + scale / 2) - scale * 2};
-                        break;
-                    case 2: // down
-                        dest = {x: (pacman.x + scale / 2), y: (pacman.y + scale / 2) + scale * 2};
-                        break;
-                    case 3: // left
-                        dest = {x: (pacman.x + scale / 2) - scale * 2, y: (pacman.y + scale / 2)};
-                        break;
-                }
                 break;
             case "pinky":
+                switch(pacman.dir){
+                    case 0: // up
+                        this.dest = {x: pacman.realX + 0.5 - 4, y: pacman.realY + 0.5 - 4};
+                        break;
+                    case 1: // down
+                        this.dest = {x: pacman.realX + 0.5, y: pacman.realY + 0.5 + 4};
+                        break;
+                    case 2: // left
+                        this.dest = {x: pacman.realX + 0.5 - 4, y: pacman.realY + 0.5};
+                        break;
+                    case 3: // right
+                        this.dest = {x: pacman.realX + 0.5 + 4, y: pacman.realY + 0.5};
+                        break;
+                }
                 break;
             case "clyde":
                 break;
@@ -147,17 +152,17 @@ function Ghost({who, startX, startY, delay, color}){
         paths.forEach((path, i) => {
             switch(path){
                 case 0: // up
-                    paths[i] = {x: this.realX, y: this.realY - 1, weight: heuristic({x: this.realX, y: this.realY - 1}, {x: pacman.realX, y: pacman.realY})};
+                    paths[i] = {x: this.realX, y: this.realY - 1, weight: heuristic({x: this.realX, y: this.realY - 1}, this.dest)};
                     if((paths[i].y == 10 || paths[i].y == 22) && (paths[i].x == 12 || paths[i].x == 15)) paths.splice(i, 1);
                     break;
                 case 1: // right
-                    paths[i] = {x: this.realX + scale, y: this.realY, weight: heuristic({x: this.realX + 1, y: this.realY}, {x: pacman.realX, y: pacman.realY})};
+                    paths[i] = {x: this.realX + scale, y: this.realY, weight: heuristic({x: this.realX + 1, y: this.realY}, this.dest)};
                     break;
                 case 2: // down
-                    paths[i] = {x: this.realX, y: this.realY + 1, weight: heuristic({x: this.realX, y: this.realY + 1}, {x: pacman.realX, y: pacman.realY})};
+                    paths[i] = {x: this.realX, y: this.realY + 1, weight: heuristic({x: this.realX, y: this.realY + 1}, this.dest)};
                     break;
                 case 3: // left
-                    paths[i] = {x: this.realX - scale, y: this.realY, weight: heuristic({x: this.realX - 1, y: this.realY}, {x: pacman.realX, y: pacman.realY})};
+                    paths[i] = {x: this.realX - scale, y: this.realY, weight: heuristic({x: this.realX - 1, y: this.realY}, this.dest)};
                     break;
             }
         })
@@ -197,10 +202,10 @@ function Ghost({who, startX, startY, delay, color}){
             }
         }
 
-        if((this.x > 13.5 * scale && this.x < 17 * scale) && this.realY == 14) this.dir = 3;
-        if((this.x < 13.5 * scale && this.x > 9 * scale) && this.realY == 14) this.dir = 1;
+        if((this.x > 13.5 * scale && this.x < 17 * scale) && this.y == 14 * scale) this.dir = 3;
+        if((this.x < 13.5 * scale && this.x > 9 * scale) && this.y == 14 * scale) this.dir = 1;
 
-        if((this.x > 13.4 * scale && this.x < 13.4 * scale) && (this.realY >= 14 && this.realY <= 12)) this.dir = 0;
+        if((this.x > 13.4 * scale && this.x < 13.6 * scale) && (this.realY <= 14 && this.realY >= 12)) this.dir = 0;
 
         // movement
         switch(this.dir){
