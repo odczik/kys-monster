@@ -374,9 +374,10 @@ const matrix = [[8,6,6,6,6,6,6,6,6,6,6,6,6,20,21,6,6,6,6,6,6,6,6,6,6,6,6,9],[4,2
 
 var pacman = new Pacman()
 //var blinky = new Ghost({who: "blinky", startX: 13.5, startY: 14, delay: 3000, color: "#f00"})
-var blinky = new Ghost({who: "blinky", startX: 13.5, startY: 12, delay: 0, color: "#f00"})
+var blinky = new Ghost({who: "blinky", startX: 14, startY: 12, delay: 0, color: "#f00"})
 //var inky = new Ghost({who: "inky", startX: 11.5, startY: 14, delay: 6000, color: "#35d0d0"})
-var inky = new Ghost({who: "inky", startX: 11.5, startY: 14, delay: 60000, color: "#35d0d0"})
+var inky = new Ghost({who: "inky", startX: 11.5, startY: 14, delay: 99999999, color: "#35d0d0"})
+var pinky = new Ghost({who: "pinky", startX: 15.5, startY: 14, delay: 6000, color: "#ffc0cb"})
 
 const drawBlock = (x, y, block, color) => {
     if(color){
@@ -508,16 +509,11 @@ const drawMap = () => {
 }
 
 const update = () => {
-    //let pacmanTimer = Date.now(), blinkyTimer = Date.now(), inkyTimer = Date.now();
-
     pacman.update()
-    //pacmanTimer = Date.now() - pacmanTimer;
 
     blinky.update()
-    //blinkyTimer = Date.now() - blinkyTimer;
-
     inky.update()
-    //inkyTimer = Date.now() - inkyTimer;
+    pinky.update()
 
     //console.log("pacman: " + pacmanTimer + " blinky: " + blinkyTimer + " inky: " + inkyTimer)
 
@@ -533,8 +529,10 @@ const render = () => {
     drawMap();
 
     pacman.draw()
+
     blinky.draw()
     inky.draw()
+    pinky.draw()
 }
 
 let timer = 0;
@@ -575,6 +573,7 @@ setInterval(() => {
 
         blinky.state = blinky.state == 0 ? 1 : 0;
         inky.state = inky.state == 0 ? 1 : 0;
+        pinky.state = pinky.state == 0 ? 1 : 0;
 
         ghostTimer = Date.now();
     }

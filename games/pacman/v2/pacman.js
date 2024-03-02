@@ -2,9 +2,9 @@ function Pacman(){
     this.dir = 4;
     this.nextDir = 4;
     this.x = scale * 13.5;
-    this.y = scale * 17;
+    this.y = scale * 23;
     this.lastX = scale * 13.5;
-    this.lastY = scale * 17;
+    this.lastY = scale * 23;
     this.realX = 0;
     this.realY = 0;
     this.state = 2;

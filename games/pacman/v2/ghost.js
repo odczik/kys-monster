@@ -1,6 +1,6 @@
 function Ghost({who, startX, startY, delay, color}){
     this.dir = 0;
-    this.nextDir = 4;
+    this.nextDir = 0;
     this.x = scale * startX;
     this.y = scale * startY;
     this.realX = 0;
@@ -148,6 +148,7 @@ function Ghost({who, startX, startY, delay, color}){
             switch(path){
                 case 0: // up
                     paths[i] = {x: this.realX, y: this.realY - 1, weight: heuristic({x: this.realX, y: this.realY - 1}, {x: pacman.realX, y: pacman.realY})};
+                    if((paths[i].y == 10 || paths[i].y == 22) && (paths[i].x == 12 || paths[i].x == 15)) paths.splice(i, 1);
                     break;
                 case 1: // right
                     paths[i] = {x: this.realX + scale, y: this.realY, weight: heuristic({x: this.realX + 1, y: this.realY}, {x: pacman.realX, y: pacman.realY})};
@@ -160,14 +161,46 @@ function Ghost({who, startX, startY, delay, color}){
                     break;
             }
         })
+
         paths.sort((a, b) => a.weight - b.weight);
         const nextNode = paths[0];
         //console.log(this.realX, this.realY, this.dir, paths);
 
-        if(nextNode.x < this.realX) this.dir = 3;
-        if(nextNode.x > this.realX) this.dir = 1;
-        if(nextNode.y < this.realY) this.dir = 0;
-        if(nextNode.y > this.realY) this.dir = 2;
+        if(nextNode.x < this.realX) this.nextDir = 3;
+        if(nextNode.x > this.realX) this.nextDir = 1;
+        if(nextNode.y < this.realY) this.nextDir = 0;
+        if(nextNode.y > this.realY) this.nextDir = 2;
+
+        // change dir to nextDir if can
+        if(this.dir !== this.nextDir){
+            switch(this.nextDir){
+                case 0: // up
+                    if(matrix[this.realY - 1][this.realX] == 0 || matrix[this.realY - 1][this.realX] == 2){
+                        if(this.x == this.realX * scale) this.dir = 0;
+                    }
+                    break;
+                case 1: // right
+                    if(matrix[this.realY][this.realX + 1] == 0 || matrix[this.realY][this.realX + 1] == 2){
+                        if(this.y == this.realY * scale) this.dir = 1;
+                    }
+                    break;
+                case 2: // down
+                    if(matrix[this.realY + 1][this.realX] == 0 || matrix[this.realY + 1][this.realX] == 2){
+                        if(this.x == this.realX * scale) this.dir = 2;
+                    }
+                    break;
+                case 3: // left
+                    if(matrix[this.realY][this.realX - 1] == 0 || matrix[this.realY][this.realX - 1] == 2){
+                        if(this.y == this.realY * scale) this.dir = 3;
+                    }
+                    break;
+            }
+        }
+
+        if((this.x > 13.5 * scale && this.x < 17 * scale) && this.realY == 14) this.dir = 3;
+        if((this.x < 13.5 * scale && this.x > 9 * scale) && this.realY == 14) this.dir = 1;
+
+        if((this.x > 13.4 * scale && this.x < 13.4 * scale) && (this.realY >= 14 && this.realY <= 12)) this.dir = 0;
 
         // movement
         switch(this.dir){
