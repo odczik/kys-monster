@@ -84,10 +84,24 @@ function Ghost({who, startX, startY, delay, color}){
         drawGhost(this.x, this.y, color);
 
         // draw dest
-        ctx.fillStyle = color;
-        ctx.fillRect(this.dest.x * scale - 10, this.dest.y * scale - 10, 20, 20);
-    }
+        if(showDebug){
+            ctx.fillStyle = color;
+            ctx.fillRect(this.dest.x * scale - 10, this.dest.y * scale - 10, 20, 20);
+        }
+        }
 
+    const pinkyDest = () => {
+        switch(pacman.dir){
+            case 0: // up
+                return {x: pacman.realX + 0.5 - 4, y: pacman.realY + 0.5 - 4};
+            case 1: // down
+                return {x: pacman.realX + 0.5, y: pacman.realY + 0.5 + 4};
+            case 2: // left
+                return {x: pacman.realX + 0.5 - 4, y: pacman.realY + 0.5};
+            case 3: // right
+                return {x: pacman.realX + 0.5 + 4, y: pacman.realY + 0.5};
+        }
+    }
     this.update = () => {
         if(Date.now() - this.timer < delay) return;
 
@@ -101,22 +115,11 @@ function Ghost({who, startX, startY, delay, color}){
                 this.dest = {x: pacman.realX + 0.5, y: pacman.realY + 0.5};
                 break;
             case "inky":
+                const tmpDest = pinkyDest()
+                this.dest = {x: tmpDest.x + (tmpDest.x - blinky.realX), y: tmpDest.y + (tmpDest.y - blinky.realY)}
                 break;
             case "pinky":
-                switch(pacman.dir){
-                    case 0: // up
-                        this.dest = {x: pacman.realX + 0.5 - 4, y: pacman.realY + 0.5 - 4};
-                        break;
-                    case 1: // down
-                        this.dest = {x: pacman.realX + 0.5, y: pacman.realY + 0.5 + 4};
-                        break;
-                    case 2: // left
-                        this.dest = {x: pacman.realX + 0.5 - 4, y: pacman.realY + 0.5};
-                        break;
-                    case 3: // right
-                        this.dest = {x: pacman.realX + 0.5 + 4, y: pacman.realY + 0.5};
-                        break;
-                }
+                this.dest = pinkyDest()
                 break;
             case "clyde":
                 break;

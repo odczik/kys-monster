@@ -4,6 +4,9 @@ const canvas = document.getElementById("canvas")
 const ctx = canvas.getContext('2d')
 const scale = 40
 
+let started = false;
+let showDebug = false;
+
 canvas.height = 31 * scale
 canvas.width = 28 * scale
 
@@ -403,9 +406,9 @@ const matrix = [[8,6,6,6,6,6,6,6,6,6,6,6,6,20,21,6,6,6,6,6,6,6,6,6,6,6,6,9],
                 [10,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,11]]
 
 var pacman = new Pacman()
-var blinky = new Ghost({who: "blinky", startX: 13.5, startY: 11, delay: 1000, color: "#f00"})
-var inky = new Ghost({who: "inky", startX: 11.5, startY: 14, delay: 12000, color: "#35d0d0"})
+var blinky = new Ghost({who: "blinky", startX: 13.5, startY: 11, delay: 10, color: "#f00"})
 var pinky = new Ghost({who: "pinky", startX: 15.5, startY: 14, delay: 6000, color: "#ffc0cb"})
+var inky = new Ghost({who: "inky", startX: 11.5, startY: 14, delay: 12000, color: "#35d0d0"})
 
 //var blinky = new Ghost({who: "blinky", startX: 13.5, startY: 11, delay: 999999, color: "#f00"})
 //var inky = new Ghost({who: "inky", startX: 11.5, startY: 14, delay: 999999, color: "#35d0d0"})
@@ -543,9 +546,15 @@ const drawMap = () => {
 const update = () => {
     pacman.update()
 
+    if(!started){
+        blinky.timer = Date.now();
+        pinky.timer = Date.now();
+        inky.timer = Date.now();
+    }
+
     blinky.update()
-    inky.update()
     pinky.update()
+    inky.update()
 
     //console.log("pacman: " + pacmanTimer + " blinky: " + blinkyTimer + " inky: " + inkyTimer)
 
@@ -563,8 +572,8 @@ const render = () => {
     pacman.draw()
 
     blinky.draw()
-    inky.draw()
     pinky.draw()
+    inky.draw()
 }
 
 let timer = 0;
@@ -617,6 +626,8 @@ setInterval(() => {
 }, 1);
 
 window.addEventListener("keydown", (e) => {
+    started = true;
+
     if(e.key.includes("Arrow") || e.key=="w" || e.key=="a" || e.key=="s" || e.key=="d"){
         let direction = e.key.replace("Arrow", "")
         switch(direction){
@@ -639,7 +650,7 @@ window.addEventListener("keydown", (e) => {
         }
     }
     if(e.key == "e"){
-        blinky.dir++;
+        showDebug = !showDebug;
     }
 })
 
@@ -648,6 +659,8 @@ window.addEventListener("touchstart", e => {
     startTouch = {x: e.touches[0].clientX, y: e.touches[0].clientY}
 })
 window.addEventListener("touchend", e => {
+    started = true;
+
     let endTouch = {x: e.changedTouches[0].clientX, y: e.changedTouches[0].clientY}
     let diffX = startTouch.x - endTouch.x
     let diffY = startTouch.y - endTouch.y
