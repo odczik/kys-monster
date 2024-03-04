@@ -6,6 +6,7 @@ const scale = 40
 
 let started = false;
 let showDebug = false;
+let caps = false;
 
 canvas.height = 31 * scale
 canvas.width = 28 * scale
@@ -574,6 +575,12 @@ const render = () => {
     blinky.draw()
     pinky.draw()
     inky.draw()
+
+    /*if(caps){
+        ctx.fillStyle = "red";
+        ctx.fillText("kkt", 0, 0, 100);
+        ctx.fill();
+    }*/
 }
 
 let timer = 0;
@@ -653,6 +660,11 @@ window.addEventListener("keydown", (e) => {
     }
     if(e.key == "e"){
         showDebug = !showDebug;
+    }
+    if(e.getModifierState("CapsLock")){
+       caps = true;
+    } else {
+        caps = false;
     }
 })
 

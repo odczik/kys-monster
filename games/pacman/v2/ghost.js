@@ -107,7 +107,6 @@ function Ghost({who, startX, startY, delay, color}){
 
         this.realX = Math.round(this.x / scale);
         this.realY = Math.round(this.y / scale);
-        
 
         this.dest = {x: pacman.realX + 0.5, y: pacman.realY + 0.5};
         switch(who){
