@@ -174,10 +174,12 @@ function Ghost({who, startX, startY, delay, color}){
         const nextNode = paths[0];
         //console.log(this.realX, this.realY, this.dir, paths);
 
-        if(nextNode.x < this.realX) this.nextDir = 3;
-        if(nextNode.x > this.realX) this.nextDir = 1;
-        if(nextNode.y < this.realY) this.nextDir = 0;
-        if(nextNode.y > this.realY) this.nextDir = 2;
+        if(nextNode){
+            if(nextNode.x < this.realX) this.nextDir = 3;
+            if(nextNode.x > this.realX) this.nextDir = 1;
+            if(nextNode.y < this.realY) this.nextDir = 0;
+            if(nextNode.y > this.realY) this.nextDir = 2;
+        }
 
         // change dir to nextDir if can
         if(this.dir !== this.nextDir){
@@ -232,6 +234,14 @@ function Ghost({who, startX, startY, delay, color}){
                     this.x-=4;
                 }
                 break;
+        }
+        if(this.x <= scale && this.y == 14 * scale){
+            if(this.dir == 3) this.x-=4;
+            if(this.x < -1 * scale) this.x = 28 * scale
+        }
+        if(this.x >= 27 * scale && this.y == 14 * scale){
+            if(this.dir == 1) this.x+=4;
+            if(this.x > 29 * scale) this.x = -1 * scale
         }
     }
 }
