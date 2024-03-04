@@ -626,26 +626,28 @@ setInterval(() => {
 }, 1);
 
 window.addEventListener("keydown", (e) => {
-    started = true;
-
     if(e.key.includes("Arrow") || e.key=="w" || e.key=="a" || e.key=="s" || e.key=="d"){
         let direction = e.key.replace("Arrow", "")
         switch(direction){
             case "w":
             case "Up":
                 pacman.nextDir = 0;
+                started = true;
                 break;
             case "s":
             case "Down":
                 pacman.nextDir = 1;
+                started = true;
                 break;
             case "a":
             case "Left":
                 pacman.nextDir = 2;
+                started = true;
                 break;
             case "d":
             case "Right":
                 pacman.nextDir = 3;
+                started = true;
                 break;
         }
     }
