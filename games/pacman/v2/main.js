@@ -403,13 +403,13 @@ const matrix = [[8,6,6,6,6,6,6,6,6,6,6,6,6,20,21,6,6,6,6,6,6,6,6,6,6,6,6,9],
                 [10,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,11]]
 
 var pacman = new Pacman()
-//var blinky = new Ghost({who: "blinky", startX: 13.5, startY: 11, delay: 1000, color: "#f00"})
-//var inky = new Ghost({who: "inky", startX: 11.5, startY: 14, delay: 12000, color: "#35d0d0"})
-//var pinky = new Ghost({who: "pinky", startX: 15.5, startY: 14, delay: 6000, color: "#ffc0cb"})
+var blinky = new Ghost({who: "blinky", startX: 13.5, startY: 11, delay: 1000, color: "#f00"})
+var inky = new Ghost({who: "inky", startX: 11.5, startY: 14, delay: 12000, color: "#35d0d0"})
+var pinky = new Ghost({who: "pinky", startX: 15.5, startY: 14, delay: 6000, color: "#ffc0cb"})
 
-var blinky = new Ghost({who: "blinky", startX: 13.5, startY: 11, delay: 999999, color: "#f00"})
-var inky = new Ghost({who: "inky", startX: 11.5, startY: 14, delay: 999999, color: "#35d0d0"})
-var pinky = new Ghost({who: "pinky", startX: 15.5, startY: 14, delay: 999999, color: "#ffc0cb"})
+//var blinky = new Ghost({who: "blinky", startX: 13.5, startY: 11, delay: 999999, color: "#f00"})
+//var inky = new Ghost({who: "inky", startX: 11.5, startY: 14, delay: 999999, color: "#35d0d0"})
+//var pinky = new Ghost({who: "pinky", startX: 15.5, startY: 14, delay: 999999, color: "#ffc0cb"})
 
 const drawBlock = (x, y, block, color) => {
     if(color){
