@@ -11,7 +11,7 @@ function Ghost({who, startX, startY, delay, color}){
     this.path = [];
     this.timer = Date.now();
     this.state = 0;
-    this.dest = {x: 0, y: 0};
+    this.dest = {x: this.x, y: this.y};
 
     const ghost = [
         [
