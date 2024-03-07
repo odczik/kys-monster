@@ -8,7 +8,7 @@ let started = false;
 let showDebug = false;
 let caps = false;
 
-canvas.height = 31 * scale
+canvas.height = 33 * scale
 canvas.width = 28 * scale
 
 const rows = canvas.height / scale
@@ -374,7 +374,9 @@ const debugblock = [
     [1,1,1,1,1,1,1,1],
 ]
 
-const matrix = [[8,6,6,6,6,6,6,6,6,6,6,6,6,20,21,6,6,6,6,6,6,6,6,6,6,6,6,9],
+const matrix = [[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+                [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+                [8,6,6,6,6,6,6,6,6,6,6,6,6,20,21,6,6,6,6,6,6,6,6,6,6,6,6,9],
                 [4,2,2,2,2,2,2,2,2,2,2,2,2,18,19,2,2,2,2,2,2,2,2,2,2,2,2,5],
                 [4,2,12,16,16,13,2,12,16,16,16,13,2,18,19,2,12,16,16,16,13,2,12,16,16,13,2,5],
                 [4,2,18,0,0,19,2,18,0,0,0,19,2,18,19,2,18,0,0,0,19,2,18,0,0,19,2,5],
@@ -407,9 +409,9 @@ const matrix = [[8,6,6,6,6,6,6,6,6,6,6,6,6,20,21,6,6,6,6,6,6,6,6,6,6,6,6,9],
                 [10,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,11]]
 
 var pacman = new Pacman()
-var blinky = new Ghost({who: "blinky", startX: 13.5, startY: 11, delay: 10, color: "#f00"})
-var pinky = new Ghost({who: "pinky", startX: 15.5, startY: 14, delay: 6000, color: "#ffc0cb"})
-var inky = new Ghost({who: "inky", startX: 11.5, startY: 14, delay: 12000, color: "#35d0d0"})
+var blinky = new Ghost({who: "blinky", startX: 13.5, startY: 13, delay: 10, color: "#f00"})
+var pinky = new Ghost({who: "pinky", startX: 15.5, startY: 16, delay: 6000, color: "#ffc0cb"})
+var inky = new Ghost({who: "inky", startX: 11.5, startY: 16, delay: 12000, color: "#35d0d0"})
 
 //var blinky = new Ghost({who: "blinky", startX: 13.5, startY: 11, delay: 999999, color: "#f00"})
 //var inky = new Ghost({who: "inky", startX: 11.5, startY: 14, delay: 999999, color: "#35d0d0"})
@@ -575,6 +577,10 @@ const render = () => {
     blinky.draw()
     pinky.draw()
     inky.draw()
+
+    ctx.font = scale + "px pixel";
+    ctx.fillStyle = "white";
+    ctx.fillText("Hello World", 10, 50); 
 
     /*if(caps){
         ctx.fillStyle = "red";

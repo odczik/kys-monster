@@ -155,7 +155,7 @@ function Ghost({who, startX, startY, delay, color}){
             switch(path){
                 case 0: // up
                     paths[i] = {x: this.realX, y: this.realY - 1, weight: heuristic({x: this.realX, y: this.realY - 1}, this.dest)};
-                    if((paths[i].y == 10 || paths[i].y == 22) && (paths[i].x == 12 || paths[i].x == 15)) paths.splice(i, 1);
+                    if((paths[i].y == 12 || paths[i].y == 24) && (paths[i].x == 12 || paths[i].x == 15)) paths.splice(i, 1);
                     break;
                 case 1: // right
                     paths[i] = {x: this.realX + scale, y: this.realY, weight: heuristic({x: this.realX + 1, y: this.realY}, this.dest)};
@@ -206,10 +206,10 @@ function Ghost({who, startX, startY, delay, color}){
             }
         }
 
-        if((this.x > 13.5 * scale && this.x < 17 * scale) && this.y == 14 * scale) this.dir = 3;
-        if((this.x < 13.5 * scale && this.x > 9 * scale) && this.y == 14 * scale) this.dir = 1;
+        if((this.x > 13.5 * scale && this.x < 17 * scale) && this.y == 16 * scale) this.dir = 3;
+        if((this.x < 13.5 * scale && this.x > 9 * scale) && this.y == 16 * scale) this.dir = 1;
 
-        if((this.x > 13.4 * scale && this.x < 13.6 * scale) && (this.realY <= 14 && this.realY >= 12)) this.dir = 0;
+        if((this.x > 13.4 * scale && this.x < 13.6 * scale) && (this.realY <= 16 && this.realY >= 14)) this.dir = 0;
 
         // movement
         switch(this.dir){
