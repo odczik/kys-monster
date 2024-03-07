@@ -208,11 +208,11 @@ function Pacman(){
                 }
                 break;
         }
-        if(this.x <= scale && this.y == 14 * scale){
+        if(this.x <= scale && this.y == 16 * scale){
             if(this.dir == 2) this.x-=4;
             if(this.x < -1 * scale) this.x = 28 * scale
         }
-        if(this.x >= 27 * scale && this.y == 14 * scale){
+        if(this.x >= 27 * scale && this.y == 16 * scale){
             if(this.dir == 3) this.x+=4;
             if(this.x > 29 * scale) this.x = -1 * scale
         }
