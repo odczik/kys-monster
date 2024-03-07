@@ -564,7 +564,7 @@ const update = () => {
 
     if(matrix[pacman.realY][pacman.realX] == 2){
         matrix[pacman.realY][pacman.realX] = 0;
-        score++;
+        score+=10;
     }
 }
 const render = () => {
@@ -637,6 +637,20 @@ setInterval(() => {
         ghostTimer = Date.now();
     }
 }, 1);
+
+setInterval(() => {
+    let tmpScore = 0;
+    matrix.forEach((row, rowI) => {
+        row.forEach((col, colI) => {
+            if(col == 2) tmpScore++;
+        })
+    })
+    tmpScore = (258 - tmpScore) * 10;
+    if(score != tmpScore){
+        score = tmpScore;
+        console.log("Don't do that");
+    }
+}, 100);
 
 window.addEventListener("keydown", (e) => {
     if(e.key.includes("Arrow") || e.key=="w" || e.key=="a" || e.key=="s" || e.key=="d"){
