@@ -580,13 +580,13 @@ const render = () => {
 
     ctx.font = scale + "px pixel";
     ctx.fillStyle = "white";
-    ctx.fillText("Hello World", 10, 50); 
+    ctx.fillText(`Score: ${score}`, 10, 50); 
 
-    /*if(caps){
+    if(caps){
+        ctx.font = scale * 20 + "px pixel";
         ctx.fillStyle = "red";
-        ctx.fillText("kkt", 0, 0, 100);
-        ctx.fill();
-    }*/
+        ctx.fillText("kkt", scale, (rows / 2 * scale) + scale * 4); 
+    }
 }
 
 let timer = 0;
