@@ -409,13 +409,11 @@ const matrix = [[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
                 [10,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,11]]
 
 var pacman = new Pacman()
-var blinky = new Ghost({who: "blinky", startX: 13.5, startY: 13, delay: 10, color: "#f00"})
-var pinky = new Ghost({who: "pinky", startX: 15.5, startY: 16, delay: 6000, color: "#ffc0cb"})
-var inky = new Ghost({who: "inky", startX: 11.5, startY: 16, delay: 12000, color: "#35d0d0"})
 
-//var blinky = new Ghost({who: "blinky", startX: 13.5, startY: 11, delay: 999999, color: "#f00"})
-//var inky = new Ghost({who: "inky", startX: 11.5, startY: 14, delay: 999999, color: "#35d0d0"})
-//var pinky = new Ghost({who: "pinky", startX: 15.5, startY: 14, delay: 999999, color: "#ffc0cb"})
+var blinky = new Ghost({who: "blinky", startX: 13.5, startY: 13, delay: 10, color: "#f00"})
+var pinky = new Ghost({who: "pinky", startX: 13.5, startY: 16, delay: 10, color: "#ffc0cb"})
+var inky = new Ghost({who: "inky", startX: 11.5, startY: 16, delay: 4000, color: "#35d0d0"})
+var clyde = new Ghost({who: "clyde", startX: 15.5, startY: 16, delay: 8000, color: "#f7a11d"})
 
 const drawBlock = (x, y, block, color) => {
     if(color){
@@ -553,14 +551,13 @@ const update = () => {
         blinky.timer = Date.now();
         pinky.timer = Date.now();
         inky.timer = Date.now();
+        clyde.timer = Date.now();
     }
 
     blinky.update()
     pinky.update()
     inky.update()
-
-    //console.log("pacman: " + pacmanTimer + " blinky: " + blinkyTimer + " inky: " + inkyTimer)
-
+    clyde.update()
 
     if(matrix[pacman.realY][pacman.realX] == 2){
         matrix[pacman.realY][pacman.realX] = 0;
@@ -577,6 +574,7 @@ const render = () => {
     blinky.draw()
     pinky.draw()
     inky.draw()
+    clyde.draw()
 
     ctx.font = scale + "px pixel";
     ctx.fillStyle = "white";
@@ -633,6 +631,7 @@ setInterval(() => {
         blinky.state = blinky.state == 0 ? 1 : 0;
         inky.state = inky.state == 0 ? 1 : 0;
         pinky.state = pinky.state == 0 ? 1 : 0;
+        clyde.state = clyde.state == 0 ? 1 : 0;
 
         ghostTimer = Date.now();
     }

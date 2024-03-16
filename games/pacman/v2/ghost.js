@@ -1,14 +1,18 @@
+function heuristic (pos0, pos1) {
+    var d1 = Math.pow(Math.abs(pos1.x - pos0.x), 2);
+    var d2 = Math.pow(Math.abs(pos1.y - pos0.y), 2);
+    return Math.sqrt(d1 + d2);
+}
+
 function Ghost({who, startX, startY, delay, color}){
     this.dir = 0;
     this.nextDir = 0;
     this.x = scale * startX;
     this.y = scale * startY;
-    this.realX = 0;
-    this.realY = 0;
+    this.realX = startX;
+    this.realY = startY;
     this.lastRealX = 0;
     this.lastRealY = 0;
-    this.lastPathEnd = {x: 0, y: 0};
-    this.path = [];
     this.timer = Date.now();
     this.state = 0;
     this.dest = {x: this.x, y: this.y};
@@ -121,6 +125,11 @@ function Ghost({who, startX, startY, delay, color}){
                 this.dest = pinkyDest()
                 break;
             case "clyde":
+                if(heuristic({x: this.realX, y: this.realY}, {x: pacman.realX, y: pacman.realY}) < 8){
+                    this.dest = {x: 1, y: 32};
+                } else {
+                    this.dest = {x: pacman.realX + 0.5, y: pacman.realY + 0.5};
+                }
                 break;
         }
 
