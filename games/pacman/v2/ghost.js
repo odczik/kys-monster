@@ -11,11 +11,13 @@ function Ghost({who, startX, startY, delay, color}){
     this.y = scale * startY;
     this.realX = startX;
     this.realY = startY;
-    this.lastRealX = 0;
-    this.lastRealY = 0;
     this.timer = Date.now();
     this.state = 0;
     this.dest = {x: this.x, y: this.y};
+    this.isAfraid = false;
+    this.speed = 4
+    this.paths = [];
+    this.eaten = false;
 
     const ghost = [
         [
@@ -66,7 +68,11 @@ function Ghost({who, startX, startY, delay, color}){
             row.forEach((col, colI) => {
                 switch(col){
                     case 1:
-                        ctx.fillStyle = color;
+                        if(this.isAfraid){
+                            ctx.fillStyle = "#00f";
+                        } else {
+                            ctx.fillStyle = color;
+                        }
                         break;
                     case 2:
                         ctx.fillStyle = "#fff";
@@ -92,7 +98,7 @@ function Ghost({who, startX, startY, delay, color}){
             ctx.fillStyle = color;
             ctx.fillRect(this.dest.x * scale - 10, this.dest.y * scale - 10, 20, 20);
         }
-        }
+    }
 
     const pinkyDest = () => {
         switch(pacman.dir){
@@ -111,6 +117,10 @@ function Ghost({who, startX, startY, delay, color}){
 
         this.realX = Math.round(this.x / scale);
         this.realY = Math.round(this.y / scale);
+
+        //if(this.x > this.realX * scale - 10 && this.x < this.realX * scale + 10) this.x = this.realX * scale;
+        //if(this.y > this.realY * scale - 10 && this.y < this.realY * scale + 10) this.y = this.realY * scale;
+
 
         this.dest = {x: pacman.realX + 0.5, y: pacman.realY + 0.5};
         switch(who){
@@ -132,6 +142,14 @@ function Ghost({who, startX, startY, delay, color}){
                 }
                 break;
         }
+        if(this.eaten){
+            this.dest = {x: 14, y: 16};
+            this.speed = 8;
+            if(this.realX == 14 && this.realY == 16){
+                this.eaten = false;
+                this.speed = 4;
+            }
+        }
 
         // round real position by direction
         switch(this.dir){
@@ -150,37 +168,41 @@ function Ghost({who, startX, startY, delay, color}){
         }
 
         // get available paths
-        let paths = [];
-        if(matrix[this.realY - 1][this.realX] === 0 || matrix[this.realY - 1][this.realX] === 2) paths.push(0);
-        if(matrix[this.realY][this.realX + 1] === 0 || matrix[this.realY][this.realX + 1] === 2) paths.push(1);
-        if(matrix[this.realY + 1][this.realX] === 0 || matrix[this.realY + 1][this.realX] === 2) paths.push(2);
-        if(matrix[this.realY][this.realX - 1] === 0 || matrix[this.realY][this.realX - 1] === 2) paths.push(3);
+        this.paths = [];
+        if(matrix[this.realY - 1][this.realX] === 0 || matrix[this.realY - 1][this.realX] === 2) this.paths.push(0);
+        if(matrix[this.realY][this.realX + 1] === 0 || matrix[this.realY][this.realX + 1] === 2) this.paths.push(1);
+        if(matrix[this.realY + 1][this.realX] === 0 || matrix[this.realY + 1][this.realX] === 2) this.paths.push(2);
+        if(matrix[this.realY][this.realX - 1] === 0 || matrix[this.realY][this.realX - 1] === 2) this.paths.push(3);
         // can't go back
-        paths.forEach((path, i) => {
-            if(path - 2 === this.dir || path + 2 === this.dir) paths.splice(i, 1);
+        this.paths.forEach((path, i) => {
+            if(path - 2 === this.dir || path + 2 === this.dir) this.paths.splice(i, 1);
         })
-
-        paths.forEach((path, i) => {
+        
+        this.paths.forEach((path, i) => {
             switch(path){
                 case 0: // up
-                    paths[i] = {x: this.realX, y: this.realY - 1, weight: heuristic({x: this.realX, y: this.realY - 1}, this.dest)};
-                    if((paths[i].y == 12 || paths[i].y == 24) && (paths[i].x == 12 || paths[i].x == 15)) paths.splice(i, 1);
+                    this.paths[i] = {x: this.realX, y: this.realY - 1, weight: heuristic({x: this.realX, y: this.realY - 1}, this.dest)};
+                    if((this.paths[i].y == 12 || this.paths[i].y == 24) && (this.paths[i].x == 12 || this.paths[i].x == 15)) this.paths.splice(i, 1);
                     break;
                 case 1: // right
-                    paths[i] = {x: this.realX + scale, y: this.realY, weight: heuristic({x: this.realX + 1, y: this.realY}, this.dest)};
+                    this.paths[i] = {x: this.realX + scale, y: this.realY, weight: heuristic({x: this.realX + 1, y: this.realY}, this.dest)};
                     break;
                 case 2: // down
-                    paths[i] = {x: this.realX, y: this.realY + 1, weight: heuristic({x: this.realX, y: this.realY + 1}, this.dest)};
+                    this.paths[i] = {x: this.realX, y: this.realY + 1, weight: heuristic({x: this.realX, y: this.realY + 1}, this.dest)};
                     break;
                 case 3: // left
-                    paths[i] = {x: this.realX - scale, y: this.realY, weight: heuristic({x: this.realX - 1, y: this.realY}, this.dest)};
+                    this.paths[i] = {x: this.realX - scale, y: this.realY, weight: heuristic({x: this.realX - 1, y: this.realY}, this.dest)};
                     break;
             }
         })
 
-        paths.sort((a, b) => a.weight - b.weight);
-        const nextNode = paths[0];
-        //console.log(this.realX, this.realY, this.dir, paths);
+        let nextNode;
+        if(this.isAfraid){
+            nextNode = this.paths[Math.floor(Math.random() * this.paths.length)];
+        } else {
+            this.paths.sort((a, b) => a.weight - b.weight);
+            nextNode = this.paths[0];
+        }
 
         if(nextNode){
             if(nextNode.x < this.realX) this.nextDir = 3;
@@ -220,26 +242,36 @@ function Ghost({who, startX, startY, delay, color}){
 
         if((this.x > 13.4 * scale && this.x < 13.6 * scale) && (this.realY <= 16 && this.realY >= 14)) this.dir = 0;
 
+        // Afraid
+        if(afraid && !this.isAfraid){
+            this.isAfraid = true;
+            this.dir = (this.dir + 2) % 4;
+            this.speed = 2;
+        } else if(!afraid && this.isAfraid){
+            this.isAfraid = false;
+            this.speed = 4;
+        }
+
         // movement
         switch(this.dir){
             case 0: // up
-                if(matrix[this.realY - 1][this.realX] == 0 || matrix[this.realY - 1][this.realX] == 2 || matrix[this.realY - 1][this.realX] == 34){
-                    this.y-=4;
+                if(matrix[this.realY - 1][this.realX] == 0 || matrix[this.realY - 1][this.realX] == 2 || matrix[this.realY - 1][this.realX] == 34 || matrix[this.realY - 1][this.realX] == 35){
+                    this.y-=this.speed;
                 }
                 break;
             case 1: // right
-                if(matrix[this.realY][this.realX + 1] == 0 || matrix[this.realY][this.realX + 1] == 2 || matrix[this.realY][this.realX + 1] == 34){
-                    this.x+=4;
+                if(matrix[this.realY][this.realX + 1] == 0 || matrix[this.realY][this.realX + 1] == 2 || matrix[this.realY][this.realX + 1] == 34 || matrix[this.realY][this.realX + 1] == 35){
+                    this.x+=this.speed;
                 }
                 break;
             case 2: // down
-                if(matrix[this.realY + 1][this.realX] == 0 || matrix[this.realY + 1][this.realX] == 2 || matrix[this.realY + 1][this.realX] == 34){
-                    this.y+=4;
+                if(matrix[this.realY + 1][this.realX] == 0 || matrix[this.realY + 1][this.realX] == 2 || matrix[this.realY + 1][this.realX] == 34 || matrix[this.realY + 1][this.realX] == 35){
+                    this.y+=this.speed;
                 }
                 break;
             case 3: // left
-                if(matrix[this.realY][this.realX - 1] == 0 || matrix[this.realY][this.realX - 1] == 2 || matrix[this.realY][this.realX - 1] == 34){
-                    this.x-=4;
+                if(matrix[this.realY][this.realX - 1] == 0 || matrix[this.realY][this.realX - 1] == 2 || matrix[this.realY][this.realX - 1] == 34 || matrix[this.realY][this.realX - 1] == 35){
+                    this.x-=this.speed;
                 }
                 break;
         }

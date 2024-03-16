@@ -105,7 +105,6 @@ function Pacman(){
                 rotatedPacman = rotateMatrix(pacman[this.state]);
                 break;
             case 1: // down
-                // TODO: flip vertically
                 rotatedPacman = rotateMatrix(flipMatrixVertically(pacman[this.state]));
                 break;
             case 2: // left
@@ -188,22 +187,22 @@ function Pacman(){
         // movement
         switch(this.dir){
             case 0: // up
-                if(matrix[this.realY - 1][this.realX] == 0 || matrix[this.realY - 1][this.realX] == 2){
+                if(matrix[this.realY - 1][this.realX] == 0 || matrix[this.realY - 1][this.realX] == 2 || matrix[this.realY - 1][this.realX] == 35){
                     this.y-=4;
                 }
                 break;
             case 1: // down
-                if(matrix[this.realY + 1][this.realX] == 0 || matrix[this.realY + 1][this.realX] == 2){
+                if(matrix[this.realY + 1][this.realX] == 0 || matrix[this.realY + 1][this.realX] == 2 || matrix[this.realY + 1][this.realX] == 35){
                     this.y+=4;
                 }
                 break;
             case 2: // left
-                if(matrix[this.realY][this.realX - 1] == 0 || matrix[this.realY][this.realX - 1] == 2){
+                if(matrix[this.realY][this.realX - 1] == 0 || matrix[this.realY][this.realX - 1] == 2 || matrix[this.realY][this.realX - 1] == 35){
                     this.x-=4;
                 }
                 break;
             case 3: // right
-                if(matrix[this.realY][this.realX + 1] == 0 || matrix[this.realY][this.realX + 1] == 2){
+                if(matrix[this.realY][this.realX + 1] == 0 || matrix[this.realY][this.realX + 1] == 2 || matrix[this.realY][this.realX + 1] == 35){
                     this.x+=4;
                 }
                 break;
