@@ -5,10 +5,12 @@ function heuristic (pos0, pos1) {
 }
 
 function Ghost({who, startX, startY, delay, color}){
-    this.dir = 0;
+    this.dir = 1;
     this.nextDir = 0;
     this.x = scale * startX;
     this.y = scale * startY;
+    this.lastX = this.x;
+    this.lastY = this.y;
     this.realX = startX;
     this.realY = startY;
     this.timer = Date.now();
@@ -68,7 +70,10 @@ function Ghost({who, startX, startY, delay, color}){
             row.forEach((col, colI) => {
                 switch(col){
                     case 1:
-                        if(this.isAfraid){
+                        if(this.eaten){
+                            //ctx.fillStyle = "transparent";
+                            ctx.fillStyle = "#fff";
+                        } else if(this.isAfraid){
                             ctx.fillStyle = "#00f";
                         } else {
                             ctx.fillStyle = color;
@@ -115,13 +120,26 @@ function Ghost({who, startX, startY, delay, color}){
     this.update = () => {
         if(Date.now() - this.timer < delay) return;
 
-        this.realX = Math.round(this.x / scale);
-        this.realY = Math.round(this.y / scale);
+        // round real position by direction
+        switch(this.dir){
+            case 0: // up
+                this.realY = Math.ceil(this.y / scale)
+                break;
+            case 1: // down
+                this.realY = Math.floor(this.y / scale)
+                break;
+            case 2: // left
+                this.realX = Math.ceil(this.x / scale)
+                break;
+            case 3: // right
+                this.realX = Math.floor(this.x / scale)
+                break;
+        }
 
         //if(this.x > this.realX * scale - 10 && this.x < this.realX * scale + 10) this.x = this.realX * scale;
         //if(this.y > this.realY * scale - 10 && this.y < this.realY * scale + 10) this.y = this.realY * scale;
 
-
+        // Destination based on ghost type
         this.dest = {x: pacman.realX + 0.5, y: pacman.realY + 0.5};
         switch(who){
             case "blinky":
@@ -142,8 +160,9 @@ function Ghost({who, startX, startY, delay, color}){
                 }
                 break;
         }
+        // Set dest to ghost house if eaten
         if(this.eaten){
-            this.dest = {x: 14, y: 16};
+            this.dest = {x: 13, y: 14};
             this.speed = 8;
             if(this.realX == 14 && this.realY == 16){
                 this.eaten = false;
@@ -177,7 +196,7 @@ function Ghost({who, startX, startY, delay, color}){
         this.paths.forEach((path, i) => {
             if(path - 2 === this.dir || path + 2 === this.dir) this.paths.splice(i, 1);
         })
-        
+        // Validate paths
         this.paths.forEach((path, i) => {
             switch(path){
                 case 0: // up
@@ -195,7 +214,7 @@ function Ghost({who, startX, startY, delay, color}){
                     break;
             }
         })
-
+        // Choose next node
         let nextNode;
         if(this.isAfraid){
             nextNode = this.paths[Math.floor(Math.random() * this.paths.length)];
@@ -203,7 +222,7 @@ function Ghost({who, startX, startY, delay, color}){
             this.paths.sort((a, b) => a.weight - b.weight);
             nextNode = this.paths[0];
         }
-
+        // Dir to next node
         if(nextNode){
             if(nextNode.x < this.realX) this.nextDir = 3;
             if(nextNode.x > this.realX) this.nextDir = 1;
@@ -237,13 +256,19 @@ function Ghost({who, startX, startY, delay, color}){
             }
         }
 
+        // Special cases (ghost house)
         if((this.x > 13.5 * scale && this.x < 17 * scale) && this.y == 16 * scale) this.dir = 3;
         if((this.x < 13.5 * scale && this.x > 9 * scale) && this.y == 16 * scale) this.dir = 1;
 
         if((this.x > 13.4 * scale && this.x < 13.6 * scale) && (this.realY <= 16 && this.realY >= 14)) this.dir = 0;
 
+        if(this.eaten){
+            if((this.x > 13.3 * scale && this.x < 13.7 * scale) && (this.realY <= 15 && this.realY >= 13)) this.dir = 2;
+        }
+
+
         // Afraid
-        if(afraid && !this.isAfraid){
+        if(afraid && !this.isAfraid && !this.eaten){
             this.isAfraid = true;
             this.dir = (this.dir + 2) % 4;
             this.speed = 2;
@@ -268,6 +293,7 @@ function Ghost({who, startX, startY, delay, color}){
                 if(matrix[this.realY + 1][this.realX] == 0 || matrix[this.realY + 1][this.realX] == 2 || matrix[this.realY + 1][this.realX] == 34 || matrix[this.realY + 1][this.realX] == 35){
                     this.y+=this.speed;
                 }
+                //if(this.eaten) this.y+=this.speed;
                 break;
             case 3: // left
                 if(matrix[this.realY][this.realX - 1] == 0 || matrix[this.realY][this.realX - 1] == 2 || matrix[this.realY][this.realX - 1] == 34 || matrix[this.realY][this.realX - 1] == 35){
@@ -275,12 +301,23 @@ function Ghost({who, startX, startY, delay, color}){
                 }
                 break;
         }
+
+        // If ghost gets stuck reset it's position to the nearest valid position
+        if(this.lastX == this.x && this.lastY == this.y){
+            this.x = this.realX * scale;
+            this.y = this.realY * scale;
+        }
+
+        this.lastX = this.x;
+        this.lastY = this.y;
+
+        // Tunnel
         if(this.x <= scale && this.y == 16 * scale){
-            if(this.dir == 3) this.x-=4;
+            if(this.dir == 3) this.x-=this.speed;
             if(this.x < -1 * scale) this.x = 28 * scale
         }
         if(this.x >= 27 * scale && this.y == 16 * scale){
-            if(this.dir == 1) this.x+=4;
+            if(this.dir == 1) this.x+=this.speed;
             if(this.x > 29 * scale) this.x = -1 * scale
         }
     }

@@ -5,8 +5,8 @@ function Pacman(){
     this.y = scale * 25;
     this.lastX = scale * 13.5;
     this.lastY = scale * 25;
-    this.realX = 0;
-    this.realY = 0;
+    this.realX = 13.5;
+    this.realY = 25;
     this.state = 2;
     this.stateChange = 0;
 
@@ -133,8 +133,6 @@ function Pacman(){
     }
 
     this.update = () => {
-        this.realX = Math.round(this.x / scale);
-        this.realY = Math.round(this.y / scale);
 
         // round real position by direction
         switch(this.dir){
@@ -149,6 +147,10 @@ function Pacman(){
                 break;
             case 3: // right
                 this.realX = Math.floor(this.x / scale)
+                break;
+            default:
+                this.realX = Math.round(this.x / scale);
+                this.realY = Math.round(this.y / scale);
                 break;
         }
 
