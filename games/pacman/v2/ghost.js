@@ -164,7 +164,7 @@ function Ghost({who, startX, startY, delay, color}){
         if(this.eaten){
             this.dest = {x: 13, y: 14};
             this.speed = 8;
-            if(this.realX == 14 && this.realY == 16){
+            if(this.realX == 14 && this.realY == 15){
                 this.eaten = false;
                 this.speed = 4;
             }
@@ -319,6 +319,12 @@ function Ghost({who, startX, startY, delay, color}){
         if(this.x >= 27 * scale && this.y == 16 * scale){
             if(this.dir == 1) this.x+=this.speed;
             if(this.x > 29 * scale) this.x = -1 * scale
+        }
+
+        // While eaten reset it's position to the nearest whole position
+        if(this.eaten){
+            if(this.x - this.realX * scale > -4 && this.x - this.realX * scale < 4) this.x = this.realX * scale;
+            if(this.y - this.realY * scale > -4 && this.y - this.realY * scale < 4) this.y = this.realY * scale;
         }
     }
 }
