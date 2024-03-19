@@ -1,0 +1,46 @@
+body{
+    text-align: center;
+    background-color: rgb(60,60,60);
+}
+h1{
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 3.5em;
+    margin-top: 4em;
+    color: white;
+}
+hr{
+    border: none;
+    height: 10px;
+    background-color: white;
+}
+.kostky{
+    font-weight: bold;
+    font-family: 'Courier New', Courier, monospace;
+    position: absolute;
+    margin-top: 5em;
+    font-size: 5em;
+    color: white;
+    width: 40%;
+}
+#kostka1{
+    text-align: left;
+    margin-left: 52%;
+}
+#kostka2{
+    text-align: right;
+    margin-left: 8%;
+}
+#start{
+    margin-top: 1.5em;
+    font-size: 2em;
+    border-radius: 15px;
+    padding: 0.5em;
+    font-family: 'Courier New', Courier, monospace;
+    font-weight: bold;
+}
+#start:hover{
+    transition: 1s;
+    background-color: black;
+    border: solid white 2px;
+    color: white;
+}
