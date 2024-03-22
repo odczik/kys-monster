@@ -1,0 +1,19 @@
+div{
+    color: white;
+    font-weight: bold;
+    font-size: 2em;
+    margin-left: 2em;
+}
+body{
+    background-color: rgb(75,75,75);
+}
+main{
+    text-align: center;
+    margin-top: 150px;
+}
+canvas{
+    background-color: black;
+    align-items: center;
+    border: 10px darkred solid;
+    border-radius: 5px;
+}
