@@ -65,7 +65,7 @@ var matrix = [
 
 // ctx.fillRect(loc.x, loc.y, block, block)
 var last_level = performance.now()
-var pause = truek
+var pause = true
 update_window(SHAPE)
 function gap_right(){
     if(SHAPE[0][3]==0 && SHAPE[1][3]==0 && SHAPE[2][3]==0 && SHAPE[3][3]==0){
