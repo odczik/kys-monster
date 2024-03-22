@@ -9,6 +9,7 @@ function Pacman(){
     this.realY = 25;
     this.state = 2;
     this.stateChange = 0;
+    this.dead = 0;
 
     const pacman = [
         [
@@ -133,6 +134,7 @@ function Pacman(){
     }
 
     this.update = () => {
+        if(this.dead) return;
 
         // round real position by direction
         switch(this.dir){
