@@ -202,7 +202,8 @@ const update = () => {
             if(afraid){
                 ghost.eaten = true;
             } else {
-                console.log("You died");
+                pacman.dead = true;
+                console.log("kys ty mocko");
             }
         }
     })
