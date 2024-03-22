@@ -248,6 +248,10 @@ setInterval(() => {
 let pacmanTimer = 0;
 setInterval(() => {
     if(Date.now() - pacmanTimer >= 1000 / 36){
+        if(pacman.dead){
+            pacman.state = 0;
+            return;
+        }
 
         if(pacman.x == pacman.lastX && pacman.y == pacman.lastY) return;
 
