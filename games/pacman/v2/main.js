@@ -6,7 +6,10 @@ const scale = 40
 
 let started = false;
 let afraid = false;
+let scatter = false;
 let powerPelletTimer = false;
+
+let dotsLeft;
 
 let showDebug = false;
 let caps = false;
@@ -215,10 +218,9 @@ const render = () => {
 
     pacman.draw()
 
-    blinky.draw()
-    pinky.draw()
-    inky.draw()
-    clyde.draw()
+    ghosts.forEach(ghost => {
+        ghost.draw();
+    })
 
     ctx.font = scale + "px pixel";
     ctx.fillStyle = "white";
@@ -276,10 +278,9 @@ let ghostTimer = 0;
 setInterval(() => {
     if(Date.now() - ghostTimer >= 1000 / 12){
 
-        blinky.state = blinky.state == 0 ? 1 : 0;
-        inky.state = inky.state == 0 ? 1 : 0;
-        pinky.state = pinky.state == 0 ? 1 : 0;
-        clyde.state = clyde.state == 0 ? 1 : 0;
+        ghosts.forEach(ghost => {
+            ghost.skin = ghost.skin == 0 ? 1 : 0;
+        })
 
         ghostTimer = Date.now();
     }
@@ -287,17 +288,28 @@ setInterval(() => {
 
 setInterval(() => {
     let scoreFromPellets = 0;
+    let tmpDotsLeft = 0;
     matrix.forEach((row, rowI) => {
         row.forEach((col, colI) => {
+            if(col == 2 || col == 35) tmpDotsLeft++;
             if(referenceMatrix[rowI][colI] == 2 && matrix[rowI][colI] == 0) scoreFromPellets+=10;
             if(referenceMatrix[rowI][colI] == 35 && matrix[rowI][colI] == 0) scoreFromPellets+=50;
         })
     })
+    dotsLeft = tmpDotsLeft;
     if(score != scoreFromPellets){
         score = scoreFromPellets;
         console.log("Don't do that");
     }
 }, 100);
+
+setInterval(() => {
+    while(!started){}
+    scatter = true;
+    setTimeout(() => {
+        scatter = false;
+    }, 7000)
+}, 20000);
 
 
 setInterval(() => {

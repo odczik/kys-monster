@@ -14,9 +14,10 @@ function Ghost({who, startX, startY, delay, color}){
     this.realX = startX;
     this.realY = startY;
     this.timer = Date.now();
-    this.state = 0;
+    this.skin = 0;
     this.dest = {x: this.x, y: this.y};
     this.isAfraid = false;
+    this.isScatter = false;
     this.speed = 4
     this.paths = [];
     this.eaten = false;
@@ -66,7 +67,7 @@ function Ghost({who, startX, startY, delay, color}){
     }
 
     const drawGhost = (x, y, color) => {
-        ghost[this.state].forEach((row, rowI) => {
+        ghost[this.skin].forEach((row, rowI) => {
             row.forEach((col, colI) => {
                 switch(col){
                     case 1:
@@ -167,6 +168,25 @@ function Ghost({who, startX, startY, delay, color}){
             if(this.realX == 14 && this.realY == 15){
                 this.eaten = false;
                 this.speed = 4;
+            }
+        }
+        // Set dest to scatter destination of each ghost if scatter mode
+        if(scatter){
+            switch(who){
+                case "blinky":
+                    if(dotsLeft > 80) {
+                        this.dest = {x: 27, y: 1};
+                    }
+                    break;
+                case "inky":
+                    this.dest = {x: 27, y: 32};
+                    break;
+                case "pinky":
+                    this.dest = {x: 1, y: 1};
+                    break;
+                case "clyde":
+                    this.dest = {x: 1, y: 32};
+                    break;
             }
         }
 
@@ -275,6 +295,15 @@ function Ghost({who, startX, startY, delay, color}){
         } else if(!afraid && this.isAfraid){
             this.isAfraid = false;
             this.speed = 4;
+        }
+
+        // Scatter
+        if(scatter && !this.isScatter && !this.eaten){
+            this.isScatter = true;
+            this.dir = (this.dir + 2) % 4;
+        } else if(!scatter && this.isScatter){
+            this.isScatter = false;
+            this.dir = (this.dir + 2) % 4;
         }
 
         // movement
