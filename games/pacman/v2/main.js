@@ -204,7 +204,7 @@ const update = () => {
         if(pacman.realX == ghost.realX && pacman.realY == ghost.realY){
             if(afraid){
                 ghost.eaten = true;
-            } else {
+            } else if(!ghost.eaten){
                 pacman.dead = true;
                 console.log("kys ty mocko");
             }
