@@ -172,13 +172,16 @@ const drawMap = () => {
     })
 }
 
-const updateRGB = () => {
-    console.log("rgb");
-}
+let color = 0;
+setInterval(() => {
+    if(!rgb) return document.body.style.backgroundColor = "black";
+    // cycle through colors
+    document.body.style.backgroundColor = "hsl(" + color + ", 100%, 50%)";
+    color+=3;
+    if(color >= 360) color = 0;
+}, 1000 / 60)
 
 const update = () => {
-    updateRGB();
-    
     pacman.update()
 
     if(!started){
