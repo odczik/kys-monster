@@ -172,8 +172,8 @@ const drawMap = () => {
     })
 }
 
-const updateRGB(){
-
+const updateRGB = () => {
+    console.log("rgb");
 }
 
 const update = () => {
