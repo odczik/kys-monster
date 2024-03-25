@@ -314,7 +314,7 @@ setInterval(() => {
 }, 100);
 
 setInterval(() => {
-    while(!started){}
+    if(!started) return;
     scatter = true;
     setTimeout(() => {
         scatter = false;
