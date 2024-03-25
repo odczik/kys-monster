@@ -13,6 +13,7 @@ let dotsLeft;
 
 let showDebug = false;
 let caps = false;
+let rgb = false;
 
 canvas.height = 33 * scale
 canvas.width = 28 * scale
@@ -171,7 +172,13 @@ const drawMap = () => {
     })
 }
 
+const updateRGB(){
+
+}
+
 const update = () => {
+    updateRGB();
+    
     pacman.update()
 
     if(!started){
@@ -344,6 +351,9 @@ window.addEventListener("keydown", (e) => {
     }
     if(e.key == "e"){
         showDebug = !showDebug;
+    }
+    if(e.key == "r"){
+        rgb = !rgb;
     }
     if(e.getModifierState("CapsLock")){
        caps = true;
