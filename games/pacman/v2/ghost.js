@@ -318,7 +318,7 @@ function Ghost({who, startX, startY, delay, color}){
         })
         // Choose next node
         let nextNode;
-        if(this.isAfraid){
+        if(this.isAfraid && !this.eaten){
             nextNode = this.paths[Math.floor(Math.random() * this.paths.length)];
         } else {
             this.paths.sort((a, b) => a.weight - b.weight);
