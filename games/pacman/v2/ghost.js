@@ -242,15 +242,6 @@ function Ghost({who, startX, startY, delay, color}){
                 }
                 break;
         }
-        // Set dest to ghost house if eaten
-        if(this.eaten){
-            this.dest = {x: 13, y: 14};
-            this.speed = 8;
-            if(this.realX == 14 && this.realY == 15){
-                this.eaten = false;
-                this.speed = 4;
-            }
-        }
         // Set dest to scatter destination of each ghost if scatter mode
         if(scatter){
             switch(who){
@@ -268,6 +259,16 @@ function Ghost({who, startX, startY, delay, color}){
                 case "clyde":
                     this.dest = {x: 1, y: 32};
                     break;
+            }
+        }
+        
+        // Set dest to ghost house if eaten
+        if(this.eaten){
+            this.dest = {x: 13, y: 14};
+            this.speed = 8;
+            if(this.realX == 14 && this.realY == 15){
+                this.eaten = false;
+                this.speed = 4;
             }
         }
 
