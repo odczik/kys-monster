@@ -17,7 +17,7 @@ function Paddle({side}){
     this.update = () => {
         if(!ball.started) return;
 
-        if(this.ai && ball.xDir){
+        if(this.ai && ball.xDir && ball.x > canvas.width / 2){
             if(ball.y + scale > this.y + this.height / 2){
                 this.y += speed;
             } else {
