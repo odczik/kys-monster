@@ -251,6 +251,7 @@ setInterval(() => {
         update();
         render();
         updateTook = Date.now() - updateTook;
+        document.getElementById("updateTook").innerText = "Update took: " + updateTook + "ms";
         //console.log("Update took: " + updateTook + "ms");
 
         timer = Date.now();
