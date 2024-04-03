@@ -328,6 +328,7 @@ setInterval(() => {
 }, 200);
 
 window.addEventListener("keydown", (e) => {
+    e.key.ToLowerCase
     if(e.key.includes("Arrow") || e.key=="w" || e.key=="a" || e.key=="s" || e.key=="d"){
         let direction = e.key.replace("Arrow", "")
         switch(direction){
