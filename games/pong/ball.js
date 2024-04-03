@@ -20,7 +20,7 @@ function Ball(){
         ctx.moveTo(this.center.x, this.center.y);
         ctx.lineTo(
             this.xDir ? this.center.x + (canvas.width - this.center.x) / 2 : this.center.x - (canvas.width - this.center.x) / 2,
-            this.yDir ? this.center.y + (canvas.height - this.center.y) / 2 : this.center.y - (canvas.height - this.center.y) / 2
+            this.yDir ? this.center.y + (canvas.height - this.center.y) : this.center.y - (canvas.height - this.center.y)
         )
         ctx.stroke();
         ctx.closePath();
