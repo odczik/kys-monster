@@ -5,14 +5,31 @@ function Ball(){
     this.yDir = Math.round(Math.random());
     this.started = false;
     this.speed = speed * 1.5;
+    this.center = {
+        x: this.x + scale / 2,
+        y: this.y + scale / 2
+    };
 
     this.draw = () => {
         ctx.fillStyle = 'white';
         ctx.fillRect(this.x, this.y, scale, scale);
+
+        ctx.strokeStyle = "red";
+        ctx.moveTo(this.x, this.y);
+        ctx.lineTo(
+            this.xDir ? canvas.width + (canvas.width - this.center.x) : canvas.width - (canvas.width - this.center.x),
+            this.yDir ? canvas.height + (canvas.height - this.center.y) : canvas.height - (canvas.height - this.center.y)
+        )
+        ctx.stroke();
     }
 
     this.update = () => {
         if(!this.started) return;
+
+        this.center = {
+            x: this.x + scale / 2,
+            y: this.y + scale / 2
+        };
 
         if(this.x + scale < 0){
             this.reset()
