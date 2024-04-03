@@ -4,7 +4,7 @@ function Ball(){
     this.xDir = Math.round(Math.random());
     this.yDir = Math.round(Math.random());
     this.started = false;
-    this.speed = speed * 1.5;
+    this.speed = speed;
     this.center = {
         x: this.x + scale / 2,
         y: this.y + scale / 2
