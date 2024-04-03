@@ -19,7 +19,7 @@ function Ball(){
         ctx.strokeStyle = "red";
         ctx.moveTo(this.center.x, this.center.y);
         ctx.lineTo(
-            this.xDir ? this.center.x * 2 : this.center.x * -2,
+            this.xDir ? this.center.y * 2 : (canvas.height - this.center.y) * -2,
             this.yDir ? canvas.height : 0
         )
         ctx.stroke();
