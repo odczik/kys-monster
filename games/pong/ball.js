@@ -1,13 +1,10 @@
 function Ball(){
-    this.x = canvas.width/2;
-    this.y = canvas.height/2;
-    //this.xDir = Math.round(Math.random());
-    //this.yDir = Math.round(Math.random());
-    this.xDir = 1;
-    this.yDir = 1;
+    this.x = canvas.width / 2 - scale / 2;
+    this.y = canvas.height / 2 - scale / 2;
+    this.xDir = Math.round(Math.random());
+    this.yDir = Math.round(Math.random());
     this.started = false;
-    //this.speed = speed * 1.5;
-    this.speed = speed * 0.5;
+    this.speed = speed * 1.5;
     this.center = {
         x: this.x + scale / 2,
         y: this.y + scale / 2
@@ -15,16 +12,19 @@ function Ball(){
     this.bouncePoint = {
         x: this.x,
         y: this.y
-    }
+    };
     this.dest = {
         x: this.x,
         y: this.y
-    }
+    };
+    this.interceptPoint = {};
 
     this.draw = () => {
         ctx.fillStyle = 'white';
         ctx.fillRect(this.x, this.y, scale, scale);
 
+        if(!debug) return;
+        
         ctx.beginPath();
         ctx.lineWidth = scale / 10;
         ctx.strokeStyle = "red";
@@ -33,6 +33,9 @@ function Ball(){
         ctx.lineTo(this.dest.x, this.dest.y);
         ctx.stroke();
         ctx.closePath();
+        
+        ctx.fillStyle = 'green';
+        ctx.fillRect(this.interceptPoint.x - scale / 4, this.interceptPoint.y - scale / 4, scale / 2, scale / 2);
     }
 
     this.update = () => {
@@ -53,24 +56,19 @@ function Ball(){
             x: (this.bouncePoint.x - (this.center.x - this.bouncePoint.x)) + (this.xDir ? distToClosestWall : -distToClosestWall),
             y: this.yDir ? 0 : canvas.height
         };
-        /*let tmpBall;
-        tmpBall = {
-            x: this.center.x,
-            y: this.center.y,
-            xDir: this.xDir,
-            yDir: !this.yDir
-        };
-        for(let i = 0; i < canvas.width / this.speed; i++){
-            tmpBall.xDir ? tmpBall.x += this.speed : tmpBall.x -= this.speed;
-            tmpBall.yDir ? tmpBall.y += this.speed : tmpBall.y -= this.speed;
-
-            if(tmpBall.y <= 0 || tmpBall.y >= canvas.height - scale) return;
-
-            if(tmpBall.x >= paddle2.x){
-                this.dest.x = tmpBall.x;
-                this.dest.y = tmpBall.y;
+        if(this.xDir){
+            if(!this.interceptPoint.y){
+                if(this.bouncePoint.x < paddle2.x){
+                    this.interceptPoint = {
+                        x: paddle2.x,
+                        y: this.bouncePoint.y + ((this.dest.y - this.bouncePoint.y) / (this.dest.x - this.bouncePoint.x)) * (paddle2.x - this.bouncePoint.x)
+                    }
+                }
             }
-        }*/
+        } else {
+            this.interceptPoint = {};
+        }
+        console.log(this.bouncePoint, this.dest, this.interceptPoint)
 
         if(this.x + scale < 0){
             this.reset()

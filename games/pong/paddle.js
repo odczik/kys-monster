@@ -4,7 +4,7 @@ function Paddle({side}){
     this.x = side == "left" ? scale : canvas.width - scale * 2;
     this.y = canvas.height / 2 - this.height / 2;
     this.score = 0;
-    this.ai = side == "left" ? 0 : 1;
+    this.ai = side == "left" ? 0 : "smart";
     this.speed = speed
 
     this.draw = () => {
@@ -24,10 +24,17 @@ function Paddle({side}){
         if(keysDown.includes("ArrowUp") && side == "right") this.y -= this.speed;
         if(keysDown.includes("ArrowDown") && side == "right") this.y += this.speed;
 
-        if(this.ai && ball.xDir){
+        if(this.ai == "dumb" && ball.xDir){
             if(ball.y + scale > this.y + this.height / 2){
                 this.y += this.speed;
             } else {
+                this.y -= this.speed;
+            }
+        }
+        if(this.ai == "smart" && ball.xDir){
+            if(this.y + this.height / 2 < ball.interceptPoint.y - speed / 2){
+                this.y += this.speed;
+            } else if(this.y + this.height / 2 > ball.interceptPoint.y + speed / 2){
                 this.y -= this.speed;
             }
         }

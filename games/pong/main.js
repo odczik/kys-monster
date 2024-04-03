@@ -8,6 +8,7 @@ canvas.height = 20 * scale
 canvas.width = 30 * scale
 
 let keysDown = [];
+let debug = false;
 let caps = false;
 
 var speed = scale / 10;
@@ -35,25 +36,9 @@ setTimeout(() => {
 }, 1000);
 
 window.addEventListener("keydown", (e) => {
-    /*if(e.key.includes("Arrow") || e.key=="w" || e.key=="a" || e.key=="s" || e.key=="d"){
-        let direction = e.key.replace("Arrow", "")
-        switch(direction){
-            case "w":
-                paddle1.y -= speed * 2;
-                break;
-            case "s":
-                paddle1.y += speed * 2;
-                break;
-            case "Up":
-                paddle2.ai = 0;
-                paddle2.y -= speed * 2;
-                break;
-            case "Down":
-                paddle2.ai = 0;
-                paddle2.y += speed * 2;
-                break;
-        }
-    }*/
+    if(e.key == "e"){
+        debug = !debug;
+    }
     if(e.getModifierState("CapsLock")){
        caps = true;
     } else {
