@@ -5,6 +5,7 @@ function Paddle({side}){
     this.y = canvas.height / 2 - this.height / 2;
     this.score = 0;
     this.ai = side == "left" ? 0 : 1;
+    this.speed = speed
 
     this.draw = () => {
         ctx.fillStyle = 'white';
@@ -17,17 +18,17 @@ function Paddle({side}){
     this.update = () => {
         if(!ball.started) return;
 
-        if(keysDown.includes("w") && side == "left") this.y -= speed;
-        if(keysDown.includes("s") && side == "left") this.y += speed;
+        if(keysDown.includes("w") && side == "left") this.y -= this.speed;
+        if(keysDown.includes("s") && side == "left") this.y += this.speed;
 
-        if(keysDown.includes("ArrowUp") && side == "right") this.y -= speed;
-        if(keysDown.includes("ArrowDown") && side == "right") this.y += speed;
+        if(keysDown.includes("ArrowUp") && side == "right") this.y -= this.speed;
+        if(keysDown.includes("ArrowDown") && side == "right") this.y += this.speed;
 
         if(this.ai && ball.xDir && ball.x > canvas.width / 2){
             if(ball.y + scale > this.y + this.height / 2){
-                this.y += speed;
+                this.y += this.speed;
             } else {
-                this.y -= speed;
+                this.y -= this.speed;
             }
         }
 
