@@ -38,6 +38,13 @@ function Paddle({side}){
                 this.y -= this.speed;
             }
         }
+        if(this.ai && !ball.xDir){
+            if(this.y + this.height / 2 < canvas.height / 2){
+                this.y += this.speed;
+            } else if(this.y + this.height / 2 > canvas.height / 2){
+                this.y -= this.speed;
+            }
+        }
 
         if(this.y < 0){
             this.y = 0;
