@@ -15,6 +15,7 @@ function Ball(){
         ctx.fillRect(this.x, this.y, scale, scale);
 
         ctx.beginPath();
+        ctx.lineWidth = scale / 10;
         ctx.strokeStyle = "red";
         ctx.moveTo(this.center.x, this.center.y);
         ctx.lineTo(
