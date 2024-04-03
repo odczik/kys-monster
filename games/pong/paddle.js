@@ -17,6 +17,12 @@ function Paddle({side}){
     this.update = () => {
         if(!ball.started) return;
 
+        if(keysDown.includes("w") && side == "left") this.y -= speed;
+        if(keysDown.includes("s") && side == "left") this.y += speed;
+
+        if(keysDown.includes("ArrowUp") && side == "right") this.y -= speed;
+        if(keysDown.includes("ArrowDown") && side == "right") this.y += speed;
+
         if(this.ai && ball.xDir && ball.x > canvas.width / 2){
             if(ball.y + scale > this.y + this.height / 2){
                 this.y += speed;
