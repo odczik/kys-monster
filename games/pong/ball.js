@@ -1,14 +1,25 @@
 function Ball(){
     this.x = canvas.width/2;
     this.y = canvas.height/2;
-    this.xDir = Math.round(Math.random());
-    this.yDir = Math.round(Math.random());
+    //this.xDir = Math.round(Math.random());
+    //this.yDir = Math.round(Math.random());
+    this.xDir = 1;
+    this.yDir = 1;
     this.started = false;
-    this.speed = speed * 1.5;
+    //this.speed = speed * 1.5;
+    this.speed = speed * 0.5;
     this.center = {
         x: this.x + scale / 2,
         y: this.y + scale / 2
     };
+    this.bouncePoint = {
+        x: this.x,
+        y: this.y
+    }
+    this.dest = {
+        x: this.x,
+        y: this.y
+    }
 
     this.draw = () => {
         ctx.fillStyle = 'white';
@@ -18,10 +29,8 @@ function Ball(){
         ctx.lineWidth = scale / 10;
         ctx.strokeStyle = "red";
         ctx.moveTo(this.center.x, this.center.y);
-        ctx.lineTo(
-            this.xDir ? this.center.y * 2 : (canvas.height - this.center.y) * -2,
-            this.yDir ? canvas.height : 0
-        )
+        ctx.lineTo(this.bouncePoint.x, this.bouncePoint.y);
+        ctx.lineTo(this.dest.x, this.dest.y);
         ctx.stroke();
         ctx.closePath();
     }
@@ -33,6 +42,35 @@ function Ball(){
             x: this.x + scale / 2,
             y: this.y + scale / 2
         };
+
+        let headingFor = this.yDir ? canvas.height - this.center.y : this.center.y;
+        this.bouncePoint = {
+            x: this.xDir ? this.center.x + headingFor : this.center.x - headingFor,
+            y: this.yDir ? canvas.height : 0
+        };
+        let distToClosestWall = this.yDir ? this.center.y : canvas.height - this.center.y;
+        this.dest = {
+            x: (this.bouncePoint.x - (this.center.x - this.bouncePoint.x)) + (this.xDir ? distToClosestWall : -distToClosestWall),
+            y: this.yDir ? 0 : canvas.height
+        };
+        /*let tmpBall;
+        tmpBall = {
+            x: this.center.x,
+            y: this.center.y,
+            xDir: this.xDir,
+            yDir: !this.yDir
+        };
+        for(let i = 0; i < canvas.width / this.speed; i++){
+            tmpBall.xDir ? tmpBall.x += this.speed : tmpBall.x -= this.speed;
+            tmpBall.yDir ? tmpBall.y += this.speed : tmpBall.y -= this.speed;
+
+            if(tmpBall.y <= 0 || tmpBall.y >= canvas.height - scale) return;
+
+            if(tmpBall.x >= paddle2.x){
+                this.dest.x = tmpBall.x;
+                this.dest.y = tmpBall.y;
+            }
+        }*/
 
         if(this.x + scale < 0){
             this.reset()
