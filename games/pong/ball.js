@@ -14,6 +14,7 @@ function Ball(){
         ctx.fillStyle = 'white';
         ctx.fillRect(this.x, this.y, scale, scale);
 
+        ctx.beginPath();
         ctx.strokeStyle = "red";
         ctx.moveTo(this.center.x, this.center.y);
         ctx.lineTo(
@@ -21,6 +22,7 @@ function Ball(){
             this.yDir ? this.center.y + (canvas.height - this.center.y) / 2 : this.center.y - (canvas.height - this.center.y) / 2
         )
         ctx.stroke();
+        ctx.closePath();
     }
 
     this.update = () => {
