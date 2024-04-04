@@ -57,23 +57,25 @@ document.getElementById("debugCheckbox").addEventListener("change", e => {
 })
 
 window.addEventListener("touchstart", e => {
-    let left;
-    let top;
-    if(e.touches[0].clientX < window.innerWidth / 2){
-        left = true;
-    } else {
-        left = false;
-    }
-    if(e.touches[0].clientY < window.innerHeight / 2){
-        top = true;
-    } else {
-        top = false;
-    }
-    
-    if(left && top) keysDown["w"] = true;
-    if(left && !top) keysDown["s"] = true;
-    if(!left && top){ keysDown["arrowup"] = true; paddle2.ai = false; }
-    if(!left && !top){ keysDown["arrowdown"] = true; paddle2.ai = false; }
+    e.touches.forEach(touch => {
+        let left;
+        let top;
+        if(touch.clientX < window.innerWidth / 2){
+            left = true;
+        } else {
+            left = false;
+        }
+        if(touch.clientY < window.innerHeight / 2){
+            top = true;
+        } else {
+            top = false;
+        }
+        
+        if(left && top) keysDown["w"] = true;
+        if(left && !top) keysDown["s"] = true;
+        if(!left && top){ keysDown["arrowup"] = true; paddle2.ai = false; }
+        if(!left && !top){ keysDown["arrowdown"] = true; paddle2.ai = false; } 
+    })
 })
 window.addEventListener("touchend", e => {
     let left;
