@@ -18,11 +18,11 @@ function Paddle({side}){
     this.update = () => {
         if(!ball.started) return;
 
-        if(keysDown.includes("w") && side == "left") this.y -= this.speed;
-        if(keysDown.includes("s") && side == "left") this.y += this.speed;
+        if(keysDown["w"] && side == "left") this.y -= this.speed;
+        if(keysDown["s"] && side == "left") this.y += this.speed;
 
-        if(keysDown.includes("arrowup") && side == "right") this.y -= this.speed;
-        if(keysDown.includes("arrowdown") && side == "right") this.y += this.speed;
+        if(keysDown["arrowup"] && side == "right") this.y -= this.speed;
+        if(keysDown["arrowdown"] && side == "right") this.y += this.speed;
 
         if(this.ai == "dumb" && ball.xDir){
             if(ball.y + scale > this.y + this.height / 2){

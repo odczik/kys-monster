@@ -7,7 +7,7 @@ const scale = 30
 canvas.height = 20 * scale
 canvas.width = 30 * scale
 
-let keysDown = [];
+let keysDown = {};
 let debug = false;
 let caps = false;
 
@@ -37,23 +37,16 @@ setTimeout(() => {
     ball.started = true;
 }, 1000);
 
-window.addEventListener("keydown", (e) => {
+window.onkeyup = function(e) {
+    keysDown[e.key.toLowerCase()] = false;
+    if(e.key.includes("Arrow")) paddle2.ai = false;
+}
+window.onkeydown = function(e) {
+    keysDown[e.key.toLowerCase()] = true;
     if(e.key == "e"){
         debug = !debug;
     }
-    if(e.getModifierState("CapsLock")){
-       caps = true;
-    } else {
-        caps = false;
-    }
-})
-window.addEventListener("keydown", e => {
-    if(!keysDown.includes(e.key.toLowerCase())) keysDown.push(e.key.toLowerCase());
-    if(e.key.includes("Arrow")) paddle2.ai = false;
-})
-window.addEventListener("keyup", e => {
-    keysDown.pop(e.key.toLowerCase());
-})
+}
 
 let timer = 0;
 setInterval(() => {
