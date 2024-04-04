@@ -78,8 +78,6 @@ window.addEventListener("touchstart", e => {
     })
 })
 window.addEventListener("touchend", e => {
-    let left;
-    let top;
     if(e.changedTouches[0].clientX < window.innerWidth / 2){
         left = true;
     } else {
