@@ -21,8 +21,8 @@ function Paddle({side}){
         if(keysDown.includes("w") && side == "left") this.y -= this.speed;
         if(keysDown.includes("s") && side == "left") this.y += this.speed;
 
-        if(keysDown.includes("ArrowUp") && side == "right") this.y -= this.speed;
-        if(keysDown.includes("ArrowDown") && side == "right") this.y += this.speed;
+        if(keysDown.includes("arrowup") && side == "right") this.y -= this.speed;
+        if(keysDown.includes("arrowdown") && side == "right") this.y += this.speed;
 
         if(this.ai == "dumb" && ball.xDir){
             if(ball.y + scale > this.y + this.height / 2){
