@@ -52,23 +52,16 @@ window.addEventListener("keydown", e => {
 window.addEventListener("touchstart", e => {
     let left;
     let top;
-    if(e.touches[0].clientX < window.screen.width / 2){
+    if(e.touches[0].clientX < window.innerWidth / 2){
         left = true;
     } else {
         left = false;
     }
-    if(e.touches[0].clientY < window.screen.height / 2){
+    if(e.touches[0].clientY < window.innerHeight / 2){
         top = true;
     } else {
         top = false;
     }
-
-    document.getElementById("txt").innerText = `
-        touch clientX: ${e.touches[0].clientX}
-        touch clientY: ${e.touches[0].clientY}
-        window width: ${window.screen.width}
-        window height: ${window.screen.height}
-    `;
     
     if(left && top) keysDown["w"] = true;
     if(left && !top) keysDown["s"] = true;
@@ -78,12 +71,12 @@ window.addEventListener("touchstart", e => {
 window.addEventListener("touchend", e => {
     let left;
     let top;
-    if(e.changedTouches[0].clientX < window.screen.width / 2){
+    if(e.changedTouches[0].clientX < window.innerWidth / 2){
         left = true;
     } else {
         left = false;
     }
-    if(e.changedTouches[0].clientY < window.screen.height / 2){
+    if(e.changedTouches[0].clientY < window.innerHeight / 2){
         top = true;
     } else {
         top = false;
