@@ -50,6 +50,8 @@ window.addEventListener("keydown", e => {
 })
 
 window.addEventListener("touchstart", e => {
+    e.returnValue = false;
+
     let left;
     let top;
     if(e.touches[0].clientX < window.screen.width / 2){
