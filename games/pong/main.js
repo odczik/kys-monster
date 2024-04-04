@@ -46,7 +46,7 @@ window.addEventListener("keydown", (e) => {
     }
 })
 window.addEventListener("keydown", e => {
-    if(!keysDown.includes(e.key)) keysDown.push(e.key);
+    if(!keysDown.includes(e.key)) keysDown.push(e.key.toLowerCase());
     if(e.key.includes("Arrow")) paddle2.ai = false;
 })
 window.addEventListener("keyup", e => {
