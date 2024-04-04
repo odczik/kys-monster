@@ -33,10 +33,10 @@ const update = () => {
 
     window.requestAnimationFrame(update)
     frames++;
-
-    //console.log(keysDown)
 }
 update();
+
+// fps counter
 let frameTimer = 1;
 setInterval(() => {
     const fps = frames / frameTimer;
@@ -57,7 +57,7 @@ setTimeout(() => {
     ball.started = true;
 }, 1000);
 
-
+// Key handling
 window.addEventListener("keyup", e => {
     keysDown[e.key.toLowerCase()] = false;
     if(e.key.includes("Arrow")) paddle2.ai = false;
@@ -76,6 +76,7 @@ document.getElementById("debugCheckbox").addEventListener("change", e => {
     }
 })
 
+// Prevent bullshit on long press
 document.addEventListener('touchstart', function(event) {
     // Check if the target element is not a checkbox
     if (event.target.type !== 'checkbox') {
@@ -84,6 +85,7 @@ document.addEventListener('touchstart', function(event) {
     }
 }, { passive: false });
 
+// Touch handling
 window.addEventListener("touchstart", e => {
     e.preventDefault();
     let left;
@@ -125,12 +127,3 @@ window.addEventListener("touchend", e => {
     if(!left && top) keysDown["arrowup"] = false;
     if(!left && !top) keysDown["arrowdown"] = false;
 })
-
-
-/*let timer = 0;
-setInterval(() => {
-    if(Date.now() - timer > 1000 / 120){
-        update()
-        timer = Date.now()
-    }
-}, 1)*/
