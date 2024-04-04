@@ -50,7 +50,7 @@ window.addEventListener("keydown", e => {
     if(e.key.includes("Arrow")) paddle2.ai = false;
 })
 window.addEventListener("keyup", e => {
-    keysDown.pop(e.key);
+    keysDown.pop(e.key.toLowerCase());
 })
 
 let timer = 0;
