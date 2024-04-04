@@ -39,7 +39,7 @@ update();
 // fps counter
 let frameTimer = 1;
 setInterval(() => {
-    const fps = frames / frameTimer;
+    const fps = (frames / frameTimer).toFixed(2);
     document.getElementById("fps").innerText = fps + " fps";
     if(fps < 35){
         speed = defaultSpeed * 2;
