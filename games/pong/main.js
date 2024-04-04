@@ -56,8 +56,8 @@ document.getElementById("debugCheckbox").addEventListener("change", e => {
     }
 })
 
-let left;
-let top;
+let left = 0;
+let top = 0;
 window.addEventListener("touchstart", e => {
     e.touches.forEach(touch => {
         if(touch.clientX < window.innerWidth / 2){
