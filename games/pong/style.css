@@ -18,6 +18,12 @@ canvas {
     max-width: 97dvw;
     max-height: 97dvh;
     transform: translate(-50%, -50%);
+
+    user-select: none;
+        -moz-user-select: none;
+        -khtml-user-select: none;
+        -webkit-user-select: none;
+        -o-user-select: none;
 }
 b {
     color: white;

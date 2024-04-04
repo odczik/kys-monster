@@ -56,10 +56,19 @@ document.getElementById("debugCheckbox").addEventListener("change", e => {
     }
 })
 
-let left = 0;
-let top = 0;
+document.addEventListener('touchstart', function(event) {
+    // Check if the target element is not a checkbox
+    if (event.target.type !== 'checkbox') {
+        // Prevent default behavior
+        event.preventDefault();
+    }
+}, { passive: false });
+
 window.addEventListener("touchstart", e => {
-    e.touches.forEach(touch => {
+    e.preventDefault();
+    let left;
+    let top;
+    for(let touch of e.touches){
         if(touch.clientX < window.innerWidth / 2){
             left = true;
         } else {
@@ -75,9 +84,11 @@ window.addEventListener("touchstart", e => {
         if(left && !top) keysDown["s"] = true;
         if(!left && top){ keysDown["arrowup"] = true; paddle2.ai = false; }
         if(!left && !top){ keysDown["arrowdown"] = true; paddle2.ai = false; } 
-    })
+    }
 })
 window.addEventListener("touchend", e => {
+    let left;
+    let top;
     if(e.changedTouches[0].clientX < window.innerWidth / 2){
         left = true;
     } else {
