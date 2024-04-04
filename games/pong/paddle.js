@@ -24,8 +24,8 @@ function Paddle({side}){
         if(keysDown["arrowup"] && side == "right") this.y -= this.speed;
         if(keysDown["arrowdown"] && side == "right") this.y += this.speed;
 
-        if(this.ai == "dumb" && ball.xDir){
-            if(ball.y + scale > this.y + this.height / 2){
+        if(this.ai == "dumb"){
+            if(ball.y + scale / 2 > this.y + this.height / 2){
                 this.y += this.speed;
             } else {
                 this.y -= this.speed;
@@ -38,7 +38,7 @@ function Paddle({side}){
                 this.y -= this.speed;
             }
         }
-        if(this.ai && !ball.xDir){
+        if(this.ai == "smart" && !ball.xDir){
             if(this.y + this.height / 2 < canvas.height / 2){
                 this.y += this.speed;
             } else if(this.y + this.height / 2 > canvas.height / 2){

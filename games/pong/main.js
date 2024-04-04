@@ -11,7 +11,8 @@ let keysDown = {};
 let debug = false;
 let caps = false;
 
-var speed = scale / 10;
+const defaultSpeed = scale / 10;
+var speed = defaultSpeed;
 
 var paddle1 = new Paddle({side: "left"});
 var paddle2 = new Paddle({side: "right"});
@@ -19,7 +20,7 @@ const paddles = [paddle1, paddle2];
 
 var ball = new Ball();
 
-
+let frames = 0;
 const update = () => {
     ctx.clearRect(0, 0, canvas.width, canvas.height)
     ball.update()
@@ -30,8 +31,27 @@ const update = () => {
     paddle2.update()
     paddle2.draw()
 
+    window.requestAnimationFrame(update)
+    frames++;
+
     //console.log(keysDown)
 }
+update();
+let frameTimer = 1;
+setInterval(() => {
+    const fps = frames / frameTimer;
+    document.getElementById("fps").innerText = fps + " fps";
+    if(fps < 35){
+        speed = defaultSpeed * 2;
+    } else {
+        speed = defaultSpeed;
+    }
+    if(fps > 70){
+        speed = defaultSpeed / 2;
+    }
+
+    frameTimer++;
+}, 1000)
 
 setTimeout(() => {
     ball.started = true;
@@ -107,10 +127,10 @@ window.addEventListener("touchend", e => {
 })
 
 
-let timer = 0;
+/*let timer = 0;
 setInterval(() => {
     if(Date.now() - timer > 1000 / 120){
         update()
         timer = Date.now()
     }
-}, 1)
+}, 1)*/
