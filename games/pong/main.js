@@ -30,7 +30,7 @@ const update = () => {
     paddle2.update()
     paddle2.draw()
 
-    console.log(keysDown)
+    //console.log(keysDown)
 }
 
 setTimeout(() => {
@@ -46,6 +46,13 @@ window.addEventListener("keydown", e => {
     keysDown[e.key.toLowerCase()] = true;
     if(e.key == "e"){
         debug = !debug;
+    }
+})
+document.getElementById("debugCheckbox").addEventListener("change", e => {
+    if(e.target.checked){
+        debug = true;
+    } else {
+        debug = false
     }
 })
 
