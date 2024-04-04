@@ -29,6 +29,8 @@ const update = () => {
     paddle1.draw()
     paddle2.update()
     paddle2.draw()
+
+    console.log(keysDown)
 }
 
 setTimeout(() => {
@@ -46,7 +48,7 @@ window.addEventListener("keydown", (e) => {
     }
 })
 window.addEventListener("keydown", e => {
-    if(!keysDown.includes(e.key)) keysDown.push(e.key.toLowerCase());
+    if(!keysDown.includes(e.key.toLowerCase())) keysDown.push(e.key.toLowerCase());
     if(e.key.includes("Arrow")) paddle2.ai = false;
 })
 window.addEventListener("keyup", e => {

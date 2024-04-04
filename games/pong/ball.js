@@ -68,7 +68,7 @@ function Ball(){
         } else {
             this.interceptPoint = {};
         }
-        console.log(this.bouncePoint, this.dest, this.interceptPoint)
+        //console.log(this.bouncePoint, this.dest, this.interceptPoint)
 
         if(this.x + scale < 0){
             this.reset()
