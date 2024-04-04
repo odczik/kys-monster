@@ -50,8 +50,6 @@ window.addEventListener("keydown", e => {
 })
 
 window.addEventListener("touchstart", e => {
-    e.returnValue = false;
-
     let left;
     let top;
     if(e.touches[0].clientX < window.screen.width / 2){
@@ -64,6 +62,13 @@ window.addEventListener("touchstart", e => {
     } else {
         top = false;
     }
+
+    document.getElementById("txt").innerText = `
+        touch clientX: ${e.touches[0].clientX}
+        touch clientY: ${e.touches[0].clientY}
+        window width: ${window.screen.width}
+        window height: ${window.screen.height}
+    `;
     
     if(left && top) keysDown["w"] = true;
     if(left && !top) keysDown["s"] = true;
