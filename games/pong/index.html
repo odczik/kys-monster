@@ -9,7 +9,22 @@
 <body>
     <input type="checkbox" id="debugCheckbox"><b>Debug</b></input>
     <div id="fps" style="color: white;"></div>
+
     <canvas></canvas>
+
+    <div id="container">
+        <select name="paddle1Ai" id="paddle1AiSelect">
+            <option value="none">None</option>
+            <option value="dumb">Dumb</option>
+            <option value="smart">Smart</option>
+        </select>
+        <select name="paddle2Ai" id="paddle2AiSelect">
+            <option value="none">None</option>
+            <option value="dumb">Dumb</option>
+            <option value="smart">Smart</option>
+        </select>
+    </div>
+
     <script src="ball.js"></script>
     <script src="paddle.js"></script>
     <script src="main.js"></script>

@@ -56,17 +56,11 @@ function Ball(){
             x: (this.bouncePoint.x - (this.center.x - this.bouncePoint.x)) + (this.xDir ? distToClosestWall : -distToClosestWall),
             y: this.yDir ? 0 : canvas.height
         };
-        if(this.xDir){
-            if(!this.interceptPoint.y){
-                if(this.bouncePoint.x < paddle2.x){
-                    this.interceptPoint = {
-                        x: paddle2.x,
-                        y: this.bouncePoint.y + ((this.dest.y - this.bouncePoint.y) / (this.dest.x - this.bouncePoint.x)) * (paddle2.x - this.bouncePoint.x)
-                    }
-                }
+        if(this.xDir ? (this.bouncePoint.x < paddle2.x) : this.bouncePoint.x > paddle1.x + paddle1.width){
+            this.interceptPoint = {
+                x: (this.xDir ? paddle2.x : paddle1.x + paddle1.width),
+                y: this.bouncePoint.y + ((this.dest.y - this.bouncePoint.y) / (this.dest.x - this.bouncePoint.x)) * ((this.xDir ? paddle2.x : paddle1.x + paddle1.width) - this.bouncePoint.x)
             }
-        } else {
-            this.interceptPoint = {};
         }
         //console.log(this.bouncePoint, this.dest, this.interceptPoint)
 

@@ -243,20 +243,34 @@ const render = () => {
     }
 }
 
-let timer = 0;
+let frames = 0;
 let updateTook = 0;
-setInterval(() => {
-    if(Date.now() - timer >= 1000 / 120){
-        updateTook = Date.now();
-        update();
-        render();
-        updateTook = Date.now() - updateTook;
-        document.getElementById("updateTook").innerText = "Update took: " + updateTook + "ms";
-        //console.log("Update took: " + updateTook + "ms");
+const updateHandler = () => {
+    updateTook = Date.now();
+    update();
+    render();
+    updateTook = Date.now() - updateTook;
 
-        timer = Date.now() - updateTook;
+    document.getElementById("updateTook").innerText = "Update took: " + updateTook + "ms";
+    
+    requestAnimationFrame(updateHandler);
+    frames++;
+}
+updateHandler();
+
+// fps counter
+const refreshRate = 0.5;
+let frameTimer = refreshRate;
+setInterval(() => {
+    const fps = (frames / frameTimer).toFixed(2);
+    document.getElementById("fps").innerText = fps + " fps";
+
+    frameTimer+=refreshRate;
+    if(frameTimer > 10){
+        frameTimer = refreshRate;
+        frames = 0;
     }
-}, 1);
+}, refreshRate * 1000)
 
 let pacmanTimer = 0;
 setInterval(() => {

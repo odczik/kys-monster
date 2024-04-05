@@ -37,7 +37,8 @@ const update = () => {
 update();
 
 // fps counter
-let frameTimer = 1;
+const refreshRate = 0.5;
+let frameTimer = refreshRate;
 setInterval(() => {
     const fps = (frames / frameTimer).toFixed(2);
     document.getElementById("fps").innerText = fps + " fps";
@@ -50,8 +51,12 @@ setInterval(() => {
         speed = defaultSpeed / 2;
     }
 
-    frameTimer++;
-}, 1000)
+    frameTimer+=refreshRate;
+    if(frameTimer > 10){
+        frameTimer = refreshRate;
+        frames = 0;
+    }
+}, refreshRate * 1000)
 
 setTimeout(() => {
     ball.started = true;
@@ -75,15 +80,6 @@ document.getElementById("debugCheckbox").addEventListener("change", e => {
         debug = false
     }
 })
-
-// Prevent bullshit on long press
-document.addEventListener('touchstart', function(event) {
-    // Check if the target element is not a checkbox
-    if (event.target.type !== 'checkbox') {
-        // Prevent default behavior
-        event.preventDefault();
-    }
-}, { passive: false });
 
 // Touch handling
 window.addEventListener("touchstart", e => {
@@ -127,3 +123,15 @@ window.addEventListener("touchend", e => {
     if(!left && top) keysDown["arrowup"] = false;
     if(!left && !top) keysDown["arrowdown"] = false;
 })
+
+// Prevent bullshit on long press
+document.addEventListener('touchstart', function(event) {
+    console.log(event)
+    // Check if the target element is not a checkbox
+    if (event.target.localName !== "input" && 
+        event.target.localName !== "select" && 
+        event.target.localName !== "option") {
+        // Prevent default behavior
+        event.preventDefault();
+    }
+}, { passive: false });

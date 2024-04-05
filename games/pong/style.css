@@ -28,3 +28,18 @@ canvas {
 b {
     color: white;
 }
+#container {
+    position: absolute;
+    width: 100%;
+    bottom: 0;
+}
+#paddle1AiSelect {
+    position: absolute;
+    left: 3vw;
+    bottom: 3vh;
+}
+#paddle2AiSelect {
+    position: absolute;
+    right: 3vw;
+    bottom: 3vh;
+}
