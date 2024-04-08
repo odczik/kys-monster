@@ -143,12 +143,15 @@ function Ghost({who, startX, startY, delay, color}){
     const drawGhost = (x, y, color) => {
         let ghostToDraw = ghost[this.skin].map(row => row.slice()); // clone array
 
+        // Overlap eyes
         ghostToDraw.forEach((row, rowI) => {
             row.forEach((col, colI) => {
                 if(eyes[this.dir][rowI][colI] == 2) ghostToDraw[rowI][colI] = 2;
                 if(eyes[this.dir][rowI][colI] == 3) ghostToDraw[rowI][colI] = 3;
             })
         })
+
+        let tT = Date.now() - afraidTimer;
         ghostToDraw.forEach((row, rowI) => {
             row.forEach((col, colI) => {
                 switch(col){
@@ -156,7 +159,11 @@ function Ghost({who, startX, startY, delay, color}){
                         if(this.eaten){
                             ctx.fillStyle = "transparent";
                         } else if(this.isAfraid){
-                            ctx.fillStyle = "#00f";
+                            if((tT > 3000 && tT < 3250) || (tT > 3500 && tT < 3750) || (tT > 4000 && tT < 4250) || (tT > 4500 && tT < 4750)){
+                                ctx.fillStyle = "#88f";
+                            } else {
+                                ctx.fillStyle = "#00f";
+                            }
                         } else {
                             ctx.fillStyle = color;
                         }

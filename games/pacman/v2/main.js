@@ -8,6 +8,7 @@ let started = false;
 let afraid = false;
 let scatter = false;
 let powerPelletTimer = false;
+let afraidTimer = 0;
 
 let dotsLeft;
 
@@ -205,8 +206,10 @@ const update = () => {
         matrix[pacman.realY][pacman.realX] = 0;
         score+=50;
         afraid = true;
+        afraidTimer = Date.now();
         setTimeout(() => {
             afraid = false;
+            afraidTimer = 0;
         }, 5000)
     }
     // Check for ghosts
