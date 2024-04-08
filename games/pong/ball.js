@@ -20,12 +20,14 @@ function Ball(){
     this.interceptPoint = {};
 
     this.draw = () => {
+        if(!this.started) return;
         ctx.fillStyle = 'white';
         ctx.fillRect(this.x, this.y, scale, scale);
 
         if(!debug) return;
         
         ctx.beginPath();
+        ctx.setLineDash([])
         ctx.lineWidth = scale / 10;
         ctx.strokeStyle = "red";
         ctx.moveTo(this.center.x, this.center.y);
@@ -97,8 +99,8 @@ function Ball(){
     this.reset = () => {
         this.started = false;
 
-        this.x = canvas.width/2;
-        this.y = canvas.height/2;
+        this.x = canvas.width / 2 - scale / 2;
+        this.y = canvas.height / 2 - scale / 2;
         this.xDir = Math.round(Math.random());
         this.yDir = Math.round(Math.random());
         this.speed = speed;

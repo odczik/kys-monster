@@ -7,6 +7,8 @@ const scale = 30
 canvas.height = 20 * scale
 canvas.width = 30 * scale
 
+canvas.style.border = `${scale / 2}px solid white`;
+
 let keysDown = {};
 let debug = false;
 let caps = false;
@@ -20,9 +22,21 @@ const paddles = [paddle1, paddle2];
 
 var ball = new Ball();
 
+const drawCenterLine = () => {
+    ctx.strokeStyle = "white"
+    ctx.lineWidth = scale / 2
+    ctx.beginPath();
+    ctx.setLineDash([scale, scale / 2]);
+    ctx.moveTo(canvas.width / 2 - scale / 4, 0);
+    ctx.lineTo(canvas.width / 2 - scale / 4, canvas.height);
+    ctx.stroke();
+}
+
 let frames = 0;
 const update = () => {
     ctx.clearRect(0, 0, canvas.width, canvas.height)
+    drawCenterLine();
+
     ball.update()
     ball.draw()
 
