@@ -2,6 +2,7 @@ const canvas = document.querySelector('canvas');
 const ctx = canvas.getContext('2d');
 
 var scale = 60;
+var weight = 1;
 var force = 10;
 var airResistance = 0.025;
 
@@ -17,17 +18,19 @@ const update = () => {
     ball.draw();
 }
 
-let timer = 0;
-setInterval(() => {
-    if(Date.now() - timer >= 1000 / 60){
-        update();
-        timer = Date.now();
-    }
-}, 1);
+const updateHandler = () => {
+    update();
+    requestAnimationFrame(updateHandler);
+}
+updateHandler();
 
 document.getElementById("scaleSlider").addEventListener("input", e => {
     scale = e.target.value;
     document.getElementById("scaleTxt").innerText = scale;
+})
+document.getElementById("weightSlider").addEventListener("input", e => {
+    weight = e.target.value;
+    document.getElementById("weightTxt").innerText = weight + "kg";
 })
 document.getElementById("forceSlider").addEventListener("change", e => {
     force = e.target.value;
@@ -40,7 +43,7 @@ document.getElementById("airSlider").addEventListener("input", e => {
 
 document.addEventListener('keydown', (e) => {
     if(e.key === ' ' || e.key === 'ArrowUp' || e.key === 'w'){
-        ball.velocityY += -force;
+        ball.velocityY += -force * weight;
     }
     if(e.key === 'ArrowDown' || e.key === 's'){
         ball.velocityY += force;

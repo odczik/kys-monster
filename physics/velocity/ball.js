@@ -41,7 +41,7 @@ function Ball(){
         this.lastX = this.x;
     }
     const updateVelY = () => {
-        this.velocityY += 0.7;
+        this.velocityY += force * weight / 10;
         this.y += this.velocityY;
 
         this.top = this.y - scale / 2;
