@@ -1,5 +1,4 @@
 // Websocket connection
-
 //const address = "ws://192.168.0.236:8080"
 const address = "wss://pong-server-n8nb.onrender.com/"
 
