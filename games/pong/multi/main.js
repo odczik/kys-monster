@@ -48,9 +48,16 @@ ws.onmessage = (message) => {
             document.getElementById("roomCont").style.display = "none";
             document.querySelector("canvas").style.display = "block";
             update();
+            setInterval(() => {
+                if(host){
+                    ws.send(JSON.stringify({type: "update", value: {ball, paddle1}}))
+                } else {
+                    ws.send(JSON.stringify({type: "update", value: {paddle2}}))
+                }
+            }, 10)
             break;
         case "update":
-            if(msg.value.ball){
+            if(msg.value.ball && msg.value.paddle1 && !host){
                 ball.x = msg.value.ball.x;
                 ball.y = msg.value.ball.y;
 
@@ -61,6 +68,7 @@ ws.onmessage = (message) => {
                 ball.bouncePoint = msg.value.ball.bouncePoint;
                 ball.dest = msg.value.ball.dest;
                 ball.interceptPoint = msg.value.ball.interceptPoint;
+                ball.started = msg.value.ball.started;
 
                 paddle1.x = msg.value.paddle1.x;
                 paddle1.y = msg.value.paddle1.y;
@@ -68,7 +76,7 @@ ws.onmessage = (message) => {
                 paddle1.score = msg.value.paddle1.score;
 
                 paddle1.ai = msg.value.paddle1.ai;
-            } else {
+            } else if(msg.value.paddle2 && host){
                 paddle2.x = msg.value.paddle2.x;
                 paddle2.y = msg.value.paddle2.y;
 
@@ -125,8 +133,9 @@ const update = () => {
     ctx.clearRect(0, 0, canvas.width, canvas.height)
     drawCenterLine();
 
+    ball.update()
+
     if(host){
-        ball.update()
         paddle1.update()
     } else {
         paddle2.update()
@@ -138,12 +147,6 @@ const update = () => {
 
     window.requestAnimationFrame(update)
     frames++;
-
-    if(host){
-        ws.send(JSON.stringify({type: "update", value: {ball, paddle1}}))
-    } else {
-        ws.send(JSON.stringify({type: "update", value: {paddle2}}))
-    }
 }
 
 // fps counter

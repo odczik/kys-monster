@@ -63,7 +63,11 @@ wss.on('connection', function connection(ws) {
             console.log("Removing player from room.")
             let room = rooms[clients[ws.id].room];
             room.players = room.players.filter(player => player !== ws);
-            if(room.players.length === 0) delete rooms[clients[ws.id].room];
+            if(room.players.length === 0){
+                delete rooms[clients[ws.id].room];
+            } else {
+                room.players[0].send(JSON.stringify({type: "error", value: "Player has left the room."}));
+            }
         }
         delete clients[ws.id];
         updateRooms();
