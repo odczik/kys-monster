@@ -66,7 +66,7 @@ wss.on('connection', function connection(ws) {
             if(room.players.length === 0){
                 delete rooms[clients[ws.id].room];
             } else {
-                room.players[0].send(JSON.stringify({type: "error", value: "Player has left the room."}));
+                room.players[0].send(JSON.stringify({type: "stop"}));
             }
         }
         delete clients[ws.id];

@@ -48,13 +48,9 @@ ws.onmessage = (message) => {
             document.getElementById("roomCont").style.display = "none";
             document.querySelector("canvas").style.display = "block";
             update();
-            setInterval(() => {
-                if(host){
-                    ws.send(JSON.stringify({type: "update", value: {ball, paddle1}}))
-                } else {
-                    ws.send(JSON.stringify({type: "update", value: {paddle2}}))
-                }
-            }, 10)
+            break;
+        case "stop":
+            window.location.reload();
             break;
         case "update":
             if(msg.value.ball && msg.value.paddle1 && !host){
@@ -147,6 +143,12 @@ const update = () => {
 
     window.requestAnimationFrame(update)
     frames++;
+
+    if(host){
+        ws.send(JSON.stringify({type: "update", value: {ball, paddle1}}))
+    } else {
+        ws.send(JSON.stringify({type: "update", value: {paddle2}}))
+    }
 }
 
 // fps counter
