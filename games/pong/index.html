@@ -4,29 +4,37 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Pong</title>
-    <link rel="stylesheet" href="style.css">
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: black;
+        }
+        main {
+            color: "white";
+            text-align: center;
+        }
+        a {
+            color: white;
+            text-decoration: none;
+            font-size: 2rem;
+            margin: 0 1rem;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+        a:hover {
+            color: yellow;
+        }
+    </style>
 </head>
 <body>
-    <input type="checkbox" id="debugCheckbox"><b>Debug</b></input>
-    <div id="fps" style="color: white;"></div>
-
-    <canvas></canvas>
-
-    <div id="container">
-        <select name="paddle1Ai" id="paddle1AiSelect">
-            <option value="none">None</option>
-            <option value="dumb">Dumb</option>
-            <option value="smart">Smart</option>
-        </select>
-        <select name="paddle2Ai" id="paddle2AiSelect">
-            <option value="none">None</option>
-            <option value="dumb">Dumb</option>
-            <option value="smart">Smart</option>
-        </select>
-    </div>
-
-    <script src="ball.js"></script>
-    <script src="paddle.js"></script>
-    <script src="main.js"></script>
+    <main>
+        <a href="/games/pong/single/"><b>Local</b> <small>(vs AI)</small></a>
+        <br>
+        <a href="/games/pong/multi/"><b>Online</b></a>
+    </main>
 </body>
 </html>

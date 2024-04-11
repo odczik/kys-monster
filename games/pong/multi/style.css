@@ -1,0 +1,80 @@
+body {
+    background-color: black;
+    padding: 0;
+    margin: 0;
+    overflow: hidden;
+
+    user-select: none;
+        -moz-user-select: none;
+        -khtml-user-select: none;
+        -webkit-user-select: none;
+        -o-user-select: none;
+}
+
+#multiplayerCont {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+}
+#multiplayerCont > * {
+    margin: 1vh;
+}
+#roomCont {
+    display: none;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    align-items: center;
+    flex-direction: column;
+}
+#roomCont > * {
+    margin: 1vh;
+}
+.room {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    color: white;
+    cursor: pointer;
+}
+
+canvas {
+    display: none;
+
+    border: 1px solid white;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    max-width: 97dvw;
+    max-height: 97dvh;
+    transform: translate(-50%, -50%);
+
+    user-select: none;
+        -moz-user-select: none;
+        -khtml-user-select: none;
+        -webkit-user-select: none;
+        -o-user-select: none;
+}
+b {
+    color: white;
+}
+#container {
+    position: absolute;
+    width: 100%;
+    bottom: 0;
+}
+#paddle1AiSelect {
+    position: absolute;
+    left: 3vw;
+    bottom: 3vh;
+}
+#paddle2AiSelect {
+    position: absolute;
+    right: 3vw;
+    bottom: 3vh;
+}
