@@ -1,12 +1,15 @@
 // Websocket connection
-//const address = "ws://192.168.0.236:8080"
-const address = "wss://pong-server-n8nb.onrender.com/"
+const address = "ws://192.168.0.236:8080"
+//const address = "wss://pong-server-n8nb.onrender.com/"
 
 const ws = new WebSocket(address)
 var host;
 
 ws.onopen = () => {
-  console.log('WebSocket connection with server established.')
+    console.log('WebSocket connection with server established.')
+    setInterval(() => {
+        ws.send(JSON.stringify({type: "ping", time: Date.now()}))
+    }, 100)
 }
 
 document.getElementById("hostRoom").addEventListener("click", e => {
@@ -79,6 +82,9 @@ ws.onmessage = (message) => {
 
                 paddle2.ai = msg.value.paddle2.ai;
             }
+            break;
+        case "pong":
+            console.log(`Ping: ${Date.now() - msg.time}ms`)
             break;
     }
 }

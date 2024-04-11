@@ -52,6 +52,9 @@ wss.on('connection', function connection(ws) {
             case "update":
                 handleGameUpdate(ws, msg);
                 break;
+            case "ping":
+                ws.send(JSON.stringify({type: "pong", time: msg.time}));
+                break;
             default:
                 console.warn(`Type: ${type} unknown`);
                 break;
