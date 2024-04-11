@@ -8,9 +8,14 @@ function Paddle({side}){
     this.speed = speed
 
     this.draw = () => {
-        ctx.fillStyle = 'white';
+        if(host){
+            ctx.fillStyle = side == "left" ? "white" : "grey";
+        } else {
+            ctx.fillStyle = side == "left" ? "grey" : "white";
+        }
         ctx.fillRect(this.x, this.y, this.width, this.height);
 
+        ctx.fillStyle = "white";
         ctx.font = `${scale}px Arial`;
         ctx.fillText(this.score, side == "left" ? scale * 5 : canvas.width - scale * 6, scale * 2)
     }

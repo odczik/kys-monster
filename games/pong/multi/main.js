@@ -1,6 +1,10 @@
 // Websocket connection
-const ws = new WebSocket('ws://192.168.0.236:8080')
-let host;
+
+//const address = "ws://192.168.0.236:8080"
+const address = "wss://pong-server-n8nb.onrender.com/"
+
+const ws = new WebSocket(address)
+var host;
 
 ws.onopen = () => {
   console.log('WebSocket connection with server established.')
@@ -49,6 +53,14 @@ ws.onmessage = (message) => {
             if(msg.value.ball){
                 ball.x = msg.value.ball.x;
                 ball.y = msg.value.ball.y;
+
+                ball.dirX = msg.value.ball.dirX;
+                ball.dirY = msg.value.ball.dirY;
+
+                ball.center = msg.value.ball.center;
+                ball.bouncePoint = msg.value.ball.bouncePoint;
+                ball.dest = msg.value.ball.dest;
+                ball.interceptPoint = msg.value.ball.interceptPoint;
 
                 paddle1.x = msg.value.paddle1.x;
                 paddle1.y = msg.value.paddle1.y;
