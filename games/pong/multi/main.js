@@ -4,12 +4,19 @@ const address = "wss://pong-server-n8nb.onrender.com/"
 
 const ws = new WebSocket(address)
 var host;
+let avgPing = 0;
+let avgPingCount = 0;
 
 ws.onopen = () => {
+    document.getElementById("connTxt").style.display = "none";
+    document.getElementById("multiplayerCont").style.display = "flex";
+
     console.log('WebSocket connection with server established.')
     setInterval(() => {
-        ws.send(JSON.stringify({type: "ping", time: Date.now()}))
-    }, 100)
+        avgPing = 0;
+        avgPingCount = 0;
+    }, 3000)
+    ws.send(JSON.stringify({type: "ping", time: Date.now()}))
 }
 
 document.getElementById("hostRoom").addEventListener("click", e => {
@@ -84,7 +91,12 @@ ws.onmessage = (message) => {
             }
             break;
         case "pong":
-            console.log(`Ping: ${Date.now() - msg.time}ms`)
+            let ping = Date.now() - msg.time;
+            document.getElementById("ping").innerText = `Ping: ${ping}ms`
+            ws.send(JSON.stringify({type: "ping", time: Date.now()}))
+            avgPing += ping;
+            avgPingCount++;
+            document.getElementById("avgPing").innerText = `Avg Ping: ${(avgPing / avgPingCount).toFixed(0)}ms`
             break;
     }
 }

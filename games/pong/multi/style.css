@@ -11,13 +11,22 @@ body {
         -o-user-select: none;
 }
 
+#connTxt {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    color: white;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 2em;
+}
 #multiplayerCont {
     position: absolute;
     left: 50%;
     top: 50%;
     transform: translate(-50%, -50%);
     align-items: center;
-    display: flex;
+    display: none;
     flex-direction: column;
 }
 #multiplayerCont > * {
