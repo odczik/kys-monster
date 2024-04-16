@@ -61,8 +61,8 @@ document.addEventListener("mousedown", (e) => {
 
 document.addEventListener("mousemove", (e) => {
     if(move){
-        let newX = e.clientX + (move.style.left.split("px")[0] - e.clientX);
-        move.style.left = `${newX}px`;
+        //let newX = e.clientX + (move.style.left.split("px")[0] - e.clientX);
+        move.style.left = `${e.clientX - 35}px`;
         move.style.top = `${e.clientY - 50}px`;
     }
 })
