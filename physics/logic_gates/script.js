@@ -1,17 +1,28 @@
 const container = document.getElementById('container');
 
+const gates = [];
+
 let counter = 0;
 let move = null;
+let outputSelected = null;
 
 const types = ['and', 'or', 'not', 'nand', 'nor', 'xor', 'xnor'];
 
 function Gate(x, y){
+    this.element;
     this.x = x,
     this.y = y,
     this.width = 70,
     this.height = 100,
-    this.inputs = 2,
-    this.output = 0,
+    this.input1 = {
+        value: 0,
+        connected: null
+    },
+    this.input2 = {
+        value: 0,
+        connected: null
+    },
+    this.outputs = [],
     this.state = 0,
     this.type = types[0]
 
@@ -43,11 +54,8 @@ function Gate(x, y){
     output.classList.add('output');
     gate.appendChild(output);
     
+    this.element = gate;
 };
-
-const gates = [];
-
-gates.push(new Gate(100, 100), new Gate(400, 100));
 
 document.addEventListener("mousedown", (e) => {
     if(e.target.classList.contains("gateBody")){
@@ -56,6 +64,15 @@ document.addEventListener("mousedown", (e) => {
         move = e.target.parentNode;
         counter++;
         move.style.zIndex = counter;
+    } else if(e.target.classList.contains("output")){
+        outputSelected = e.target;
+        const svg = document.querySelector('svg');
+        const line = document.createElementNS("http://www.w3.org/2000/svg", "polyline");
+        line.setAttribute('points', `${outputSelected.getBoundingClientRect().right},${outputSelected.getBoundingClientRect().y + outputSelected.getBoundingClientRect().height / 2} ${e.clientX},${e.clientY}`);
+        svg.appendChild(line);
+
+        let gate = gates.filter(gate => gate.element.contains(outputSelected))[0];
+        gate.outputs.push(line);
     } else {
         gates.push(new Gate(e.clientX - 35, e.clientY - 50));
     }
@@ -66,9 +83,21 @@ document.addEventListener("mousemove", (e) => {
         //let newX = e.clientX + (move.style.left.split("px")[0] - e.clientX);
         move.style.left = `${e.clientX - 35}px`;
         move.style.top = `${e.clientY - 50}px`;
+
+        let gate = gates.filter(gate => gate.element.contains(move))[0];
+        gate.outputs.forEach(output => {
+            output.setAttribute('points', `${e.clientX},${e.clientY} ${output.getAttribute('points').split(" ")[1].split(",")[0]},${output.getAttribute('points').split(" ")[1].split(",")[1]}`);
+        })
+    }
+    if(outputSelected){
+        let gate = gates.filter(gate => gate.element.contains(outputSelected))[0];
+        gate.outputs.forEach(output => {
+            output.setAttribute('points', `${outputSelected.getBoundingClientRect().right},${outputSelected.getBoundingClientRect().y + outputSelected.getBoundingClientRect().height / 2} ${e.clientX},${e.clientY}`);
+        })
     }
 })
 
 document.addEventListener("mouseup", (e) => {
     move = null;
+    outputSelected = null;
 })
