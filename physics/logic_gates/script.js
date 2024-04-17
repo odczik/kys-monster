@@ -54,6 +54,7 @@ document.addEventListener("mousedown", (e) => {
         //e.target.parentNode.style.left = `${e.clientX - 35}px`;
         //e.target.parentNode.style.top = `${e.clientY - 50}px`;
         move = e.target.parentNode;
+        move.style.zIndex = counter;
     } else {
         gates.push(new Gate(e.clientX - 35, e.clientY - 50));
     }
