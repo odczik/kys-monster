@@ -8,66 +8,7 @@ let outputSelected = null;
 
 const types = ['and', 'or', 'not', 'nand', 'nor', 'xor', 'xnor'];
 
-function Gate(x, y){
-    this.element;
-    this.x = x,
-    this.y = y,
-    this.width = 70,
-    this.height = 100,
-    this.inputs = {
-        input1: {
-            connected: null,
-            wire: null
-        },
-        input2: {
-            connected: null,
-            wire: null
-        }
-    },
-    this.outputs = [],
-    this.state = 0,
-    this.type = types[0]
-
-    this.fireInput = () => {
-        console.log("hey")
-    }
-
-    counter++;
-
-    const gate = document.createElement('div');
-    gate.classList.add('gate');
-    gate.style.left = `${this.x}px`;
-    gate.style.top = `${this.y}px`;
-    gate.style.zIndex = counter;
-    document.body.appendChild(gate);
-
-    const gateBody = document.createElement('div');
-    gateBody.classList.add('gateBody');
-    gate.appendChild(gateBody);
-
-    const gateType = document.createElement('div');
-    gateType.innerText = this.type.toUpperCase();
-    gateType.classList.add('gateType');
-    gate.appendChild(gateType);
-
-    const input1 = document.createElement('div');
-    input1.classList.add('input1');
-    gate.appendChild(input1);
-    const input2 = document.createElement('div');
-    input2.classList.add('input2');
-    gate.appendChild(input2);
-    const output = document.createElement('div');
-    output.classList.add('output');
-    gate.appendChild(output);
-    
-    this.element = gate;
-
-    this.element.addEventListener("contextmenu", (e) => {
-        e.preventDefault();
-        this.type = types[(types.indexOf(this.type) + 1) % types.length];
-        gateType.innerText = this.type.toUpperCase();
-    })
-};
+gates.push(new Switch(100, 100));
 
 document.addEventListener("mousedown", (e) => {
     if(e.button === 2) return;
@@ -116,19 +57,23 @@ document.addEventListener("mousemove", (e) => {
         move.style.top = `${e.clientY - 50}px`;
 
         let gate = gates.filter(gate => gate.element.contains(move))[0];
-        Object.entries(gate.inputs).forEach((input, i) => {
-            input = input[1];
-            if(input.connected){
-                let inputBounds = gate.element.childNodes[2 + i].getBoundingClientRect();
-                let wireCoords = input.wire.getAttribute('points').split(" ");
-                input.wire.setAttribute('points', `${wireCoords[0].split(",")[0]},${wireCoords[0].split(",")[1]} ${inputBounds.left},${inputBounds.y + inputBounds.height / 2}`);
-            }
-        })
-        gate.outputs.forEach(output => {
-            let outputBounds = gate.element.lastChild.getBoundingClientRect();
-            let wireCoords = output.getAttribute('points').split(" ");
-            output.setAttribute('points', `${outputBounds.right},${outputBounds.y + outputBounds.height / 2} ${wireCoords[1].split(",")[0]},${wireCoords[1].split(",")[1]}`);
-        })
+        if(gate.inputs){
+            Object.entries(gate.inputs).forEach((input, i) => {
+                input = input[1];
+                if(input.connected){
+                    let inputBounds = gate.element.childNodes[2 + i].getBoundingClientRect();
+                    let wireCoords = input.wire.getAttribute('points').split(" ");
+                    input.wire.setAttribute('points', `${wireCoords[0].split(",")[0]},${wireCoords[0].split(",")[1]} ${inputBounds.left},${inputBounds.y + inputBounds.height / 2}`);
+                }
+            })
+        }
+        if(gate.outputs){
+            gate.outputs.forEach(output => {
+                let outputBounds = gate.element.lastChild.getBoundingClientRect();
+                let wireCoords = output.getAttribute('points').split(" ");
+                output.setAttribute('points', `${outputBounds.right},${outputBounds.y + outputBounds.height / 2} ${wireCoords[1].split(",")[0]},${wireCoords[1].split(",")[1]}`);
+            })
+        }
     }
     if(outputSelected){
         let gate = gates.filter(gate => gate.element.contains(outputSelected))[0];
