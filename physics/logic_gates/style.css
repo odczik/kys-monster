@@ -54,11 +54,12 @@ body {
 .gateType {
     position: absolute;
     top: 0;
-    left: 50%;
+    right: 0;
     transform: translate(-3px, 5px);
     font-family: Arial, Helvetica, sans-serif;
     z-index: 3;
     pointer-events: none;
+    text-align: right;
 }
 
 .input1, .input2 {
