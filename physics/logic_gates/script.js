@@ -91,7 +91,7 @@ document.addEventListener("mousemove", (e) => {
     }
     if(outputSelected){
         let gate = gates.filter(gate => gate.element.contains(outputSelected))[0];
-        gate.outputs[0].setAttribute('points', `${outputSelected.getBoundingClientRect().right},${outputSelected.getBoundingClientRect().y + outputSelected.getBoundingClientRect().height / 2} ${e.clientX},${e.clientY}`);
+        gate.outputs[gate.outputs.lenght].setAttribute('points', `${outputSelected.getBoundingClientRect().right},${outputSelected.getBoundingClientRect().y + outputSelected.getBoundingClientRect().height / 2} ${e.clientX},${e.clientY}`);
     }
 })
 
