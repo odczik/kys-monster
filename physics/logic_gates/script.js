@@ -86,8 +86,8 @@ document.addEventListener("mousemove", (e) => {
 
         let gate = gates.filter(gate => gate.element.contains(move))[0];
         gate.outputs.forEach(output => {
-            console.log(gate.element.querySelector("output"))
-            output.setAttribute('points', `${output.getBoundingClientRect().right},${output.getBoundingClientRect().y + output.getBoundingClientRect().height / 2} ${output.getAttribute('points').split(" ")[1].split(",")[0]},${output.getAttribute('points').split(" ")[1].split(",")[1]}`);
+            //console.log(gate.element.querySelector("output"))
+            output.setAttribute('points', `${gate.element.lastChild.getBoundingClientRect().right},${gate.element.lastChild.getBoundingClientRect().y + gate.element.lastChild.getBoundingClientRect().height / 2} ${output.getAttribute('points').split(" ")[1].split(",")[0]},${output.getAttribute('points').split(" ")[1].split(",")[1]}`);
         })
     }
     if(outputSelected){
