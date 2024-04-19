@@ -1,4 +1,5 @@
 function Switch(x, y){
+    this.isSwitch = true;
     this.element;
     this.x = x,
     this.y = y,
@@ -6,7 +7,22 @@ function Switch(x, y){
     this.height = 100,
     this.inputs = {},
     this.outputs = [],
-    this.state = 0,
+    this.state = false
+
+    this.update = () => {
+
+    }
+
+    this.fireInput = () => {
+        this.state = !this.state;
+        this.outputs.forEach(output => {
+            output.value = this.state;
+        })
+        /*this.outputs.forEach(output => {
+            let gateToTrigger = gates.filter(gate => gate.element.contains(output.connected))[0];
+            gateToTrigger.fireInput(output.connected.classList.contains("input1") ? 1 : 2);
+        })*/
+    }
 
     counter++;
 
@@ -31,6 +47,7 @@ function Switch(x, y){
     gate.appendChild(output);
     
     this.element = gate;
+    this.element.style.cursor = "pointer";
 
     this.element.addEventListener("contextmenu", (e) => {
         e.preventDefault();

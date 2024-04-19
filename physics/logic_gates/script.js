@@ -4,11 +4,20 @@ const gates = [];
 
 let counter = 0;
 let move = null;
+let moved = false;
 let outputSelected = null;
 
 const types = ['and', 'or', 'not', 'nand', 'nor', 'xor', 'xnor'];
 
 gates.push(new Switch(100, 100));
+
+const update = () => {
+    gates.forEach(gate => {
+        gate.update();
+    })
+    requestAnimationFrame(update);
+}
+update();
 
 document.addEventListener("mousedown", (e) => {
     if(e.button === 2) return;
@@ -26,7 +35,7 @@ document.addEventListener("mousedown", (e) => {
         svg.appendChild(line);
 
         let gate = gates.filter(gate => gate.element.contains(outputSelected))[0];
-        gate.outputs.push(line);
+        gate.outputs.push({connected: null, wire: line, value: false});
     } else if(e.target.classList.contains("input1") || e.target.classList.contains("input2")){
         let inputGate = gates.filter(gate => gate.element.contains(e.target))[0];
         Object.entries(inputGate.inputs).forEach((input, i) => {
@@ -40,7 +49,7 @@ document.addEventListener("mousedown", (e) => {
                 input.connected.style.backgroundColor = "#333";
                 inputGate.element.childNodes[2 + i].style.backgroundColor = "#333";
                 
-                input.wire.remove();
+                input.wire.wire.remove();
                 input.wire = null;
                 input.connected = null;
             }
@@ -52,6 +61,7 @@ document.addEventListener("mousedown", (e) => {
 
 document.addEventListener("mousemove", (e) => {
     if(move){
+        moved = true;
         //let newX = e.clientX + (move.style.left.split("px")[0] - e.clientX);
         move.style.left = `${e.clientX - 35}px`;
         move.style.top = `${e.clientY - 50}px`;
@@ -62,26 +72,36 @@ document.addEventListener("mousemove", (e) => {
                 input = input[1];
                 if(input.connected){
                     let inputBounds = gate.element.childNodes[2 + i].getBoundingClientRect();
-                    let wireCoords = input.wire.getAttribute('points').split(" ");
-                    input.wire.setAttribute('points', `${wireCoords[0].split(",")[0]},${wireCoords[0].split(",")[1]} ${inputBounds.left},${inputBounds.y + inputBounds.height / 2}`);
+                    let wireCoords = input.wire.wire.getAttribute('points').split(" ");
+                    input.wire.wire.setAttribute('points', `${wireCoords[0].split(",")[0]},${wireCoords[0].split(",")[1]} ${inputBounds.left},${inputBounds.y + inputBounds.height / 2}`);
                 }
             })
         }
         if(gate.outputs){
             gate.outputs.forEach(output => {
                 let outputBounds = gate.element.lastChild.getBoundingClientRect();
-                let wireCoords = output.getAttribute('points').split(" ");
-                output.setAttribute('points', `${outputBounds.right},${outputBounds.y + outputBounds.height / 2} ${wireCoords[1].split(",")[0]},${wireCoords[1].split(",")[1]}`);
+                let wireCoords = output.wire.getAttribute('points').split(" ");
+                output.wire.setAttribute('points', `${outputBounds.right},${outputBounds.y + outputBounds.height / 2} ${wireCoords[1].split(",")[0]},${wireCoords[1].split(",")[1]}`);
             })
         }
     }
     if(outputSelected){
         let gate = gates.filter(gate => gate.element.contains(outputSelected))[0];
-        gate.outputs[gate.outputs.length - 1].setAttribute('points', `${outputSelected.getBoundingClientRect().right},${outputSelected.getBoundingClientRect().y + outputSelected.getBoundingClientRect().height / 2} ${e.clientX},${e.clientY}`);
+        gate.outputs[gate.outputs.length - 1].wire.setAttribute('points', `${outputSelected.getBoundingClientRect().right},${outputSelected.getBoundingClientRect().y + outputSelected.getBoundingClientRect().height / 2} ${e.clientX},${e.clientY}`);
     }
 })
 
 document.addEventListener("mouseup", (e) => {
+    if(!moved && move){
+        let gate = gates.filter(gate => gate.element.contains(move))[0];
+        if(gate.isSwitch){
+            gate.fireInput();
+        } else {
+            gate.type = types[(types.indexOf(gate.type) + 1) % types.length];
+            gate.element.childNodes[1].innerText = gate.type.toUpperCase();
+        }
+    }
+    moved = false;
     move = null;
     if(outputSelected){
         if(e.target.classList.contains("input1") || e.target.classList.contains("input2")){
@@ -96,17 +116,19 @@ document.addEventListener("mouseup", (e) => {
             }
 
             let outputGate = gates.filter(gate => gate.element.contains(outputSelected))[0];
-            outputGate.outputs[outputGate.outputs.length - 1].setAttribute('points', `${outputSelected.getBoundingClientRect().right},${outputSelected.getBoundingClientRect().y + outputSelected.getBoundingClientRect().height / 2} ${e.target.getBoundingClientRect().left},${e.target.getBoundingClientRect().y + e.target.getBoundingClientRect().height / 2}`);
-            
+            outputGate.outputs[outputGate.outputs.length - 1].wire.setAttribute('points', `${outputSelected.getBoundingClientRect().right},${outputSelected.getBoundingClientRect().y + outputSelected.getBoundingClientRect().height / 2} ${e.target.getBoundingClientRect().left},${e.target.getBoundingClientRect().y + e.target.getBoundingClientRect().height / 2}`);
+            outputGate.outputs[outputGate.outputs.length - 1].connected = e.target;
+
             input.connected = outputSelected;
             input.wire = outputGate.outputs[outputGate.outputs.length - 1];
 
             //input.value = 1;
-            e.target.style.backgroundColor = "green";
-            outputSelected.style.backgroundColor = "green";
+            e.target.style.backgroundColor = "lightblue";
+            outputSelected.style.backgroundColor = "lightblue";
         } else {
             let gate = gates.filter(gate => gate.element.contains(outputSelected))[0];
-            gate.outputs[gate.outputs.length - 1].remove();
+            gate.outputs[gate.outputs.length - 1].wire.remove();
+            gate.outputs.pop();
             outputSelected.style.backgroundColor = "#333";
         }
         outputSelected = null;

@@ -15,11 +15,30 @@ function Gate(x, y){
         }
     },
     this.outputs = [],
-    this.state = 0,
+    this.state = false,
     this.type = types[0]
 
-    this.fireInput = () => {
-        console.log("hey")
+    this.update = () => {
+        Object.entries(this.inputs).forEach((input, i) => {
+            input = input[1];
+            let gateToCheck = gates.filter(gate => gate.element.contains(input.connected))[0];
+            if(!gateToCheck) return;
+            let outputToCheck = gateToCheck.outputs.filter(output => output.wire === input.wire.wire);
+            outputToCheck[0].connected.style.backgroundColor = outputToCheck[0].value ? "green" : "blue";
+        })
+    }
+
+    this.fireInput = (input) => {
+        switch(input){
+            case 1:
+                this.inputs.input1.value = !this.inputs.input1.value;
+                break;
+            case 2:
+                this.inputs.input2.value = !this.inputs.input2.value;
+                break;
+        }
+        console.log(this.inputs.input1.value, this.inputs.input2.value)
+
     }
 
     counter++;
@@ -51,6 +70,7 @@ function Gate(x, y){
     gate.appendChild(output);
     
     this.element = gate;
+    this.element.style.cursor = "move";
 
     this.element.addEventListener("contextmenu", (e) => {
         e.preventDefault();
