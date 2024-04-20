@@ -7,9 +7,8 @@ let move = null;
 let moved = false;
 let outputSelected = null;
 
-const types = ['and', 'or', 'not', 'nand', 'nor', 'xor', 'xnor'];
-
 gates.push(new Switch(100, 100));
+gates.push(new Switch(100, 300));
 
 const update = () => {
     gates.forEach(gate => {
@@ -52,6 +51,7 @@ document.addEventListener("mousedown", (e) => {
                 input.wire.wire.remove();
                 input.wire = null;
                 input.connected = null;
+                input.value = false;
             }
         })
     } else {
@@ -123,8 +123,8 @@ document.addEventListener("mouseup", (e) => {
             input.wire = outputGate.outputs[outputGate.outputs.length - 1];
 
             //input.value = 1;
-            e.target.style.backgroundColor = "lightblue";
-            outputSelected.style.backgroundColor = "lightblue";
+            e.target.style.backgroundColor = "green";
+            outputSelected.style.backgroundColor = "green";
         } else {
             let gate = gates.filter(gate => gate.element.contains(outputSelected))[0];
             gate.outputs[gate.outputs.length - 1].wire.remove();

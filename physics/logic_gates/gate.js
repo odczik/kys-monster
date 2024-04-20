@@ -1,3 +1,5 @@
+const types = ['and', 'nand', 'or', 'nor', 'xor', 'xnor'];
+
 function Gate(x, y){
     this.element;
     this.x = x,
@@ -7,11 +9,13 @@ function Gate(x, y){
     this.inputs = {
         input1: {
             connected: null,
-            wire: null
+            wire: null,
+            value: false
         },
         input2: {
             connected: null,
-            wire: null
+            wire: null,
+            value: false
         }
     },
     this.outputs = [],
@@ -21,12 +25,66 @@ function Gate(x, y){
     this.update = () => {
         Object.entries(this.inputs).forEach((input, i) => {
             input = input[1];
+            
+            if(input.wire) input.wire.connected.style.backgroundColor = input.value ? "red" : "green";
+
             let gateToCheck = gates.filter(gate => gate.element.contains(input.connected))[0];
             if(!gateToCheck) return;
+
             let outputToCheck = gateToCheck.outputs.filter(output => output.wire === input.wire.wire);
             outputToCheck[0].connected.style.backgroundColor = outputToCheck[0].value ? "red" : "green";
             outputToCheck[0].wire.style.stroke = outputToCheck[0].value ? "red" : "green";
+            input.value = outputToCheck[0].value;
         })
+
+        switch(this.type){
+            case "and":
+                if(this.inputs.input1.value && this.inputs.input2.value){
+                    this.state = true;
+                } else {
+                    this.state = false;
+                }
+                break;
+            case "nand":
+                if(!(this.inputs.input1.value && this.inputs.input2.value)){
+                    this.state = true;
+                } else {
+                    this.state = false;
+                }
+                break;
+            case "or":
+                if(this.inputs.input1.value || this.inputs.input2.value){
+                    this.state = true;
+                } else {
+                    this.state = false;
+                }
+                break;
+            case "nor":
+                if(!(this.inputs.input1.value || this.inputs.input2.value)){
+                    this.state = true;
+                } else {
+                    this.state = false;
+                }
+                break;
+            case "xor":
+                if(this.inputs.input1.value !== this.inputs.input2.value){
+                    this.state = true;
+                } else {
+                    this.state = false;
+                }
+                break;
+            case "xnor":
+                if(this.inputs.input1.value === this.inputs.input2.value){
+                    this.state = true;
+                } else {
+                    this.state = false;
+                }
+                break;
+        }
+        this.outputs.forEach(output => {
+            output.value = this.state;
+        })
+        this.element.lastChild.style.backgroundColor = this.state ? "red" : this.outputs.length ? "green" : "#333";
     }
 
     this.fireInput = (input) => {

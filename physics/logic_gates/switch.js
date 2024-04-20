@@ -10,7 +10,10 @@ function Switch(x, y){
     this.state = false
 
     this.update = () => {
-
+        this.element.lastChild.style.backgroundColor = this.state ? "red" : this.outputs.length ? "green" : "#333";
+        this.outputs.forEach(output => {
+            output.value = this.state;
+        })
     }
 
     this.fireInput = () => {
