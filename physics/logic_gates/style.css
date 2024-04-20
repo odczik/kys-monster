@@ -107,7 +107,7 @@ svg {
     pointer-events: none;
 }
 polyline {
-    stroke: red;
+    stroke: blue;
     stroke-width: 4;
     fill: none;
 }

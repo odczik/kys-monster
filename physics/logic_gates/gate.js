@@ -24,7 +24,8 @@ function Gate(x, y){
             let gateToCheck = gates.filter(gate => gate.element.contains(input.connected))[0];
             if(!gateToCheck) return;
             let outputToCheck = gateToCheck.outputs.filter(output => output.wire === input.wire.wire);
-            outputToCheck[0].connected.style.backgroundColor = outputToCheck[0].value ? "green" : "blue";
+            outputToCheck[0].connected.style.backgroundColor = outputToCheck[0].value ? "red" : "green";
+            outputToCheck[0].wire.style.stroke = outputToCheck[0].value ? "red" : "green";
         })
     }
 
