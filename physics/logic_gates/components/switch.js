@@ -54,11 +54,25 @@ function Switch(x, y){
 
     this.element.addEventListener("contextmenu", (e) => {
         e.preventDefault();
-        this.state = !this.state;
-        if(this.outputs.length){
-            this.outputs.forEach(output => {
-                output.fireInput();
-            })
-        }
+
+        gates.splice(gates.indexOf(this), 1);
+
+        this.outputs.forEach(output => {
+            output.wire.remove();
+            let outputGate = gates.filter(gate => gate.element.contains(output.connected))[0];
+            let outputGateInput = outputGate.inputs[output.connected.classList.contains("input1") ? "input1" : "input2"];
+            outputGateInput.connected = null;
+            outputGateInput.wire = null;
+        })
+        Object.entries(this.inputs).forEach(input => {
+            input = input[1];
+            if(input.connected){
+                input.wire.wire.remove();
+                let inputGate = gates.filter(gate => gate.element.contains(input.connected))[0];
+                inputGate.outputs.splice(inputGate.outputs.indexOf(inputGate.outputs.filter(output => output.wire === input.wire.wire)[0]), 1);
+            }
+        })
+
+        this.element.remove();
     })
 };

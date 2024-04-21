@@ -27,13 +27,19 @@ function Gate(x, y){
             input = input[1];
             
             if(input.wire) input.wire.connected.style.backgroundColor = input.value ? "red" : "green";
+            
+            this.element.childNodes[2 + i].style.backgroundColor = input.value ? "red" : input.connected ? "green" : "#333";
 
             let gateToCheck = gates.filter(gate => gate.element.contains(input.connected))[0];
-            if(!gateToCheck) return;
+            if(!gateToCheck){
+                input.value = false;
+                return;
+            }
 
             let outputToCheck = gateToCheck.outputs.filter(output => output.wire === input.wire.wire);
             outputToCheck[0].connected.style.backgroundColor = outputToCheck[0].value ? "red" : "green";
             outputToCheck[0].wire.style.stroke = outputToCheck[0].value ? "red" : "green";
+            
             input.value = outputToCheck[0].value;
         })
 
@@ -133,7 +139,25 @@ function Gate(x, y){
 
     this.element.addEventListener("contextmenu", (e) => {
         e.preventDefault();
-        this.type = types[(types.indexOf(this.type) + 1) % types.length];
-        gateType.innerText = this.type.toUpperCase();
+
+        gates.splice(gates.indexOf(this), 1);
+
+        this.outputs.forEach(output => {
+            output.wire.remove();
+            let outputGate = gates.filter(gate => gate.element.contains(output.connected))[0];
+            let outputGateInput = outputGate.inputs[output.connected.classList.contains("input1") ? "input1" : "input2"];
+            outputGateInput.connected = null;
+            outputGateInput.wire = null;
+        })
+        Object.entries(this.inputs).forEach(input => {
+            input = input[1];
+            if(input.connected){
+                input.wire.wire.remove();
+                let inputGate = gates.filter(gate => gate.element.contains(input.connected))[0];
+                inputGate.outputs.splice(inputGate.outputs.indexOf(inputGate.outputs.filter(output => output.wire === input.wire.wire)[0]), 1);
+            }
+        })
+
+        this.element.remove();
     })
 };

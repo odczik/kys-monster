@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200..1000;1,200..1000&display=swap');
+
 body {
     background-color: black;
     padding: 0;
@@ -10,6 +12,48 @@ body {
         -webkit-user-select: none;
         -o-user-select: none;
 }
+
+
+
+
+#toolbox {
+    z-index: 9999;
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 1px;
+    width: 200px;
+    margin: 25px;
+    
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 16px;
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(5px);
+    -webkit-backdrop-filter: blur(5px);
+    border: 2px solid rgba(255, 255, 255, 0.5);
+}
+
+#toolbox section {
+    margin: 10px;
+    padding: 10px;
+    border-radius: 10px;
+    background: rgba(255, 255, 255, 0.5);
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(5px);
+    -webkit-backdrop-filter: blur(5px);
+    border: 2px solid rgba(255, 255, 255, 0.5);
+
+    font-family: "Nunito", sans-serif;
+    color: #222;
+}
+
+#toolbox section h2 {
+    font-size: 1.75em;
+    margin: 0;
+}
+
+
+
 
 #container {
     /*border: 1px solid white;

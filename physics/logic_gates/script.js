@@ -7,8 +7,7 @@ let move = null;
 let moved = false;
 let outputSelected = null;
 
-gates.push(new Switch(100, 100));
-gates.push(new Switch(100, 300));
+let gateSelected = "gate";
 
 const update = () => {
     gates.forEach(gate => {
@@ -54,9 +53,25 @@ document.addEventListener("mousedown", (e) => {
                 input.value = false;
             }
         })
-    } else {
-        gates.push(new Gate(e.clientX - 35, e.clientY - 50));
+    } else if(e.pageX > 230){
+        switch(gateSelected){
+            case "gate":
+                gates.push(new Gate(e.clientX - 35, e.clientY - 50));
+                break;
+            case "switch":
+                gates.push(new Switch(e.clientX - 35, e.clientY - 50));
+                break;
+            case "led":
+                gates.push(new Led(e.clientX - 35, e.clientY - 50));
+                break;
+        }
     }
+})
+
+document.querySelectorAll("button").forEach(button => {
+    button.addEventListener("click", (e) => {
+        gateSelected = e.target.value;
+    })
 })
 
 document.addEventListener("mousemove", (e) => {

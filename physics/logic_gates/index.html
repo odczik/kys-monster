@@ -7,10 +7,26 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
+    <div id="toolbox">
+        <section>
+            <h2>Gates</h2>
+            <button value="gate">Logic gate</button>
+        </section>
+        <section>
+            <h2>Input</h2>
+            <button value="switch">Switch</button>
+        </section>
+        <section>
+            <h2>Output</h2>
+            <button value="led">LED</button>
+        </section>
+    </div>
+
     <svg id="svg-container"></svg>
 
-    <script src="gate.js"></script>
-    <script src="switch.js"></script>
+    <script src="components/gate.js"></script>
+    <script src="components/switch.js"></script>
+    <script src="components/led.js"></script>
     <script src="script.js"></script>
 </body>
 </html>
