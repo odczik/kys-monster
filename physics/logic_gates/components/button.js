@@ -1,4 +1,4 @@
-function Switch(x, y){
+function Button(x, y){
     this.isSwitch = true;
     this.element;
     this.x = x,
@@ -21,10 +21,6 @@ function Switch(x, y){
         this.outputs.forEach(output => {
             output.value = this.state;
         })
-        /*this.outputs.forEach(output => {
-            let gateToTrigger = gates.filter(gate => gate.element.contains(output.connected))[0];
-            gateToTrigger.fireInput(output.connected.classList.contains("input1") ? 1 : 2);
-        })*/
     }
 
     counter++;
@@ -41,7 +37,7 @@ function Switch(x, y){
     gate.appendChild(gateBody);
 
     const gateType = document.createElement('div');
-    gateType.innerText = "SWITCH";
+    gateType.innerText = "BUTTON";
     gateType.classList.add('gateType');
     gate.appendChild(gateType);
 
@@ -75,9 +71,20 @@ function Switch(x, y){
 
         this.element.remove();
     })
-    
+
+    this.updateOutputs = () => {
+        this.outputs.forEach(output => {
+            output.value = this.state;
+        })
+    }
     this.element.addEventListener("mousedown", (e) => {
         e.preventDefault();
-        this.fireInput();
+        this.state = true;
+        this.updateOutputs();
+    })
+    this.element.addEventListener("mouseup", (e) => {
+        e.preventDefault();
+        this.state = false;
+        this.updateOutputs();
     })
 };

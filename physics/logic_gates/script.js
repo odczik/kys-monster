@@ -61,6 +61,9 @@ document.addEventListener("mousedown", (e) => {
             case "switch":
                 gates.push(new Switch(e.clientX - 35, e.clientY - 50));
                 break;
+            case "button":
+                gates.push(new Button(e.clientX - 35, e.clientY - 50));
+                break;
             case "led":
                 gates.push(new Led(e.clientX - 35, e.clientY - 50));
                 break;
@@ -109,9 +112,7 @@ document.addEventListener("mousemove", (e) => {
 document.addEventListener("mouseup", (e) => {
     if(!moved && move){
         let gate = gates.filter(gate => gate.element.contains(move))[0];
-        if(gate.isSwitch){
-            gate.fireInput();
-        } else {
+        if(!gate.isSwitch){
             gate.type = types[(types.indexOf(gate.type) + 1) % types.length];
             gate.element.childNodes[1].innerText = gate.type.toUpperCase();
         }
