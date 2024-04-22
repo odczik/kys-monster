@@ -79,11 +79,14 @@ function Button(x, y){
     }
     this.element.addEventListener("mousedown", (e) => {
         e.preventDefault();
+        if(e.button === 2) return;
+        if(e.target.classList.contains("output")) return;
         this.state = true;
         this.updateOutputs();
     })
     this.element.addEventListener("mouseup", (e) => {
         e.preventDefault();
+        if(e.button === 2) return;
         this.state = false;
         this.updateOutputs();
     })
