@@ -15,12 +15,12 @@ function Led(x, y){
     this.state = false
 
     this.update = () => {
-        /*Object.entries(this.inputs).forEach((input, i) => {
+        Object.entries(this.inputs).forEach((input, i) => {
             input = input[1];
             
             if(input.wire) input.wire.connected.style.backgroundColor = input.value ? "red" : "green";
             
-            this.element.childNodes[1 + i].style.backgroundColor = input.value ? "red" : input.connected ? "green" : "#333";
+            //this.element.childNodes[1 + i].style.backgroundColor = input.value ? "red" : input.connected ? "green" : "#333";
 
             let gateToCheck = gates.filter(gate => gate.element.contains(input.connected))[0];
             if(!gateToCheck){
@@ -33,7 +33,15 @@ function Led(x, y){
             outputToCheck[0].wire.style.stroke = outputToCheck[0].value ? "red" : "green";
             
             input.value = outputToCheck[0].value;
-        })*/
+        })
+
+        this.state = this.inputs.input1.value;
+
+        if(this.state){
+            this.element.firstChild.style.backgroundColor = "red";
+        } else {
+            this.element.firstChild.style.backgroundColor = "#333";
+        }
     }
 
     this.fireInput = (input) => {
@@ -59,6 +67,11 @@ function Led(x, y){
     const gateBody = document.createElement('div');
     gateBody.classList.add('gateBody');
     gate.appendChild(gateBody);
+
+    const gateType = document.createElement('div');
+    gateType.innerText = "LED";
+    gateType.classList.add('gateType');
+    gate.appendChild(gateType);
 
     const input1 = document.createElement('div');
     input1.classList.add('input1');

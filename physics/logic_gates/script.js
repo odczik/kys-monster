@@ -89,7 +89,10 @@ document.addEventListener("mousemove", (e) => {
             Object.entries(gate.inputs).forEach((input, i) => {
                 input = input[1];
                 if(input.connected){
-                    let inputBounds = gate.element.childNodes[2 + i].getBoundingClientRect();
+                    /*let inputIndex = Object.entries(gate.inputs).findIndex(gateInput => console.log(gateInput));
+                    console.log(inputIndex, i)
+                    let inputBounds = gate.element.childNodes[inputIndex + i].getBoundingClientRect();*/
+                    let inputBounds = input.wire.connected.getBoundingClientRect();
                     let wireCoords = input.wire.wire.getAttribute('points').split(" ");
                     input.wire.wire.setAttribute('points', `${wireCoords[0].split(",")[0]},${wireCoords[0].split(",")[1]} ${inputBounds.left},${inputBounds.y + inputBounds.height / 2}`);
                 }
@@ -112,7 +115,7 @@ document.addEventListener("mousemove", (e) => {
 document.addEventListener("mouseup", (e) => {
     if(!moved && move){
         let gate = gates.filter(gate => gate.element.contains(move))[0];
-        if(!gate.isSwitch){
+        if(gate.isLogicGate){
             gate.type = types[(types.indexOf(gate.type) + 1) % types.length];
             gate.element.childNodes[1].innerText = gate.type.toUpperCase();
         }
@@ -126,8 +129,10 @@ document.addEventListener("mouseup", (e) => {
             
             if(input.connected){
                 let gate = gates.filter(gate => gate.element.contains(outputSelected))[0];
-                gate.outputs[gate.outputs.length - 1].remove();
+                gate.outputs[gate.outputs.length - 1].wire.remove();
+                gate.outputs.pop();
                 outputSelected.style.backgroundColor = "#333";
+                outputSelected = null;
                 return;
             }
 

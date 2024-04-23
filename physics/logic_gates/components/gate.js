@@ -1,6 +1,7 @@
 const types = ['and', 'nand', 'or', 'nor', 'xor', 'xnor'];
 
 function Gate(x, y){
+    this.isLogicGate = true;
     this.element;
     this.x = x,
     this.y = y,
