@@ -7,7 +7,8 @@ let move = null;
 let moved = false;
 let outputSelected = null;
 
-let gateSelected = "gate";
+let gateSelected = "";
+let buttonSelected = null;
 
 const update = () => {
     gates.forEach(gate => {
@@ -16,6 +17,27 @@ const update = () => {
     requestAnimationFrame(update);
 }
 update();
+
+/*var frameCount = 0;
+var fps, fpsInterval, startTime, now, then, elapsed;
+startAnimating(40);
+function startAnimating(fps) {
+    fpsInterval = 1000 / fps;
+    then = Date.now();
+    startTime = then;
+    console.log(startTime);
+    animate();
+}
+function animate() {
+    requestAnimationFrame(animate);
+    now = Date.now();
+    elapsed = now - then;
+    if (elapsed > fpsInterval) {
+        then = now - (elapsed % fpsInterval);
+
+        update();
+    }
+}*/
 
 document.addEventListener("mousedown", (e) => {
     if(e.button === 2) return;
@@ -74,6 +96,10 @@ document.addEventListener("mousedown", (e) => {
 document.querySelectorAll("button").forEach(button => {
     button.addEventListener("click", (e) => {
         gateSelected = e.target.value;
+
+        if(buttonSelected) buttonSelected.classList.remove("active");
+        buttonSelected = e.target;
+        buttonSelected.classList.add("active");
     })
 })
 

@@ -78,6 +78,7 @@ function Switch(x, y){
     
     this.element.addEventListener("mousedown", (e) => {
         e.preventDefault();
-        this.fireInput();
+        if(e.button === 2) return;
+        if(e.target.classList.contains("gateBody")) this.fireInput();
     })
 };
