@@ -4,6 +4,7 @@ const gates = [];
 
 let counter = 0;
 let move = null;
+let moveOffset = null;
 let moved = false;
 let outputSelected = null;
 
@@ -45,6 +46,7 @@ document.addEventListener("mousedown", (e) => {
         //e.target.parentNode.style.left = `${e.clientX - 35}px`;
         //e.target.parentNode.style.top = `${e.clientY - 50}px`;
         move = e.target.parentNode;
+        moveOffset = {x: e.clientX - move.getBoundingClientRect().left, y: e.clientY - move.getBoundingClientRect().top};
         counter++;
         move.style.zIndex = counter;
     } else if(e.target.classList.contains("output")){
@@ -106,9 +108,10 @@ document.querySelectorAll("button").forEach(button => {
 document.addEventListener("mousemove", (e) => {
     if(move){
         moved = true;
-        //let newX = e.clientX + (move.style.left.split("px")[0] - e.clientX);
-        move.style.left = `${e.clientX - 35}px`;
-        move.style.top = `${e.clientY - 50}px`;
+        let newX = e.clientX - moveOffset.x;
+        let newY = e.clientY - moveOffset.y;
+        move.style.left = `${newX}px`;
+        move.style.top = `${newY}px`;
 
         let gate = gates.filter(gate => gate.element.contains(move))[0];
         if(gate.inputs){
@@ -148,6 +151,7 @@ document.addEventListener("mouseup", (e) => {
     }
     moved = false;
     move = null;
+    moveOffset = null;
     if(outputSelected){
         if(e.target.classList.contains("input1") || e.target.classList.contains("input2")){
             let inputGate = gates.filter(gate => gate.element.contains(e.target))[0];
