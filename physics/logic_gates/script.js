@@ -39,8 +39,7 @@ function animate() {
         update();
     }
 }*/
-
-document.addEventListener("mousedown", (e) => {
+const handleInputDown = (e) => {
     if(e.button === 2) return;
     if(e.target.classList.contains("gateBody")){
         //e.target.parentNode.style.left = `${e.clientX - 35}px`;
@@ -93,7 +92,7 @@ document.addEventListener("mousedown", (e) => {
                 break;
         }
     }
-})
+}
 
 document.querySelectorAll("button").forEach(button => {
     button.addEventListener("click", (e) => {
@@ -105,7 +104,7 @@ document.querySelectorAll("button").forEach(button => {
     })
 })
 
-document.addEventListener("mousemove", (e) => {
+const handleInputMove = (e) => {
     if(move){
         moved = true;
         let newX = e.clientX - moveOffset.x;
@@ -139,9 +138,9 @@ document.addEventListener("mousemove", (e) => {
         let gate = gates.filter(gate => gate.element.contains(outputSelected))[0];
         gate.outputs[gate.outputs.length - 1].wire.setAttribute('points', `${outputSelected.getBoundingClientRect().right},${outputSelected.getBoundingClientRect().y + outputSelected.getBoundingClientRect().height / 2} ${e.clientX},${e.clientY}`);
     }
-})
+}
 
-document.addEventListener("mouseup", (e) => {
+const handleInputUp = (e) => {
     if(!moved && move){
         let gate = gates.filter(gate => gate.element.contains(move))[0];
         if(gate.isLogicGate){
@@ -153,6 +152,7 @@ document.addEventListener("mouseup", (e) => {
     move = null;
     moveOffset = null;
     if(outputSelected){
+        console.log(e)
         if(e.target.classList.contains("input1") || e.target.classList.contains("input2")){
             let inputGate = gates.filter(gate => gate.element.contains(e.target))[0];
             let input = e.target.classList.contains("input1") ? inputGate.inputs.input1 : inputGate.inputs.input2;
@@ -184,4 +184,33 @@ document.addEventListener("mouseup", (e) => {
         }
         outputSelected = null;
     }
+}
+
+document.addEventListener("mousedown", (e) => {
+    if(window.screen.width < window.screen.height) return;
+    handleInputDown(e);
+})
+document.addEventListener("mousemove", (e) => {
+    handleInputMove(e);
+})
+document.addEventListener("mouseup", (e) => {
+    if(window.screen.width < window.screen.height) return;
+    //handleInputUp(e);
+})
+
+let lastTouch = null;
+document.addEventListener("touchstart", (e) => {
+    handleInputDown(e.touches[0]);
+    lastTouch = e.touches[0];
+})
+document.addEventListener("touchmove", (e) => {
+    handleInputMove(e.touches[0]);
+    lastTouch.clientX = e.touches[0].clientX;
+    lastTouch.clientY = e.touches[0].clientY;
+    lastTouch.target = document.elementFromPoint(e.touches[0].clientX, e.touches[0].clientY);
+})
+document.addEventListener("touchend", () => {
+    lastTouch.target = null
+    console.log(lastTouch.clientX, lastTouch.clientY, lastTouch.target)
+    handleInputUp(lastTouch.target = null);
 })
