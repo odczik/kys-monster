@@ -195,7 +195,7 @@ document.addEventListener("mousemove", (e) => {
 })
 document.addEventListener("mouseup", (e) => {
     if(window.screen.width < window.screen.height) return;
-    //handleInputUp(e);
+    handleInputUp(e);
 })
 
 let lastTouch = null;
@@ -212,5 +212,5 @@ document.addEventListener("touchmove", (e) => {
 document.addEventListener("touchend", () => {
     lastTouch.target = null
     console.log(lastTouch.clientX, lastTouch.clientY, lastTouch.target)
-    handleInputUp(lastTouch.target = null);
+    handleInputUp(lastTouch);
 })
