@@ -256,10 +256,31 @@ const updateHandler = () => {
 
     document.getElementById("updateTook").innerText = "Update took: " + updateTook + "ms";
     
-    requestAnimationFrame(updateHandler);
+    //requestAnimationFrame(updateHandler);
     frames++;
 }
-updateHandler();
+//updateHandler();
+
+var frameCount = 0;
+var fps, fpsInterval, startTime, now, then, elapsed;
+startAnimating(60);
+function startAnimating(fps) {
+    fpsInterval = 1000 / fps;
+    then = Date.now();
+    startTime = then;
+    console.log(startTime);
+    animate();
+}
+function animate() {
+    requestAnimationFrame(animate);
+    now = Date.now();
+    elapsed = now - then;
+    if (elapsed > fpsInterval) {
+        then = now - (elapsed % fpsInterval);
+
+        updateHandler();
+    }
+}
 
 // fps counter
 const refreshRate = 0.5;
