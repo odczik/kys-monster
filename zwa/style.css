@@ -1,0 +1,95 @@
+@import url('https://fonts.googleapis.com/css2?family=Anton&family=Oswald:wght@200..700&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
+:root {
+
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    background-color: black;
+    overflow-x: hidden;
+    font-family: "Anton", sans-serif;
+}
+
+
+.card {
+    backdrop-filter: blur(4px) saturate(180%);
+    -webkit-backdrop-filter: blur(4px) saturate(180%);
+    background-color: rgba(30, 30, 30, 0.75);
+    border-radius: 12px;
+    border: 1px solid rgba(255, 255, 255, 0.125);
+
+    color: #989898;
+
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 80vw;
+    height: 70vh;
+}
+
+.card h1 {
+    font-size: max(5vw, 3em);
+    margin: 0;
+    padding: 0;
+    text-align: center;
+    margin-top: 0.5em;
+}
+
+
+.char {
+    transition: 0.05s;
+    cursor: default;
+}
+.char:hover {
+    color: rgb(130, 35, 35);
+}
+
+#background-text-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: -1;
+}
+
+.background-text {
+    color: #333;
+    font-size: 6cqh;
+    font-weight: 700;
+    white-space: nowrap;
+    line-height: 117.7%;
+    /*transform: translateX(-3010%);*/
+}
+
+.background-text:nth-child(even) {
+    float: right;
+    animation: scrollRight 2400s linear infinite;
+}
+
+.background-text:nth-child(odd) {
+    float: left;
+    animation: scrollLeft 2400s linear infinite;
+}
+
+
+@keyframes scrollLeft {
+    0% {
+        transform: translateX(0%);
+    }
+    100% {
+        transform: translateX(-95%);
+    }
+}
+
+@keyframes scrollRight {
+    0% {
+        transform: translateX(0%);
+    }
+    100% {
+        transform: translateX(95%);
+    }
+}
