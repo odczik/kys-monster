@@ -42,9 +42,17 @@ body {
 .char {
     transition: 0.05s;
     cursor: default;
+    color: black;
+    text-shadow: 
+        -1px -1px 0 #333,  
+         1px -1px 0 #333,
+        -1px  1px 0 #333,
+         1px  1px 0 #333; /* Text outline */
 }
 .char:hover {
-    color: rgb(130, 35, 35);
+    /*color: rgb(130, 35, 35);*/
+    color: #333;
+    text-shadow: none;
 }
 
 #background-text-container {
