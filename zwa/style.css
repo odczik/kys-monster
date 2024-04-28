@@ -53,10 +53,10 @@ section {
 
     color: #989898;
 
-    position: absolute;
-    top: 40%;
+    position: relative;
+    top: 15vh;
     left: 50%;
-    transform: translate(-50%, -50%);
+    transform: translateX(-50%);
     width: 80vw;
     height: 70vh;
     z-index: 2;
@@ -97,8 +97,8 @@ section {
     /*background-color: black;*/
     background: linear-gradient(
         to bottom,
-        #000 30%,
-        #0000
+        #000 47%,
+        #0000 70%
     );
 }
 #background-text-container {
@@ -151,16 +151,16 @@ section {
 #blob {
     position: fixed;
     left: 50%;
-    top: 50%;
+    top: 150vh;
     transform: translate(-50%, -50%);
     z-index: -4;
-    width: 40vw;
-    height: 40vw;
+    width: 35vw;
+    height: 35vw;
     border-radius: 50%;
     background: linear-gradient(
         to right,
-        rgb(130, 35, 35),
-        #333
+        rgb(130, 35, 35) 50%,
+        rgb(35, 130, 35)
     );
     animation: rotate 30s infinite;
 }
