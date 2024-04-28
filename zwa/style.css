@@ -10,8 +10,39 @@ body {
     background-color: black;
     overflow-x: hidden;
     font-family: "Anton", sans-serif;
+    overflow-x: none;
 }
 
+section {
+    width: 100vw;
+    height: 100vh;
+    /*display: flex;
+    justify-content: center;
+    align-items: center;*/
+}
+
+#section-arrow-down {
+    bottom: 5vh;
+    left: 50%;
+    transform: translateX(-50%);
+    position: absolute;
+    border: 1px solid #333;
+    border-radius: 50%;
+    width: 90px;
+    height: 90px;
+    z-index: 3;
+    background-color: black;
+    color: black;
+    cursor: pointer;
+    transition: 0.2s ease-out;
+    text-shadow: -2px 0 #333, 0 2px #333, 2px 0 #333, 0 -2px #333;
+}
+#section-arrow-down:hover {
+    background-color: black;
+    color: rgb(130, 35, 35);
+    transform: translateX(-50%) rotate(180deg) scale(1.1);
+    text-shadow: none;
+}
 
 .card {
     backdrop-filter: blur(4px) saturate(180%);
@@ -23,11 +54,12 @@ body {
     color: #989898;
 
     position: absolute;
-    top: 50%;
+    top: 40%;
     left: 50%;
     transform: translate(-50%, -50%);
     width: 80vw;
     height: 70vh;
+    z-index: 2;
 }
 
 .card h1 {
@@ -50,18 +82,32 @@ body {
          1px  1px 0 #333; /* Text outline */
 }
 .char:hover {
-    /*color: rgb(130, 35, 35);*/
-    color: #333;
+    color: rgb(130, 35, 35);
+    /*color: #333;*/
     text-shadow: none;
 }
 
+#background-text-background {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 200vh;
+    z-index: 0;
+    /*background-color: black;*/
+    background: linear-gradient(
+        to bottom,
+        #000 30%,
+        #0000
+    );
+}
 #background-text-container {
-    position: fixed;
+    position: relative;
     top: 0;
     left: 0;
     width: 100vw;
     height: 100vh;
-    z-index: -1;
+    z-index: 1;
 }
 
 .background-text {
@@ -99,5 +145,43 @@ body {
     }
     100% {
         transform: translateX(95%);
+    }
+}
+
+#blob {
+    position: fixed;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    z-index: -4;
+    width: 40vw;
+    height: 40vw;
+    border-radius: 50%;
+    background: linear-gradient(
+        to right,
+        rgb(130, 35, 35),
+        #333
+    );
+    animation: rotate 30s infinite;
+}
+#blur {
+    z-index: -3;
+    backdrop-filter: blur(100px);
+    -webkit-backdrop-filter: blur(100px);
+    position: fixed;
+    width: 100vw;
+    height: 100vh;
+    top: 0;
+    left: 0;
+}
+@keyframes rotate {
+    0% {
+        transform: translate(-50%, -50%) rotate(0deg);
+    }
+    50% {
+        transform: translate(-50%, -50%) rotate(180deg) scale(1.5, 1);
+    }
+    100% {
+        transform: translate(-50%, -50%) rotate(360deg);
     }
 }
