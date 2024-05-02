@@ -33,10 +33,11 @@ body {
     width: 90vw;
     max-width: 1200px;
     gap: 5vh;
-    top: 2vh;
+    top: 5vh;
     position: relative;
     left: 50%;
     transform: translateX(-50%);
+    margin-bottom: 15vh;
 }
 
 .card-container {

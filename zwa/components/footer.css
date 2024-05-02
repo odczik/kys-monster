@@ -9,40 +9,36 @@
     --main-6: #1B2021;
 }
 
-nav {
+footer {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 0 10px;
-    background-color: var(--main-3);
+    padding: 5px 5px;
+    position: relative;
+    background-color: var(--main-4);
     color: var(--main-1);
     font-family: 'Poppins', sans-serif;
-    height: 70px;
+    min-height: 50px;
     border-radius: 10px;
     margin: 10px;
 }
 
-nav .nav-menu {
-    position: relative;
+footer .footer-container {
+    width: 100%;
     display: flex;
     justify-content: space-between;
     align-items: center;
     flex-flow: row nowrap;
     gap: 5px;
+    text-align: center;
 }
 
-nav .nav-menu .nav-menu-item {
-    border-radius: 10px;
-    padding: 12px;
+footer a {
     text-decoration: none;
-    color: var(--main-1);
-    transition: 0.1s;
-}
-nav .nav-menu .nav-menu-item:hover {
-    background-color: var(--main-4);
+    color: var(--main-2);
 }
 
-nav .nav-logo {
+footer .footer-logo {
     font-family: 'Anton', sans-serif;
     font-size: 1.5rem;
     color: var(--main-1);
@@ -50,12 +46,12 @@ nav .nav-logo {
     display: flex;
     align-items: center;
 }
-nav .nav-logo-image {
+footer .footer-logo-image {
     mask: url("https://img.icons8.com/material-rounded/48/console.png");
     background: var(--main-1);
     width: 48px;
     aspect-ratio: 1;
 }
-nav .nav-logo-text {
+footer .footer-logo-text {
     margin-left: 5px;
 }
