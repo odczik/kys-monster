@@ -14,8 +14,9 @@ footer {
     justify-content: space-between;
     align-items: center;
     padding: 5px 5px;
-    position: sticky;
-    bottom: -100%;
+    position: relative;
+    /*bottom: -100%;*/
+    bottom: 12px;
     background-color: var(--main-4);
     color: var(--main-1);
     font-family: 'Poppins', sans-serif;

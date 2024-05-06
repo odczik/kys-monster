@@ -9,6 +9,23 @@
     --main-6: #1B2021;
 }
 
+.from-right {
+    position: relative;
+    transform: translateX(250px);
+    opacity: 0;
+    transition: 0.5s all ease;
+}
+.from-left {
+    position: relative;
+    transform: translateX(-250px);
+    opacity: 0;
+    transition: 0.5s all ease;
+}
+.reveal.active {
+    transform: translateX(0);
+    opacity: 1;
+}
+
 html, body {
     overflow-x: hidden;
 }
@@ -28,6 +45,7 @@ main {
     margin-top: 10vh;
     height: auto;
     min-height: 82%;
+    margin-bottom: 5vh;
 }
 
 h1 {
@@ -46,7 +64,7 @@ h1 {
 h1::after {
     content: "";
     display: block;
-    transform: translateX(-12px);
+    transform: translateX(-2px);
     width: 0;
     height: 3px;
     background-color: #fafafa;
@@ -54,7 +72,7 @@ h1::after {
     transition: 0.3s ease;
 }
 h1:hover::after {
-    width: 370px;
+    width: 600px;
 }
 
 #image-container {
@@ -65,7 +83,7 @@ h1:hover::after {
     height: auto;
     width: 90vw;
     max-width: 1200px;
-    gap: 10px;
+    gap: 5vh;
     position: relative;
     left: 50%;
     transform: translateX(-50%);
