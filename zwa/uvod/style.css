@@ -46,6 +46,7 @@ main {
     height: auto;
     min-height: 82%;
     margin-bottom: 5vh;
+    opacity: 0;
 }
 
 h1 {

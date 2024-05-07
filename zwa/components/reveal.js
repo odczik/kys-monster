@@ -15,3 +15,6 @@ function reveal() {
 }
   
 document.body.addEventListener("scroll", reveal);
+window.addEventListener("DOMContentLoaded", () => {
+    setTimeout(reveal, 200);
+});

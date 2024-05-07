@@ -45,8 +45,12 @@ nav .nav-menu .nav-menu-item {
     text-decoration: none;
     color: var(--main-1);
     transition: 0.1s;
+    cursor: pointer;
 }
 nav .nav-menu .nav-menu-item:hover {
+    background-color: var(--main-4);
+}
+nav .nav-menu .nav-menu-item.active {
     background-color: var(--main-4);
 }
 

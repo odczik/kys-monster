@@ -28,6 +28,7 @@ main {
     margin-top: 10vh;
     height: auto;
     min-height: 82%;
+    opacity: 0;
 }
 
 h1 {
