@@ -11,6 +11,9 @@ window.addEventListener("DOMContentLoaded", () => {
 window.transitionToPage = (href) => {
     document.querySelector("main").style.opacity = 0;
 
+    const burger = document.querySelector('.nav-burger', false);
+    document.querySelector('nav').classList.toggle('active', false);
+
     setTimeout(() => {
         window.location.href = href;
     }, transitionHalfTime)
