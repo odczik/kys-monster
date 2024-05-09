@@ -56,7 +56,7 @@ h1::after {
     transition: 0.3s ease;
 }
 h1:hover::after {
-    width: 370px;
+    width: min(370px, 60vw);
 }
 
 p {
