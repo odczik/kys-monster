@@ -74,7 +74,7 @@ h1::after {
     transition: 0.3s ease;
 }
 h1:hover::after {
-    width: 600px;
+    width: min(600px, 88vw);
 }
 
 #image-container {
