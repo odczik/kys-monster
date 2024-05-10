@@ -5,8 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <link rel="stylesheet" href="style.css">
-    <link rel="stylesheet" href="components/navbar.css">
-    <link rel="stylesheet" href="components/footer.css">
+    <link rel="stylesheet" href="../components/navbar.css">
+    <link rel="stylesheet" href="../components/footer.css">
 </head>
 <body onload="init()">
     <nav>
@@ -19,7 +19,7 @@
             <span class="nav-menu-item" onclick="transitionToPage('/zwa/uvod')">Úvod</span>
             <span class="nav-menu-item" onclick="transitionToPage('/zwa/')">-----</span>
             <span class="nav-menu-item" onclick="transitionToPage('/zwa/galerie')">Galerie</span>
-            <span class="nav-menu-item" onclick="transitionToPage('/zwa/autor')">O autorovi</span>
+            <span class="nav-menu-item active" onclick="transitionToPage('/zwa/autor')">O autorovi</span>
         </div>
         <div class="nav-burger">
             <span class="nav-burger-line line-top"></span>
@@ -29,10 +29,9 @@
     </nav>
 
     <main>
-        <h1>Programování</h1>
-        <p>Programování je psaní instrukcí pro počítač, které mu umožňují provádět úkoly.</p>
-        <p>Zahrnuje psaní kódu, který definuje chování programu. Lze ho využít pro tvorbu softwaru, webových stránek, aplikací a her. </p>
-        <p>Každý jazyk má své vlastní vlastnosti a syntaxi.</p>
+        <h1>O autorovi</h1>
+        <p class="reveal from-left">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Iste ipsum debitis modi illum doloremque cumque molestias sit magnam nihil pariatur, doloribus quas laborum maxime veritatis error itaque illo minima voluptates.</p>
+        <img class="reveal from-right" src="./autor.webp" alt="autor">
     </main>
 
     <footer>
@@ -46,8 +45,9 @@
         </div>
     </footer>
     
-    <script src="components/navbar.js"></script>
-    <script src="components/transition.js"></script>
-    <script src="components/smooth_scroll.js"></script>
+    <script src="../components/navbar.js"></script>
+    <script src="../components/transition.js"></script>
+    <script src="../components/reveal.js"></script>
+    <script src="../components/smooth_scroll.js"></script>
 </body>
 </html>
