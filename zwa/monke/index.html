@@ -58,6 +58,8 @@
         const textElm = document.querySelector('.fancy-text');
 
         textElm.addEventListener("mouseover", () => {
+            wordsCounter++;
+            word = words[wordsCounter % words.length];
             const text = word.split('');
             let count = 0;
             const interval = setInterval(() => {
@@ -73,8 +75,6 @@
                     textElm.textContent = text.join('');
                 }
             }, 30);
-            wordsCounter++;
-            word = words[wordsCounter % words.length];
         });
     </script>    
     <script src="../components/navbar.js"></script>
