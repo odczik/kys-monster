@@ -58,7 +58,7 @@ h1 {
     cursor: default;
     text-align: center;
     font-size: min(4rem, 12vw);
-    width: min(310px, 90vw);
+    width: min(220px, 90vw);
     height: auto;
     left: 50%;
     transform: translateX(-49%);
@@ -66,7 +66,7 @@ h1 {
 h1::after {
     content: "";
     display: block;
-    transform: translateX(-2px);
+    transform: translateX(-1px);
     width: 0;
     height: 3px;
     background-color: #fafafa;
@@ -74,7 +74,7 @@ h1::after {
     transition: 0.3s ease;
 }
 h1:hover::after {
-    width: 100%;
+    width: 95%;
 }
 
 main #gallery-container {
@@ -101,9 +101,9 @@ main .gallery-item-shadow {
     position: absolute;
     top: 15px;
     left: 15px;
-    width: 30vw;
+    width: 27vw;
     min-width: 360px;
-    height: 16.5vw;
+    height: 14.85vw;
     min-height: 198px;
     border: 3px solid var(--main-2);
     border-radius: 10px;
@@ -117,9 +117,9 @@ main .gallery-item:hover .gallery-item-shadow {
 main iframe {
     display: flex;
     border-radius: 10px;
-    width: 30vw;
+    width: 27vw;
     min-width: 360px;
-    height: 16.5vw;
+    height: 14.85vw;
     min-height: 198px;
     filter: saturate(0%);
     transition: 0.3s;
@@ -129,9 +129,9 @@ main .gallery-item-cover {
     top: 0;
     border-radius: 10px;
     background-color: #84a98c7c;
-    width: 30vw;
+    width: 27vw;
     min-width: 360px;
-    height: 16.5vw;
+    height: 14.85vw;
     min-height: 198px;
     transition: 0.3s;
     z-index: 2;
@@ -149,5 +149,6 @@ main .gallery-item-cover:hover ~ iframe {
 @media (max-width: 640px) {
     main {
         margin-top: 0;
+        margin-bottom: 10vh;
     }
 }
