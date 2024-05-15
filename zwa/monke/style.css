@@ -50,7 +50,7 @@ main {
 }
 
 h1 {
-    font-family: "Anton", sans-serif;
+    font-family: monospace;
     margin: 0;
     margin-bottom: 3vh;
     position: relative;
@@ -72,15 +72,23 @@ h1 {
     top: 50%;
     left: 50%;
     transform: translate(10%, -45%);
-    animation: rotate 5s ease-out infinite;
+    animation: rotateDesktop 5s ease-out infinite;
 }
 
-@keyframes rotate {
-    0% {
+@keyframes rotateDesktop {
+    5% {
         transform: translate(10%, -45%) rotate(0deg);
     }
     90% {
-        transform: translate(10%, -45%) rotate(360deg);
+        transform: translate(10%, -45%) rotate(360deg) scale(1, 0.4);
+    }
+}
+@keyframes rotateMobile {
+    5% {
+        transform: translate(-50%, -50%) rotate(0deg);
+    }
+    90% {
+        transform: translate(-50%, -50%) rotate(360deg) scale(1, 0.4);
     }
 }
 
@@ -90,7 +98,14 @@ h1 {
         margin-top: 0;
     }
     h1 {
+        position: relative;
         left: 50%;
         transform: translateX(-49%);
+        text-align: center;
+        top: 5vh;
+    }
+    #monke {
+        transform: translate(-50%, -50%);
+        animation: rotateMobile 5s ease-out infinite;
     }
 }
