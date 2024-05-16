@@ -9,6 +9,7 @@ let afraid = false;
 let scatter = false;
 let powerPelletTimer = false;
 let afraidTimer = 0;
+let won = false;
 
 let dotsLeft;
 
@@ -212,6 +213,7 @@ const update = () => {
             afraidTimer = 0;
         }, 5000)
     }
+    if(score == 2730) won = true;
     // Check for ghosts
     ghosts.forEach(ghost => {
         if(pacman.realX == ghost.realX && pacman.realY == ghost.realY){
@@ -244,6 +246,20 @@ const render = () => {
         ctx.fillStyle = "red";
         ctx.fillText("kkt", scale, (rows / 2 * scale) + scale * 4); 
     }
+    if(pacman.dead && !won){
+        ctx.font = scale * 9 + "px arial";
+        ctx.fillStyle = "red";
+        ctx.strokeStyle = "white"
+        ctx.fillText("jsi ded", scale, (rows / 2 * scale) + scale * 4);
+        ctx.strokeText("jsi ded", scale, (rows / 2 * scale) + scale * 4);
+    }
+    if(won){
+        ctx.font = scale * 6.5 + "px arial";
+        ctx.fillStyle = "red";
+        ctx.strokeStyle = "white"
+        ctx.fillText("vyhral jsi", scale, (rows / 2 * scale) + scale * 4);
+        ctx.strokeText("vyhral jsi", scale, (rows / 2 * scale) + scale * 4);
+    }
 }
 
 let frames = 0;
@@ -256,7 +272,6 @@ const updateHandler = () => {
 
     document.getElementById("updateTook").innerText = "Update took: " + updateTook + "ms";
     
-    //requestAnimationFrame(updateHandler);
     frames++;
 }
 //updateHandler();
