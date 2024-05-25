@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body onload="init()">
+    <section class="section-1">
+        <div class="section-container">
+            <h1>Programování</h1>
+            <img src="./images/macbook1.png" alt="computer">
+        </div>
+    </section>
+    <nav>
+        <a href="/zwa" class="nav-logo">
+            <div class="nav-logo-image"></div>
+            <div class="nav-logo-text">ZWA</div>
+        </a>
+        <div class="nav-container">
+            <span class="nav-item">Úvod</span>
+            <span class="nav-item">Galerie</span>
+            <span class="nav-item">O autorovi</span>
+            <span class="nav-item">Monke</span>
+        </div>
+    </nav>
+    <section class="section-2">
+        <div class="section-container">
+            <span class="blur"></span>
+            <span class="blob blob-1"></span>
+            <span class="blob blob-2"></span>
+            <span class="blob blob-3"></span>
+        </div>
+    </section>
+    <section class="section-3">
+        <div class="section-container">
+            
+        </div>
+    </section>
+
+    <script>
+        const stickyElm = document.querySelector('nav')
+
+        const observer = new IntersectionObserver( 
+          ([e]) => e.target.classList.toggle('is-sticky', e.intersectionRatio < 1),
+          {threshold: [1]}
+        );
+
+        observer.observe(stickyElm)
+    </script>
+    <script src="./components/smooth_scroll.js"></script>
+</body>
+</html>
