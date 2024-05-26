@@ -101,6 +101,11 @@ section {
     object-position: center;
     border-radius: 20px;
     box-shadow: 5px 5px 20px rgba(0,0,0,1);
+    transition: transform 0.7s cubic-bezier(0.25, 0, 0.25, 1), filter 0.35s cubic-bezier(1, 0, 0, 1);
+}
+.section-2 .section-container .image-container:hover img {
+    transform:  translate(-50%, -50%) rotateY(180deg);
+    filter: brightness(0);
 }
 .section-2 .blur {
     position: absolute;
