@@ -307,7 +307,7 @@ nav .nav-item:hover::after {
 nav .nav-burger {
     position: absolute;
     right: 10%;
-    display: flex;
+    display: none;
     cursor: pointer;
     flex-direction: column;
     justify-content: space-between;
