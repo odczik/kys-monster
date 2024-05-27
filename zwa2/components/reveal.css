@@ -1,0 +1,9 @@
+.from-bottom {
+    opacity: 0;
+    transform: translateY(100px);
+    transition: 0.5s cubic-bezier(0.25, 0, 0.25, 1);
+}
+.reveal.active {
+    opacity: 1;
+    transform: translateY(0px);
+}

@@ -5,14 +5,21 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="./components/reveal.css">
+    <link rel="stylesheet" href="./components/navbar.css">
+    <link rel="stylesheet" href="./components/footer.css">
+    <link rel="stylesheet" href="./components/transition.css">
 </head>
-<body onload="init()">
+<body class="transition" onload="init()">
     <section class="section-1">
         <div class="section-container">
             <span class="blob"></span>
             <h1>Programování</h1>
-            <h2>magič</h2>
+            <h2>magič?</h2>
             <img src="./images/macbook1.png" alt="computer">
+            <!--<svg class="arrow" width="46" height="51" viewBox="0 0 46 51" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M26 3C26 1.34315 24.6569 0 23 0C21.3431 0 20 1.34315 20 3H26ZM20.8787 50.1213C22.0503 51.2929 23.9497 51.2929 25.1213 50.1213L44.2132 31.0294C45.3848 29.8579 45.3848 27.9584 44.2132 26.7868C43.0416 25.6152 41.1421 25.6152 39.9706 26.7868L23 43.7574L6.02944 26.7868C4.85786 25.6152 2.95837 25.6152 1.7868 26.7868C0.615224 27.9584 0.615224 29.8579 1.7868 31.0294L20.8787 50.1213ZM20 3L20 48H26L26 3H20Z" fill="#F1F1F1" fill-opacity="0.55"/>
+            </svg>-->
         </div>
     </section>
     <nav>
@@ -21,10 +28,10 @@
             <div class="nav-logo-text">ZWA</div>
         </a>
         <div class="nav-container">
-            <span class="nav-item">Úvod</span>
-            <span class="nav-item">Galerie</span>
-            <span class="nav-item">O autorovi</span>
-            <span class="nav-item">Monke</span>
+            <span class="nav-item" onclick="transitionToPage('/zwa2/uvod')">Úvod</span>
+            <span class="nav-item" onclick="transitionToPage('/zwa2/galerie')">Galerie</span>
+            <span class="nav-item" onclick="transitionToPage('/zwa2/autor')">O autorovi</span>
+            <span class="nav-item" onclick="transitionToPage('/zwa2/monke')">Monke</span>
         </div>
         <div class="nav-burger">
             <span class="nav-burger-line line-top"></span>
@@ -32,14 +39,19 @@
             <span class="nav-burger-line line-bot"></span>
         </div>
     </nav>
-    <section class="section-2">
+    <section class="section-2 reveal from-bottom">
         <div class="section-container">
             <div class="text-container">
-                <h1>Lorem ipsum</h1>
-                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Doloremque dolores voluptate omnis porro itaque quod voluptatem facere id reprehenderit provident quibusdam, odio, nulla dignissimos sequi possimus? Odit placeat eveniet tempora!</p>
+                <h1>Co to je?</h1>
+                <p>Programování je proces tvorby a psaní kódu, který říká počítači, co má dělat, pomocí programovacích jazyků. Podle určení můžeme tento proces rozdělit do tří základních kategorií.</p>
             </div>
             <div class="image-container">
-                <img src="./images/program.jpg" alt="program">
+                <div class="image-overflow-container">
+                    <div class="text-container">
+                        🐵
+                    </div>
+                    <img src="./images/program.jpg" alt="program">
+                </div>
             </div>
             <span class="blur"></span>
             <span class="blob blob-1"></span>
@@ -47,7 +59,7 @@
             <span class="blob blob-3"></span>
         </div>
     </section>
-    <section class="section-3">
+    <section class="section-3 reveal from-bottom">
         <div class="section-container">
             <div class="images-container">
                 <div class="image-container">
@@ -66,7 +78,7 @@
                 </div>
                 <div class="image-container">
                     <div class="text-container">
-                        <h2>Desktopové aplikace</h2>
+                        <h2>Desktopové a mobilní aplikace</h2>
                         <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Doloremque dolores voluptate facere id reprehenderit provident quibusdam, odio, nulla dignissimos sequi possimus?</p>
                     </div>
                     <img src="./images/macbook2.jpg" alt="macbook">
@@ -76,7 +88,7 @@
     </section>
     <footer>
         <div class="footer-container">
-            <a href="/zwa/index.html" class="footer-logo">
+            <a href="/zwa2/index.html" class="footer-logo">
                 <div class="footer-logo-image"></div>
                 <div class="footer-logo-text">ZWA</div>
             </a>
@@ -85,17 +97,10 @@
         </div>
     </footer>
 
-    <script>
-        const stickyElm = document.querySelector('nav')
-
-        const observer = new IntersectionObserver( 
-          ([e]) => e.target.classList.toggle('is-sticky', e.intersectionRatio < 1),
-          {threshold: [1]}
-        );
-
-        observer.observe(stickyElm)
-    </script>
+    <script src="./components/transition.js"></script>
+    <script src="./components/is_sticky.js"></script>
     <script src="./components/smooth_scroll.js"></script>
+    <script src="./components/reveal.js"></script>
     <script src="./components/navbar.js"></script>
 </body>
 </html>

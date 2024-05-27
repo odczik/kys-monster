@@ -1,0 +1,108 @@
+@import url('https://fonts.googleapis.com/css2?family=Anton&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
+
+:root {
+    --purple-1: #422680;
+    --purple-2: #341671;
+    --purple-3: #280659;
+    --purple-4: #660F56;
+    --purple-5: #AE2D68;
+    --purple-6: #F54952;
+}
+
+body {
+    background-color: black;
+    padding: 0;
+    margin: 0;
+    font-family: "Roboto", sans-serif;
+    margin-top: calc(15vh - 15px);
+}
+
+section {
+    position: relative;
+    width: 100%;
+    height: 85vh;
+    margin-bottom: 15px;
+}
+
+.section-container {
+    margin: 15px;
+    position: relative;
+    border-radius: 20px;
+    height: 100%;
+    overflow: hidden;
+    background: linear-gradient(120deg, black, var(--purple-4));
+}
+
+.section-1 {
+    height: 85vh;
+}
+.section-1 h1 {
+    position: absolute;
+    top: 5vh;
+    margin: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    color: white;
+    font-size: 6em;
+    text-align: center;
+    z-index: 2;
+}
+.section-1 h2 {
+    position: absolute;
+    top: 20vh;
+    margin: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    color: white;
+    font-size: 2em;
+    text-align: center;
+    opacity: 0.8;
+    z-index: 2;
+}
+.section-1 .gallery-container {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 70%;
+    height: 100%;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    align-items: center;
+    display: flex;
+}
+.section-1 .gallery-container .gallery-item {
+    border-radius: 20px;
+    overflow: hidden;
+}
+
+.blob {
+    position: absolute;
+    aspect-ratio: 1;
+    filter: blur(100px);
+    border-radius: 50%;
+    z-index: 0;
+}
+.blob-1 {
+    left: 0;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    width: 50%;
+    background: radial-gradient(circle, var(--purple-1) 20%, rgba(0,0,0,0) 50%);
+}
+.blob-2 {
+    border: 1px solid red;
+    left: 0;
+    top: 70%;
+    transform: translate(-50%, -40%);
+    width: 100%;
+    background: radial-gradient(circle, var(--purple-1) 20%, rgba(0,0,0,0) 50%);
+}
+
+
+
+@media (max-width: 800px) {
+    .section-1 h1 {
+        font-size: 3em;
+    }
+}

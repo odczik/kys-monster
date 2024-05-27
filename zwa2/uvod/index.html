@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="../components/reveal.css">
+    <link rel="stylesheet" href="../components/navbar.css">
+    <link rel="stylesheet" href="../components/footer.css">
+    <link rel="stylesheet" href="../components/transition.css">
+</head>
+<body onload="init()">
+    <nav class="fixed is-sticky">
+        <a href="/zwa2" class="nav-logo">
+            <div class="nav-logo-image"></div>
+            <div class="nav-logo-text">ZWA</div>
+        </a>
+        <div class="nav-container">
+            <span class="nav-item" onclick="transitionToPage('/zwa2/uvod')">Úvod</span>
+            <span class="nav-item" onclick="transitionToPage('/zwa2/galerie')">Galerie</span>
+            <span class="nav-item" onclick="transitionToPage('/zwa2/autor')">O autorovi</span>
+            <span class="nav-item" onclick="transitionToPage('/zwa2/monke')">Monke</span>
+        </div>
+        <div class="nav-burger">
+            <span class="nav-burger-line line-top"></span>
+            <span class="nav-burger-line line-mid"></span>
+            <span class="nav-burger-line line-bot"></span>
+        </div>
+    </nav>
+    <section class="section-1 transition">
+        <div class="section-container reveal from-bottom">
+            
+        </div>
+    </section>
+    <section class="section-2 transition">
+        <div class="section-container reveal from-bottom">
+            <span class="blur"></span>
+            <span class="blob blob-1"></span>
+            <span class="blob blob-2"></span>
+            <span class="blob blob-3"></span>
+        </div>
+    </section>
+    <section class="section-3 transition">
+        <div class="section-container reveal from-bottom">
+            
+        </div>
+    </section>
+    <footer class="transition">
+        <div class="footer-container">
+            <a href="/zwa2/index.html" class="footer-logo">
+                <div class="footer-logo-image"></div>
+                <div class="footer-logo-text">ZWA</div>
+            </a>
+            <div class="footer-text">&copy;Ondřej Dostál 2024</div>
+            <div>Icons by <a target="_blank" href="https://icons8.com">Icons8</a></div>
+        </div>
+    </footer>
+
+    <script src="../components/transition.js"></script>
+    <script src="../components/smooth_scroll.js"></script>
+    <script src="../components/reveal.js"></script>
+    <script src="../components/navbar.js"></script>
+</body>
+</html>
