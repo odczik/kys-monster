@@ -84,7 +84,6 @@ section {
     background: radial-gradient(circle, var(--purple-1) 20%, rgba(0,0,0,0) 50%);
 }
 .blob-2 {
-    border: 1px solid red;
     left: 0;
     top: 70%;
     transform: translate(-50%, -40%);
@@ -97,5 +96,16 @@ section {
 @media (max-width: 800px) {
     .section-1 h1 {
         font-size: 3em;
+    }
+    .section-1 img {
+        width: 80vw;
+    }
+    .blob-1 {
+        transform: translate(-50%, -80%);
+        width: 100%;
+    }
+    .blob-2 {
+        transform: translate(-50%, -60%);
+        width: 150%;
     }
 }

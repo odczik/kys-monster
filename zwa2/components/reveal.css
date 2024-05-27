@@ -7,3 +7,9 @@
     opacity: 1;
     transform: translateY(0px);
 }
+
+@media (max-width: 800px) {
+    .from-bottom {
+        transform: translateY(50px);
+    }
+}
