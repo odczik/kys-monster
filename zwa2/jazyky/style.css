@@ -1,0 +1,157 @@
+@import url('https://fonts.googleapis.com/css2?family=Anton&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
+
+:root {
+    --purple-1: #422680;
+    --purple-2: #341671;
+    --purple-3: #280659;
+    --purple-4: #660F56;
+    --purple-5: #AE2D68;
+    --purple-6: #F54952;
+}
+
+/*html {
+    scroll-behavior: smooth;
+}*/
+
+body {
+    background-color: black;
+    padding: 0;
+    margin: 0;
+    font-family: "Roboto", sans-serif;
+    margin-top: calc(15vh - 15px);
+}
+
+section {
+    position: relative;
+    width: 100%;
+    height: 85vh;
+    margin-bottom: 15px;
+}
+
+.section-container {
+    margin: 15px;
+    position: relative;
+    border-radius: 20px;
+    height: 100%;
+    overflow: hidden;
+}
+
+.section-1 {
+    height: 85vh;
+}
+.section-1 .section-container {
+    background-color: black;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.section-1 .left-wave {
+    position: absolute;
+    left: 0;
+    top: 0;
+    height: 80%;
+}
+.section-1 .right-wave {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    width: 80%;
+}
+.section-1 h1 {
+    position: absolute;
+    top: 5vh;
+    margin: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    color: white;
+    font-size: 6em;
+    text-align: center;
+    z-index: 2;
+}
+.section-1 h2 {
+    position: relative;
+    top: 5vh;
+    margin: 0;
+    width: 90%;
+    left: 50%;
+    transform: translateX(-50%);
+    color: white;
+    font-size: 3.5em;
+    text-align: center;
+    z-index: 2;
+    line-height: 90%;
+}
+.section-1 small {
+    font-size: 0.5em;
+    opacity: 0.8;
+}
+.section-1 p {
+    position: absolute;
+    top: 50%;
+    margin: 0;
+    left: 50%;
+    width: 75%;
+    transform: translate(-50%, -50%);
+    color: white;
+    font-size: 1.8em;
+    font-weight: 500;
+    text-align: center;
+    opacity: 0.9;
+    z-index: 2;
+}
+.section-1 a {
+    position: absolute;
+    bottom: 2.5vw;
+    right: 2.5vw;
+    color: white;
+    opacity: 0.7;
+    font-size: 1.5em;
+    text-decoration: none;
+    border: 2px solid white;
+    padding: 10px 20px;
+    border-radius: 10px;
+    z-index: 2;
+    transition: 0.2s cubic-bezier(0.25, 0, 0.25, 1);
+}
+.section-1 a:hover {
+    background-color: white;
+    color: black;
+    opacity: 0.8;
+}
+.section-1 .card-container {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    position: absolute;
+    width: 80%;
+    height: 100%;
+}
+.section-1 .card-container .card {
+    width: 40%;
+    height: 80%;
+    z-index: 2;
+    position: relative;
+    border-radius: 20px;
+    background-color: rgba(0, 0, 0, 0.1);
+    box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.5), 0px 0px 100px rgba(255, 255, 255, 0.15) inset;
+    backdrop-filter: blur(10px) brightness(0.9) saturate(0.9);
+}
+
+.section-2 .section-container {
+    display: flex;
+}
+
+
+.section-3 {
+
+}
+.section-3 .section-container {
+    background: linear-gradient(black 20%, var(--purple-1));
+}
+
+@media (max-width: 800px) {
+    .section-1 h1 {
+        font-size: 3em;
+    }
+
+}

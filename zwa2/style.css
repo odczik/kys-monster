@@ -41,6 +41,7 @@ section {
 .section-1 h1 {
     position: absolute;
     top: 5vh;
+    padding: 5px;
     margin: 0;
     left: 50%;
     transform: translateX(-50%);
@@ -284,6 +285,15 @@ section {
 }
 .section-3 .images-container .image-container:hover .text-container {
     opacity: 1;
+}
+
+h1 {
+    transition: 0.4s cubic-bezier(0.25, 0, 0.25, 1);
+    background: linear-gradient(to right, var(--purple-1), var(--purple-6));
+    -webkit-background-clip: text;
+}
+h1:hover {
+    color: transparent;
 }
 
 @media (max-width: 800px) {
