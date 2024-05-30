@@ -139,7 +139,7 @@ section {
 }
 
 .section-2 {
-    height: 110vh;
+    height: 100vh;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -154,22 +154,26 @@ section {
     flex-direction: column;
     background: url('https://www.transparenttextures.com/patterns/cartographer.png');
 }
+.section-2 .left-container {
+    margin-right: 8px;
+}
 .section-2 .left-container::before {
     content: '';
     position: absolute;
     width: 100%;
     height: 100%;
-    margin-right: 8px;
-    background: linear-gradient(90deg, transparent 25%, #326f9e);
+    background: linear-gradient(90deg, transparent 25%, #2b638f);
     z-index: 0;
+}
+.section-2 .right-container {
+    margin-left: 8px;
 }
 .section-2 .right-container::before {
     content: '';
     position: absolute;
     width: 100%;
     height: 100%;
-    margin-left: 8px;
-    background: linear-gradient(90deg, transparent 25%, #FED142);
+    background: linear-gradient(90deg, transparent 25%, #b39229);
     z-index: 0;
 }
 .section-2 .card {
@@ -200,7 +204,6 @@ section {
     text-align: center;
     opacity: 0.8;
 }
-
 
 .section-3 {
     height: 30vh;
@@ -265,5 +268,23 @@ section {
     }
     .section-1 .right-wave {
         width: 100%;
+    }
+
+    .section-2 {
+        flex-direction: column;
+        height: auto;
+    }
+    .section-2 .section-container {
+        width: 90%;
+    }
+    .section-2 .left-container {
+        margin-right: 15px;
+    }
+    .section-2 .right-container {
+        margin-left: 15px;
+    }
+
+    .section-3 .section-container {
+        background: linear-gradient(black 60%, #ffbe6957);
     }
 }
