@@ -276,6 +276,7 @@ section {
     margin: 0;
     font-size: 2.5em;
     max-width: 90%;
+    margin-bottom: 15px;
 }
 .section-3 .images-container .image-container .text-container p {
     margin: 0;
@@ -332,5 +333,11 @@ h1:hover {
     }
     .section-3 .images-container .image-container .text-container {
         opacity: 1;
+    }
+    .section-3 .images-container .image-container .text-container h2 {
+        font-size: 2.25em;
+    }
+    .section-3 .images-container .image-container .text-container p {
+        font-size: 1.25em;
     }
 }

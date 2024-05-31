@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="../components/reveal.css">
+    <link rel="stylesheet" href="../components/navbar.css">
+    <link rel="stylesheet" href="../components/footer.css">
+    <link rel="stylesheet" href="../components/transition.css">
+</head>
+<body onload="init()">
+    <nav class="fixed is-sticky">
+        <div class="nav-container">
+            <a href="/zwa2" class="nav-logo">
+                <div class="nav-logo-image"></div>
+                <div class="nav-logo-text">ZWA</div>
+            </a>
+            <div class="nav-menu">
+                <span class="nav-item" onclick="transitionToPage('/zwa2/jazyky')">Jazyky</span>
+                <span class="nav-item" onclick="transitionToPage('/zwa2/galerie')">Galerie</span>
+                <span class="nav-item" onclick="transitionToPage('/zwa2/autor')">O autorovi</span>
+                <span class="nav-item" onclick="transitionToPage('/zwa2/monke')">Monke</span>
+            </div>
+            <span class="nav-burger-background"></span>
+            <div class="nav-burger">
+                <span class="nav-burger-line line-top"></span>
+                <span class="nav-burger-line line-mid"></span>
+                <span class="nav-burger-line line-bot"></span>
+            </div>
+        </div>
+    </nav>
+
+    <section class="transition section-1">
+        <div class="section-container reveal from-bottom">
+            <h1>Monke</h1>
+            <div class="image-container">
+                <img src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fi.kym-cdn.com%2Fphotos%2Fimages%2Ffacebook%2F001%2F598%2F772%2F918.png&f=1&nofb=1&ipt=807b682fdf193c3353093dc6c8da13a0bf9e04e13415bfe374bfe951072117b4&ipo=images" alt="monke">
+            </div>
+        </div>
+    </section>
+
+    <footer class="transition">
+        <div class="footer-container">
+            <a href="/zwa2/index.html" class="footer-logo">
+                <div class="footer-logo-image"></div>
+                <div class="footer-logo-text">ZWA</div>
+            </a>
+            <div class="footer-text">&copy;Ondřej Dostál 2024</div>
+            <div>Icons by <a target="_blank" href="https://icons8.com">Icons8</a></div>
+        </div>
+    </footer>
+
+    <script src="../components/transition.js"></script>
+    <script src="../components/smooth_scroll.js"></script>
+    <script src="../components/reveal.js"></script>
+    <script src="../components/navbar.js"></script>
+</body>
+</html>
