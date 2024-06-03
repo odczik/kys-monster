@@ -33,11 +33,12 @@
     </nav>
 
     <section class="transition section-1">
-        <div class="section-container reveal from-bottom">
-            <h1>Monke</h1>
+        <div class="section-container">
+            <h1 class="fancy-text">Monke</h1>
             <div class="image-container">
                 <img src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fi.kym-cdn.com%2Fphotos%2Fimages%2Ffacebook%2F001%2F598%2F772%2F918.png&f=1&nofb=1&ipt=807b682fdf193c3353093dc6c8da13a0bf9e04e13415bfe374bfe951072117b4&ipo=images" alt="monke">
             </div>
+            <span class="download-text">Mimochodem ruská ruleta v Céčku <a href="./ruska_ruleta.exe">zde</a>.</span>
         </div>
     </section>
 
@@ -52,6 +53,38 @@
         </div>
     </footer>
 
+    <script>
+        const abc = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789#@'.split('');
+        const words = [
+            "Monke", 
+            "Matias je močka",
+            "Prestižní škola"
+        ]
+        let wordsCounter = 0;
+
+        let word = "Monke"
+        const textElm = document.querySelector('.fancy-text');
+
+        textElm.addEventListener("mouseover", () => {
+            wordsCounter++;
+            word = words[wordsCounter % words.length];
+            const text = word.split('');
+            let count = 0;
+            const interval = setInterval(() => {
+                textElm.textContent = text.map((letter, i) => {
+                    if(i < count){
+                        return text[i];
+                    }
+                    return abc[Math.floor(Math.random() * abc.length)];
+                }).join('');
+                count+= 1/3;
+                if (count > text.length) {
+                    clearInterval(interval);
+                    textElm.textContent = text.join('');
+                }
+            }, 30);
+        });
+    </script>
     <script src="../components/transition.js"></script>
     <script src="../components/smooth_scroll.js"></script>
     <script src="../components/reveal.js"></script>

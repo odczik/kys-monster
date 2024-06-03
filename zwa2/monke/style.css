@@ -41,10 +41,12 @@ section {
 }
 .section-1 h1 {
     position: relative;
+    left: 2.5vw;
+    width: 50%;
     margin: 0;
     color: white;
     font-size: 6em;
-    text-align: center;
+    text-align: left;
     z-index: 2;
 }
 .section-1 .image-container {
@@ -71,6 +73,21 @@ section {
         transform: translate(-50%, -50%) rotate(720deg) scale(1.7, 0.7);
     }
 }
+.download-text {
+    color: white;
+    position: absolute;
+    left: 1vw;
+    bottom: 1vh;
+    font-size: 1.5em;
+}
+.download-text a {
+    color: var(--purple-6);
+    text-decoration: none;
+    font-weight: bold;
+}
+.download-text a:hover {
+    text-decoration: underline;
+}
 
 
 @media (max-width: 800px) {
@@ -80,6 +97,7 @@ section {
         bottom: 10vh;
         left: 50%;
         transform: translateX(-50%);
+        text-align: center;
     }
     .section-1 .image-container {
         width: 100%;
