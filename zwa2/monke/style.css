@@ -120,4 +120,7 @@ section {
             transform: translate(-50%, -50%) rotate(720deg) scale(0.7, 1.7);
         }
     }
+    .download-text {
+        display: none;
+    }
 }
