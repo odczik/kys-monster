@@ -52,6 +52,7 @@ export default (size, start, render) => {
         recursive_backtracking(start);
     }
     catch (e) {
+        alert(`Error:  ${e.message}`);
         console.error("Error: ", e.message);
     }
     let t1 = performance.now();
