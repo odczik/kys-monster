@@ -14,11 +14,12 @@ maze_size_slider.addEventListener('input', () => {
 const canvas = document.querySelector('canvas') as HTMLCanvasElement;
 const ctx = canvas.getContext('2d') as CanvasRenderingContext2D;
 
-const scale: number = 50;
+const scale: number = 100;
 
 let maze: { grid: { wall: boolean, visited?: boolean }[][], time: number };
 
 const generate_maze = () => {
+    maze_size_label.innerText = maze_size_slider.value;
     const maze_size = parseInt(maze_size_slider.value);
     update_maze(maze_size);
 }
@@ -75,7 +76,7 @@ solve_btn.addEventListener('click', () => {
         ctx.fillRect(cell.x * scale, cell.y * scale, scale, scale);
     });*/
     let lastNode = path[0];
-    path.forEach((node, i) => {
+    path.forEach((node: any) => {
         ctx.beginPath();
         ctx.moveTo((lastNode.x * scale) + (scale / 2), (lastNode.y * scale) + (scale / 2));
         ctx.lineTo((node.x * scale) + (scale / 2), (node.y * scale) + (scale / 2));
@@ -83,5 +84,12 @@ solve_btn.addEventListener('click', () => {
         ctx.strokeStyle = "red";
         ctx.stroke();
         lastNode = node;
-    })
+    });
+})
+
+document.getElementById('download-btn')!.addEventListener('click', () => {
+    const a = document.createElement('a');
+    a.href = canvas.toDataURL();
+    a.download = 'maze.png';
+    a.click();
 })
