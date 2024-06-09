@@ -1,3 +1,5 @@
+/* Rekurzivní náhodné hloubkové hledání */
+
 export default (size: number, start: [number, number], render?: Function) => {
     const grid: { wall: boolean, visited?: boolean }[][] = [];
     const stack: [number, number][] = [];

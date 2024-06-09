@@ -9,10 +9,13 @@
 <body>
     <input type="range" min="5" max="100" step="5" name="size" id="maze_size_slider">
     <label id="maze_size_text">5</label>
-    <button id="generate_maze">Regenerate Maze</button>
-    <div class="info-text"></div>
+    <button id="regen-btn">Regenerate Maze</button>
+    <div id="gen-info-text"></div>
+    <button id="solve-btn">Solve using A*</button>
+    <div id="solve-info-text"></div>
     <canvas></canvas>
 
+    <script src="a-star.js"></script>
     <script type="module" src="main.js"></script>
 </body>
 </html>

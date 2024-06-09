@@ -1,13 +1,19 @@
 import GenerateMaze from './backtracking_depth-first_search.js';
 const maze_size_slider = document.getElementById('maze_size_slider');
 const maze_size_label = document.getElementById('maze_size_text');
-const regen_btn = document.querySelector('button');
+const regen_btn = document.getElementById("regen-btn");
+const solve_btn = document.getElementById("solve-btn");
 maze_size_slider.addEventListener('input', () => {
     maze_size_label.innerText = maze_size_slider.value;
+    if (parseInt(maze_size_slider.value) >= 50)
+        solve_btn.disabled = true;
+    else
+        solve_btn.disabled = false;
 });
 const canvas = document.querySelector('canvas');
 const ctx = canvas.getContext('2d');
 const scale = 50;
+let maze;
 const generate_maze = () => {
     const maze_size = parseInt(maze_size_slider.value);
     update_maze(maze_size);
@@ -40,7 +46,29 @@ const update_maze = (size) => {
     const maze_size = size;
     canvas.width = ((maze_size * 2) + 1) * scale;
     canvas.height = ((maze_size * 2) + 1) * scale;
-    const maze = GenerateMaze(maze_size, [1, 1]);
+    maze = GenerateMaze(maze_size, [1, 1]);
     render_canvas(maze.grid);
-    document.querySelector('div').innerText = `Maze generated in ${maze.time}ms`;
+    document.getElementById('gen-info-text').innerText = `Maze generated in ${maze.time}ms`;
 };
+solve_btn.addEventListener('click', () => {
+    const t0 = performance.now();
+    const path = findPath(maze.grid, { x: 1, y: 1 }, { x: maze.grid.length - 2, y: maze.grid[0].length - 2 }, true);
+    const t1 = performance.now();
+    const time = t1 - t0;
+    console.info(`Path found in ${time}ms`);
+    document.getElementById('solve-info-text').innerText = `Maze solved in ${time}ms`;
+    /*path.forEach((cell) => {
+        ctx.fillStyle = 'red';
+        ctx.fillRect(cell.x * scale, cell.y * scale, scale, scale);
+    });*/
+    let lastNode = path[0];
+    path.forEach((node, i) => {
+        ctx.beginPath();
+        ctx.moveTo((lastNode.x * scale) + (scale / 2), (lastNode.y * scale) + (scale / 2));
+        ctx.lineTo((node.x * scale) + (scale / 2), (node.y * scale) + (scale / 2));
+        ctx.lineWidth = scale / 3;
+        ctx.strokeStyle = "red";
+        ctx.stroke();
+        lastNode = node;
+    });
+});

@@ -1,3 +1,4 @@
+/* Rekurzivní náhodné hloubkové hledání */
 export default (size, start, render) => {
     const grid = [];
     const stack = [];
