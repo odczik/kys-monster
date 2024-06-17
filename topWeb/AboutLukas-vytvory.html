@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/styl.css">
+    <title>ZWA - LUKÁŠ - VÝTVORY</title>
+</head>
+<style>
+    main{
+        padding-left: 8vw; padding-right: 8vw;
+        display: flex;
+        flex-wrap: wrap;
+        overflow-y: auto !important;
+    }
+    #tetrisBox{
+        display: flex;
+    }
+    #tetrisBox p{
+        padding: 5%;
+    }
+    .box{
+        border-radius: 10px;
+        margin: 1.6%;
+        border: 0.2vh solid grey;   
+        max-width: 38.5vw;
+        max-height: 55vh;
+    }
+    #tetrisImg{
+        border-radius: 12px 0 0 12px;
+        border-right: 0.2vh solid grey;
+        height: 100%;
+        width: 25vw;
+    }
+    @media (orientation: portrait){
+        main{
+            display: block;
+        }
+        .box{
+            margin-left: auto; margin-right: auto;
+
+            margin-bottom: 5vh;
+            max-height: 100vh;
+            max-width: 70vw;
+        }
+    }
+</style>
+<body>
+
+    <div id="mainMenu">
+        <div class="authorNames"><p>M a c u r a - K o n č a k - C o r p .</p></div>
+        <div class="iconContainer">
+            <a href="index.html"><img src="icons/homeIcon.svg" alt="HomeButton"></a>
+            <a href="aboutMatias.html"><img src="icons/matiaskockokluk.png" alt="MatiasButton"></a>
+            <a href="AboutLukas.html"><img src="icons/top.png" style="box-shadow: 0 0 5px white;" alt="LukasButton"></a>
+            <a href="calculator.html"><img src="icons/bonus.svg" alt="BonusButton"></a>
+        </div>
+    </div>
+    <div id="sideMenu">
+        <a href="AboutLukas.html"><div>kariera</div></a>
+        <a href="AboutLukas-zajmy.html"><div>zajmy</div></a>
+        <a href="AboutLukas-vytvory.html"><div style="box-shadow: 0 0 5px white;">vytvory</div></a>
+    </div>
+
+    <h1>Výsledky</h1>
+
+    <main id="everything">
+        <div id="tetrisBox" class="box">
+            <img id="tetrisImg" src="assets/tetris-screenshot.png" alt="tetris-screenshot">
+            <div id="textLukasVytvory">
+                <p>
+                    Tetris byl jedním z prvních větších projektů na kterém Lukáš(rapper) pracoval.
+                    Zde získal své první vzkušenosti s prací vývojáře
+                    <br><br>
+                    Lukáš(2. nejlepší ostravský rapper) se zde snaží napodobit zastaralou práci
+                    ruského programátora Alexeje Pažitnova, který nebyl shopen zachytit jednoduchost
+                    teto hry tak jako Lukáš(budoucí monarch země koruny české)
+                </p>
+                <a href="assets/new_tetris_02.exe" download="tetris-v3.zip">
+                    <img style="height: 3em;" src="icons/download.svg" alt="download here">
+                </a>
+            </div>
+        </div>
+
+        <div id="blenderBox" class="box">
+            <img src="assets/motorka.png" alt="blender motorka" style="max-width: 100%; border-radius: 10px 10px 0 0; border-bottom: 0.25vh solid rgb(150,150,150);">
+            <p style="padding: 5%; text-align: left;">
+                V létě roku 2023 se Lukáš(budoucí drzitel Nobelovy ceny za mír) věnoval tvorbě kvylitních
+                "low poly" 3D modelům<br><br>
+                na otázku: "znali jste Karla IV." odpověděl porad mi nevrátil mych 5grošů 🚬n
+            </p>
+        </div>
+        
+        <div id="logicgateBox" style="text-align: left; overflow-y: auto;" class="box">
+            <p style="padding: 5%">
+                "editor hradel logických procesorů" je Lukášův(reinkarnace Napolena Bonaparte) poslední velký projekt
+                mimo tuto webovou stránku, je to současně jeho nejdelší projek (dohromady přes 1200 řádků)
+                <br><br>
+                <a href="vyzkouset/index.html" target="_blank" style="color: white; font-style: italic;">vyzkoušet</a>
+            </p>
+        </div>
+    </main>
+
+    <footer id="paticka"></footer>
+
+    <script src="js/main.js"></script>
+</body>
+</html>

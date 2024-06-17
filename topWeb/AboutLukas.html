@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/styl.css">
+    <title>ZWA - LUKÁŠ - ABOUT</title>
+</head>
+<style>
+    #allDives{
+        position: absolute;
+        left: 100%; top: 100%;
+        width: 90vw; height: 85vh;
+        transform: translate(-100%, -100%);
+        overflow-y: auto;
+
+        display: flex;
+        flex-wrap: wrap;
+    }
+    .zajemDiv{
+
+        border-radius: 15px;
+        box-shadow: 5px 5px 0 white;
+        width: 40% !important;
+        height: 20%;
+
+        overflow-y: auto;
+        margin: 4%; padding: 1%;
+    }
+    h1{
+        width: 100%;
+    }
+    .zajemDiv h2{
+        transform: translateY(-100%);
+    }
+    @media (max-width: 1080px){
+        #allDives{
+            display: block;
+        }
+        .zajemDiv{
+            width: 80% !important;
+            height: 50vh;
+
+            margin-top: 8%;
+            margin-left: auto;
+            margin-right: auto;
+        }
+    }
+</style>
+<body>
+
+    <h1 style="position: absolute; left: 50%; transform: translateX(-50%);">Lukáš Král Macura</h1>
+
+    <div id="allDives">
+        <div class="zajemDiv">
+            <h2 style="text-align: left;">Elektro hardware</h2>
+            Lukáš (matematický génius) započal svou karieru business mana v roce 2022 po
+            artroskopii levého kolene, kvůli které nemohl chodit a věnovat se svým běžným koníčkům
+            (basketbal, powerlifting, skok do písku), a tak se Lukáš (šachový mistr) rozhodl rozšířit své 
+            obzory v oblasti elektrotechniky
+        </div>
+        
+        <div class="zajemDiv">
+            <h2 style="text-align: left;">2. Nejlepší ostravský raper</h2>
+            Lukáš (Macura) se rozhodl vydat své první EP pod lablem Král Páťa v pouhých 16ti letech.
+            Od té doby se mu přezdívá „2. Nejlepší ostravský rapper“. 
+            Také si pro své nemalé úspěchy nechal udělat zlatý zub za celých 20 tisíc 🤯🤯🤯.
+        </div>
+        
+        <div class="zajemDiv">
+            <h2 style="text-align: left;">IT</h2>
+            Mnoho lukášových nejlepších výtvorů si můžete jediněčně prohlédnout na této stránce.
+            Mezi tyto výtvory patří: Kalkulačka, která umí sčítat i písmena,
+            Screen Saver, Piškvorky, nebo („málem“) funkční Tetris.
+        </div>
+        
+        <div class="zajemDiv">
+            <h2 style="text-align: left;">Skaut</h2>
+            Lukáš je dlouholetým členem 6. skautského oddílu - Jukijové.
+            Už pokácel mnoho suchých stromů a chytil šestadvacet jelenů.
+            Mezi jeho časté úspěchy taktéž patří: výhra v soutěžním plavání,
+            chycení půl metrového sumce nebo nejrychlejší vypití čtvrt litru motorového oleje.
+        </div>
+        
+    </div>
+
+    <div id="mainMenu">
+        <div class="authorNames"><p>M a c u r a - K o n č a k - C o r p .</p></div>
+        <div class="iconContainer">
+            <a href="index.html"><img src="icons/homeIcon.svg" alt="HomeButton"></a>
+            <a href="aboutMatias.html"><img src="icons/matiaskockokluk.png" alt="MatiasButton"></a>
+            <a href="AboutLukas.html"><img src="icons/top.png" style="box-shadow: 0 0 5px white;" alt="LukasButton"></a>
+            <a href="calculator.html"><img src="icons/bonus.svg" alt="BonusButton"></a>
+        </div>
+    </div>
+    <div id="sideMenu">
+        <a href="AboutLukas.html"><div style="box-shadow: 0 0 5px white;">kariera</div></a>
+        <a href="AboutLukas-zajmy.html"><div>zajmy</div></a>
+        <a href="AboutLukas-vytvory.html"><div>vytvory</div></a>
+    </div>
+
+    <footer id="paticka"></footer>
+
+    <script src="js/main.js"></script>
+</body>
+</html>

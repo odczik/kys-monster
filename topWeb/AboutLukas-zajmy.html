@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/styl.css">
+    <title>ZWA - LUKÁŠ - ZÁJMY</title>
+</head>
+<style>
+
+    img{
+        max-width: 25vw;
+        max-height: 25vw;
+        border-radius: 15px;
+        border-color: black;
+    }
+    img:hover{
+        transition: 0.25s;
+        border: 0.1vh solid white;
+        box-shadow: 0 0 5px;
+    }
+    main{
+        position: absolute; 
+        top: 10vh; left: 50%;
+        transform: translateX(-50%);
+    
+        
+        width: 80vw;
+        height: 90vh;
+
+        overflow: auto;
+        
+    }
+    .flexDiv{
+        display: flex;
+    }
+    .flexDiv p{
+        max-width: 50%;
+    }
+    @media (orientation: landscape){
+        main{
+            width: 50vw;
+        }
+    }
+    @media (max-width: 560px){
+        .flexDiv{
+            display: block;
+            border-top: 1vw solid white;
+        }
+        .flexDiv p{
+            max-width: 100%;
+        }
+    }
+
+</style>
+<body>
+    
+    <h1>zájmy</h1>
+
+    <main>
+        <div class="flexDiv">
+            <a href="assets/hadi tanec.gif" target="_blank">
+                <img src="assets/hadi tanec.gif" alt="profesionalni tanecik" id="hadiTanec">
+            </a>
+            <p style="padding: 2.5vh; text-align: left; max-height: 20vh; overflow: auto;">
+                Lukáš (hitmaker) se taky posledni dobou věnuje své vášni tanci. 
+                Učil se od nejlepších tanečníků jako například: Ryan Gosling, Michael Jackson a 
+                Adam Kajumi
+                <br><br>
+                Nyní se snaží připojit k Doja Clanu aby mohl mít feat a mastering tracku od Egyho
+                (urcite se dostane)
+            </p>
+        </div>
+
+        <div class="flexDiv">
+            <p style="padding: 2.5vh; text-align: right; max-height: 20vh; overflow: auto;">
+                Lukáš (bulhar) se také věnuje svému koníčku - hobbyhorsingu. 
+                Je to velmi náročný sport, který vyžaduje mnoho tréninku a odhodlání.
+                Lukášovi se za svou kariéru podařilo získat titul mnohonásobného mistra ČR v hobbyhorsingu.
+            </p>
+            <a href="assets/mistr_hobbyhorsingu.png" target="_blank">
+                <img src="assets/mistr_hobbyhorsingu.png" alt="mistr hobbyhorsingu">
+            </a>
+        </div>
+
+        <div class="flexDiv">
+            <a href="assets/bulhar.png" target="_blank">
+                <img src="assets/bulhar.png" alt="bulhar">
+            </a>
+            <p style="padding: 2.5vh; text-align: left; max-height: 20vh; overflow: auto;">
+                Lukáš (majitel legendárního Pražského golema) se také stává zkušeným webovým desingnérem
+                a editorem a přemýšlí o založení vlastní firmy Macura Software Corp., která mimo jiné
+                bude vytvářet i webové stránky na zakázku
+            </p>
+        </div>
+
+        <div class="flexDiv" style="margin-bottom: 10vh;">
+            <p style="padding: 2.5vh; width: 100%; text-align: left; max-height: 20vh; overflow: auto;">
+                Lukáš je známým milovníkem žen. Získal si už za svůj život srdce několika nevinných dívek.
+                Jejich srdce si vždy získal neodolatelnou nabídkou dlouhé procházky po pláži,
+                kde jim ukazoval své web designerské dovednosti.
+            </p>
+            <a href="assets/nemamRad.jpg" target="_blank">
+                <img src="assets/nemamRad.jpg" alt="nemam rad 🐵">
+            </a>
+        </div>
+        
+    </main>
+
+    <div id="mainMenu">
+        <div class="authorNames"><p>M a c u r a - K o n č a k - C o r p .</p></div>
+        <div class="iconContainer">
+            <a href="index.html"><img src="icons/homeIcon.svg" alt="HomeButton"></a>
+            <a href="aboutMatias.html"><img src="icons/matiaskockokluk.png" alt="MatiasButton"></a>
+            <a href="AboutLukas.html"><img src="icons/top.png" style="box-shadow: 0 0 5px white;" alt="LukasButton"></a>
+            <a href="calculator.html"><img src="icons/bonus.svg" alt="BonusButton"></a>
+        </div>
+    </div>
+    <div id="sideMenu">
+        <a href="AboutLukas.html"><div>kariera</div></a>
+        <a href="AboutLukas-zajmy.html"><div style="box-shadow: 0 0 5px white;">zajmy</div></a>
+        <a href="AboutLukas-vytvory.html"><div>vytvory</div></a>
+    </div>
+
+    <footer id="paticka"></footer>
+
+    <script src="js/main.js"></script>
+</body>
+</html>
