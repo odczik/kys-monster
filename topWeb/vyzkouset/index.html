@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>TVP v4</title>
+</head>
+<body id="body">
+    <main>
+        <canvas id="myCanvas"></canvas>
+    </main>
+
+    <div id="gateContainer"></div>
+    <div id="inputContainer">
+        <div id="inputA" class="inputBody">A</div>
+
+        <div id="outputZ" class="inputBody">Z</div>
+    </div>
+
+    <div id="toolBox">
+        <div onclick="switchModes()" id="switchModes">gate</div>
+    
+        <div onclick="addInput()" class="myButton">add input</div>
+        <div onclick="removeInput()" class="myButton">remove input</div>
+        <div onclick="addOutput()" class="myButton">add output</div>
+        <div onclick="removeOutput()" class="myButton">remove output</div>
+        <!-- <div onclick="findAnswer()" class="myButton">ans..</div> -->
+    
+        <div id="tableButton" onclick="showInputTable()">+table</div>
+        <div id="tableContainer">
+            <div id="fillTable" onclick="autoFillTable()">fill</div>
+            <div id="TABLE">
+                <div id="TABLEin"></div>
+                <div id="separator"></div>
+                <div id="TABLEout"></div>
+            </div>
+            <div id="ansButton" onclick="fillAnswer()">ans</div>
+        </div>
+    </div>
+
+    <script src="main.js"></script>
+    <script src="input-output(stdio).js"></script>
+    <script src="connect.js"></script>
+    <script src="move.js"></script>
+    <script src="handle-input.js"></script>
+</body>
+</html>
