@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/styl.css">
+    <title>galerie</title>
+</head>
+<style>
+    nav{
+        position: absolute;
+        top: 0;
+        margin-left: 16vh; margin-right: 16vh;
+        height: 90vh;
+        overflow-y: auto;
+    }
+    nav img{
+        width: 24vh; height: 24vh;
+        padding: 1%;
+        border-radius: 1vh;
+    }
+    @media (orientation: portrait){
+
+        nav img{
+            width: 24vw; height: 24vw;
+        }
+        nav{
+            margin: 16vw;
+        }
+    }
+    @media (max-width: 720px){
+        nav img{
+            width: 50vw;
+            height: 50vw;
+        }
+    }
+</style>
+<body>
+
+    <div id="mainMenu">
+        <div class="authorNames"><p>M a c u r a - K o n č a k - C o r p .</p></div>
+        <div class="iconContainer">
+            <a href="index.html"><img src="icons/homeIcon.svg" alt="HomeButton"></a>
+            <a href="aboutMatias.html"><img src="icons/matiaskockokluk.png" alt="MatiasButton"></a>
+            <a href="AboutLukas.html"><img src="icons/top.png"alt="LukasButton"></a>
+            <a href="calculator.html"><img src="icons/bonus.svg" alt="BonusButton" style="box-shadow: 0 0 5px white;"></a>
+        </div>
+    </div>
+    <div id="sideMenu">
+        <a href="calculator.html"><div>kalkulačka</div></a>
+        <a href="pisquarky.html"><div>pišquarky</div></a>
+        <a href="square.html"><div>samsumg dvd++</div></a>
+        <a href="galerie.html"><div style="box-shadow: 0 0 5px white;">galerie</div></a>
+    </div>
+
+    <nav id="imgContainer"></nav>
+
+    <footer id="paticka"></footer>
+
+    <script src="js/main.js"></script>
+    <script>
+        const folderLenght = 14
+
+        for(let i = 0; i<folderLenght; i++){
+
+            let image = document.createElement('img')
+            image.src = `assets/kocky/cat${i}.png`
+
+            document.getElementById('imgContainer').appendChild(image)
+        }
+
+    </script>
+</body>
+</html>

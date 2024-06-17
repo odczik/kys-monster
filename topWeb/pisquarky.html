@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/styl.css">
+    <title>Pisquarky</title>
+</head>
+<style>
+
+    @media (orientation: landscape){
+        #tableScale{
+            top: 50%;
+            left: 20%;
+        }
+        #ans{
+            top: 50%;
+            transform: translateY(-50%);
+            left: 80%;
+        }
+    }
+
+</style>
+<body>
+
+    <div id="mainMenu">
+        <div class="authorNames"><p>M a c u r a - K o n č a k - C o r p .</p></div>
+        <div class="iconContainer">
+            <a href="index.html"><img src="icons/homeIcon.svg" alt="HomeButton"></a>
+            <a href="aboutMatias.html"><img src="icons/matiaskockokluk.png" alt="MatiasButton"></a>
+            <a href="AboutLukas.html"><img src="icons/top.png"alt="LukasButton"></a>
+            <a href="calculator.html"><img src="icons/bonus.svg" alt="BonusButton" style="box-shadow: 0 0 5px white;"></a>
+        </div>
+    </div>
+    <div id="sideMenu">
+        <a href="calculator.html"><div>kalkulačka</div></a>
+        <a href="pisquarky.html"><div style="box-shadow: 0 0 5px white;">pišquarky</div></a>
+        <a href="square.html"><div>samsumg dvd++</div></a>
+        <a href="galerie.html"><div>galerie</div></a>
+    </div>
+
+    <div id="ans"></div>
+
+    <div id="pisquarkyContainer">
+        <table id="pisquarkyTable">
+        </table>
+    </div>
+
+    <div id="tableScale">
+        <input type="range" min="1" max="5" value="3"><br>
+        <p>obtížnost</p>
+    </div>
+
+    <footer id="paticka"></footer>
+
+    <script src="js/main.js"></script>
+</body>

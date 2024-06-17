@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/styl.css">
+    <title>ZWA</title>
+</head>
+<style>
+
+    main{
+        position: absolute;
+        top: 50%; left: 50%;
+        transform: translate(-50%, -50%);
+
+        width: 50vw;
+        height: 28vh;
+        background-color: rgb(50,50,50);
+        border-radius: 1vh;
+        
+        padding: 1vh;
+        box-shadow: 0 0 10px rgba(255,255,255, 0.5) inset, 5px 5px 15px rgba(0,0,0, 0.5);
+    }
+    main p{
+        font-size: 1.6em;
+    }
+    @media (max-width: 720px){
+        main p{
+            font-size: 0.8em;
+        }
+        h1{
+            font-size: 1.2em;
+        }
+    }
+
+</style>
+<body>
+
+    <div id="mainMenu">
+        <div class="authorNames"><p>M a c u r a - K o n č a k - C o r p .</p></div>
+        <div class="iconContainer">
+            <a href="index.html"><img src="icons/homeIcon.svg" alt="HomeButton" style="box-shadow: 0 0 5px white;"></a>
+            <a href="aboutMatias.html"><img src="icons/matiaskockokluk.png" alt="MatiasButton"></a>
+            <a href="AboutLukas.html"><img src="icons/top.png" alt="LukasButton"></a>
+            <a href="calculator.html"><img src="icons/bonus.svg" alt="BonusButton"></a>
+        </div>
+    </div>
+    <div id="sideMenu" style="text-align: left;">
+        <a href="index.html"><div href="index.html" style="box-shadow: 0 0 5px white;">Výtejte</div></a>
+        <a href="tvorbaZdroje.html"><div >průběh tvorby a hlavní zdroje</div></a>
+    </div>
+
+    <main>
+        <h1>Výtejte!</h1>
+        <p>Stránka je o nás, protože jsme naše záliba. 👍</p>
+        <p>„Synonymum dvaceti šesti je šestadvacet“ - Matias Končak</p>
+        <p>Macura Končak Corp.</p>
+    </main>
+
+    <footer id="paticka"></footer>
+
+    <script src="js/main.js"></script>
+</body>
+</html>
