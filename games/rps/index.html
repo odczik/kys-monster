@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rock Paper Scissors</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div id="fps"></div>
+    <div id="ping"></div>
+    <div id="avgPing"></div>
+
+    <div id="connTxt">Establishing connection with server.. <br><small>(may take up to a minute)</small></div>
+    <div id="multiplayerCont">
+        <button id="hostRoom">Host game</button>
+        <button id="joinRoom">Join game</button>
+    </div>
+    <div id="hostCont">
+        <button id="hostPublicRoomBtn" onclick="hostRoom(true)">Host public room</button>
+        <button id="hostPrivateRoomBtn" onclick="hostRoom(false)">Host private room</button>
+    </div>
+    <div id="joinCont">
+        <button id="quickPlayBtn" onclick="joinRandomRoom()">Quick play</button>
+        <br>
+        <input type="text" id="roomCode" placeholder="Room code">
+        <button id="joinRoomBtn" onclick="joinRoom()">Join</button>
+    </div>
+    <div id="gameCont">
+        <div id="gameStatus">Choose your fighter!</div>
+        <div>
+            <button class="playBtns" id="⛰️" onclick="play('⛰️')">⛰️</button>
+            <button class="playBtns" id="📜" onclick="play('📜')">📜</button>
+            <button class="playBtns" id="✂️" onclick="play('✂️')">✂️</button>
+        </div>
+        <button id="playAgainBtn" onclick="playAgain()">Play again 0/2</button>
+    </div>
+
+    <script src="main.js"></script>
+</body>
+</html>
