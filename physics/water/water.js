@@ -7,31 +7,56 @@ let midPoint = {x: canvas.width / 2, y: canvas.height / 2};
 
 let velocity = 0.5;
 
-let resolution = 15;
+let resolution = 40;
 let points = [];
 
 let visualStyle = 0;
 
 const logic = () => {
+    // create points if there are none
     if(points.length === 0){
         const offset = canvas.width / resolution;
-        for (let i = offset / 2; i < canvas.width; i+=offset){
-            points.push({x: i, y: canvas.height / 3, velocity: 0});
+        for (let i = 0; i <= canvas.width; i+=offset){
+            points.push({x: i, y: canvas.height / 2, velocity: 0});
         }
+        points[points.length - 1].x = canvas.width;
     }
 
     points.forEach(point => {
+        // update position based on velocity
         point.y += point.velocity;
 
+        // dampen velocity
         point.velocity *= Math.round(Math.random() * (99 - 97) + 97) / 100;
+        //point.velocity *= 0.97;
 
-        if(point.y > midPoint.y + scale/2){
+        // stick to mid point
+        if(point.y > midPoint.y + scale/3){
             point.velocity -= velocity;
-        } else if(point.y < midPoint.y - scale/2){
-            point.velocity += velocity;
+        } else if(point.y < midPoint.y - scale/3){
+            point.velocity += velocity * 0.97;
+        }
+        if(point.velocity < 0.1 && point.velocity > -0.1){
+            point.velocity = 0;
         }
     });
 
+    // get point with the highest velocity
+    let highest = points[0];
+    points.forEach(point => {
+        if(point.velocity > highest.velocity){
+            highest = point;
+        }
+    });
+    // get the average velocity
+    let average = 0;
+    points.forEach(point => {
+        average += point.velocity;
+    });
+    average /= points.length;
+}
+
+const draw = () => {
     ctx.beginPath();
     points.forEach((point, i) => {
         switch(visualStyle % 3){
@@ -39,10 +64,13 @@ const logic = () => {
                 if(i === 0){
                     ctx.moveTo(point.x, point.y);
                 } else {
-                    ctx.lineTo(point.x, point.y);
+                    //ctx.lineTo(point.x, point.y);
+                    ctx.quadraticCurveTo(points[i - 1].x + (point.x - points[i - 1].x)/2 + points[i - 1].velocity, 
+                                        points[i - 1].y+(points[i - 1].velocity), 
+                                        point.x, point.y);
                 }
-                ctx.lineWidth = 2;
-                ctx.strokeStyle = 'red';
+                ctx.lineWidth = 3;
+                ctx.strokeStyle = 'blue';
                 ctx.stroke();
                 break;
             case 1:
@@ -76,12 +104,49 @@ const logic = () => {
                 break;
         }
     });
+
+    function fillBelowLine(points) {
+        if (points.length < 2) return; // Need at least two points
+
+        // Begin the path
+        ctx.beginPath();
+
+        // Move to the first point
+        ctx.moveTo(points[0].x, points[0].y);
+
+        // Draw the line through each point
+        points.forEach((point, i) => {
+            if(i === 0){
+                ctx.moveTo(point.x, point.y);
+            } else {
+                //ctx.lineTo(point.x, point.y);
+                ctx.quadraticCurveTo(points[i - 1].x + (point.x - points[i - 1].x)/2 + points[i - 1].velocity, 
+                                    points[i - 1].y+(points[i - 1].velocity), 
+                                    point.x, point.y);
+            }
+        });
+
+        // Extend the line to the bottom edge of the canvas
+        ctx.lineTo(points[points.length - 1].x, canvas.height); // Down to the bottom at the last x position
+        ctx.lineTo(points[0].x, canvas.height); // Line to the left edge at the bottom
+        ctx.lineTo(points[0].x, points[0].y); // Back to the starting point
+        ctx.closePath(); // Close the path
+
+        // Set fill color
+        ctx.fillStyle = 'rgba(0, 150, 255, 0.5)'; // Semi-transparent blue
+
+        // Fill the shape
+        ctx.fill();
+    }
+    // Draw the filled area under the line
+    fillBelowLine(points);
 }
 
 const update = () => {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
 
     logic();
+    draw();
 
     if(frames % 30 === 0){
         points.forEach(point => {
@@ -93,12 +158,24 @@ const update = () => {
 canvas.addEventListener('click', (e) => {
     const clickX = e.x - canvas.getBoundingClientRect().left;
     const clickY = e.y - canvas.getBoundingClientRect().top;
-    
-    points.forEach(point => {
-        if(clickX > point.x - scale*2 && clickX < point.x + scale*2){
-            point.velocity += velocity * 10;
-        }
+
+    // get closest point
+    const closest = points.reduce((prev, curr) => {
+        return (Math.abs(curr.x - clickX) < Math.abs(prev.x - clickX) ? curr : prev);
     });
+    const closestIndex = points.indexOf(closest);
+
+    let velocityMultiplier = 30;
+
+    closest.velocity += velocity * velocityMultiplier;
+
+    points.forEach((point, i) => {
+        if(i === closestIndex) return;
+        const distance = Math.abs(closestIndex - i);
+        let distanceMultiplier = (100 - Math.pow(distance, 80/resolution)) / 100;
+        if(distanceMultiplier < 0) distanceMultiplier = 0;
+        point.velocity += velocity * velocityMultiplier * distanceMultiplier;
+    })
 })
 
 const changeStyle = () => {
@@ -107,7 +184,6 @@ const changeStyle = () => {
 document.getElementById("resolution").addEventListener('change', (e) => {
     resolution = parseInt(e.target.value);
     points = [];
-    console.log(resolution);
 })
 
 
