@@ -5,6 +5,8 @@ function heuristic (pos0, pos1) {
 }
 
 function findPath(matrix, start, end, startingWeights) {
+    if(matrix.length !== matrix[0].length) return alert('Matrix must be square for the algorithm to work.');
+
     let openSet = [];
     let closedSet = [];
     let path = [];
