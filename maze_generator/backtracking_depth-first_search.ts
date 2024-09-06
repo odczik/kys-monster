@@ -1,18 +1,23 @@
 /* Rekurzivní náhodné hloubkové hledání */
 
-export default (size: number, start: [number, number], render?: Function) => {
+export default (width: number, height: number, start: [number, number]) => {
     const grid: { wall: boolean, visited?: boolean }[][] = [];
     const stack: [number, number][] = [];
+    let path: [number, number][] = [];
 
-    for (let row = 0; row < (size * 2) + 1; row++) {
-        if(row == 0 || row == (size * 2)) grid.push(new Array((size * 2) + 1).fill({ wall: true }));
+    for (let row = 0; row < (height * 2) + 1; row++) {
+        if (row == 0 || row == (height * 2))
+            grid.push(new Array((width * 2) + 1).fill({ wall: true }));
         else {
             grid.push([]);
-            for(let col = 0; col < (size * 2) + 1; col++) {
-                if(col == 0 || col == (size * 2)) grid[row].push({ wall: true });
+            for (let col = 0; col < (width * 2) + 1; col++) {
+                if (col == 0 || col == (width * 2))
+                    grid[row].push({ wall: true });
                 else {
-                    if(row % 2 != 0 && col % 2 != 0) grid[row].push({ wall: false });
-                    else grid[row].push({ wall: true });
+                    if (row % 2 != 0 && col % 2 != 0)
+                        grid[row].push({ wall: false });
+                    else
+                        grid[row].push({ wall: true });
                 }
             }
         }
@@ -33,6 +38,9 @@ export default (size: number, start: [number, number], render?: Function) => {
                 if(!grid[neighbour[0]][neighbour[1]].visited) neighbours.push([neighbour[0], neighbour[1]]);
             }
         })
+
+
+        if(current[0] == height * 2 - 1 && current[1] == width * 2 - 1) path = stack.slice();
         
         const next_node = neighbours[Math.floor(Math.random() * neighbours.length)];
 
@@ -43,7 +51,6 @@ export default (size: number, start: [number, number], render?: Function) => {
             recursive_backtracking(next_node);
         } else {
             stack.pop();
-            //if(render) render(grid);
             if(stack.length > 0) recursive_backtracking(stack[stack.length - 1]);
         }
     }
@@ -59,5 +66,5 @@ export default (size: number, start: [number, number], render?: Function) => {
     let time = t1 - t0;
     console.info(`Maze generated in ${time}ms`);
 
-    return {grid, time};
+    return {grid, path, time};
 }

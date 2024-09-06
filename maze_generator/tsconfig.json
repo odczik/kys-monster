@@ -8,5 +8,5 @@
     "esModuleInterop": true,
     "allowJs": true
   },
-  "exclude": ["./a-star.js"]
+  "exclude": ["./a-star.js", "./to_bitmap"]
 }

@@ -1,13 +1,21 @@
 import GenerateMaze from './backtracking_depth-first_search.js';
 
-const maze_size_slider = document.getElementById('maze_size_slider') as HTMLInputElement;
-const maze_size_label = document.getElementById('maze_size_text') as HTMLLabelElement;
+const maze_width_slider = document.getElementById('maze_width_slider') as HTMLInputElement;
+const maze_width_label = document.getElementById('maze_width_text') as HTMLLabelElement;
+const maze_height_slider = document.getElementById('maze_height_slider') as HTMLInputElement;
+const maze_height_label = document.getElementById('maze_height_text') as HTMLLabelElement;
 const regen_btn = document.getElementById("regen-btn") as HTMLButtonElement;
 const solve_btn = document.getElementById("solve-btn") as HTMLButtonElement;
+const show_path_checkbox = document.getElementById('show_path') as HTMLInputElement;
 
-maze_size_slider.addEventListener('input', () => {
-    maze_size_label.innerText = maze_size_slider.value;
-    if(parseInt(maze_size_slider.value) >= 50) solve_btn.disabled = true;
+maze_width_slider.addEventListener('input', () => {
+    maze_width_label.innerText = "width: " + maze_width_slider.value;
+    if(parseInt(maze_width_slider.value) >= 50) solve_btn.disabled = true;
+    else solve_btn.disabled = false; 
+})
+maze_height_slider.addEventListener('input', () => {
+    maze_height_label.innerText = "height: " + maze_height_slider.value;
+    if(parseInt(maze_height_slider.value) >= 50) solve_btn.disabled = true;
     else solve_btn.disabled = false; 
 })
 
@@ -16,14 +24,22 @@ const ctx = canvas.getContext('2d') as CanvasRenderingContext2D;
 
 const scale: number = 100;
 
-let maze: { grid: { wall: boolean, visited?: boolean }[][], time: number };
+let maze: { grid: { wall: boolean, visited?: boolean }[][], path: [number, number][], time: number };
 
 const generate_maze = () => {
-    maze_size_label.innerText = maze_size_slider.value;
-    const maze_size = parseInt(maze_size_slider.value);
-    update_maze(maze_size);
+    maze_width_label.innerText = "width: " + maze_width_slider.value;
+    maze_height_label.innerText = "height: " + maze_height_slider.value;
+
+    const maze_width = parseInt(maze_width_slider.value);
+    const maze_height = parseInt(maze_height_slider.value);
+
+    canvas.width = maze_width * scale;
+    canvas.height = maze_height * scale;
+
+    update_maze(maze_width, maze_height);
 }
-maze_size_slider.addEventListener('change', generate_maze);
+maze_width_slider.addEventListener('change', generate_maze);
+maze_height_slider.addEventListener('change', generate_maze);
 regen_btn.addEventListener('click', generate_maze)
 window.addEventListener('load', generate_maze);
 
@@ -49,18 +65,33 @@ const render_canvas = (grid: { wall: boolean, visited?: boolean }[][]) => {
     });
 }
 
-const update_maze = (size: number) => {
-    const maze_size = size;
-    
-    canvas.width = ((maze_size * 2) + 1) * scale;
-    canvas.height = ((maze_size * 2) + 1) * scale;
+const render_path = (path: [number, number][], show: Boolean) => {
+    ctx.beginPath();
+    ctx.strokeStyle = show ? 'red' : 'white';
+    ctx.lineWidth = show ? scale / 3 : scale / 2;
+    ctx.moveTo((path[0][1] * scale) + (scale / 2), (path[0][0] * scale) + (scale / 2));
+    path.forEach((cell) => {
+        ctx.lineTo((cell[1] * scale) + (scale / 2), (cell[0] * scale) + (scale / 2));
+    });
+    ctx.stroke();
+}
 
-    maze = GenerateMaze(maze_size, [1, 1]);
+const update_maze = (width: number, height: number) => {
+    canvas.width = ((width * 2) + 1) * scale;
+    canvas.height = ((height * 2) + 1) * scale;
+
+    maze = GenerateMaze(width, height, [1, 1]);
 
     render_canvas(maze.grid);
 
+    if(show_path_checkbox.checked) render_path(maze.path, true);
+
     document.getElementById('gen-info-text')!.innerText = `Maze generated in ${maze.time}ms`;
 }
+
+show_path_checkbox.addEventListener('change', () => {
+    render_path(maze.path, show_path_checkbox.checked);
+})
 
 solve_btn.addEventListener('click', () => {
     const t0 = performance.now();
@@ -80,8 +111,8 @@ solve_btn.addEventListener('click', () => {
         ctx.beginPath();
         ctx.moveTo((lastNode.x * scale) + (scale / 2), (lastNode.y * scale) + (scale / 2));
         ctx.lineTo((node.x * scale) + (scale / 2), (node.y * scale) + (scale / 2));
-        ctx.lineWidth = scale / 3;
-        ctx.strokeStyle = "red";
+        ctx.lineWidth = scale / 6;
+        ctx.strokeStyle = "green";
         ctx.stroke();
         lastNode = node;
     });

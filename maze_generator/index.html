@@ -7,15 +7,25 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <input type="range" min="5" max="100" step="5" name="size" id="maze_size_slider">
-    <label id="maze_size_text">5</label>
+    <input type="range" min="5" max="100" step="5" value="20" name="width" id="maze_width_slider">
+    <label id="maze_width_text"></label>
+    <br>
+    <input type="range" min="5" max="100" step="5" value="20" name="height" id="maze_height_slider">
+    <label id="maze_height_text"></label>
+
+    <br>
     <button id="regen-btn">Regenerate Maze</button>
     <div id="gen-info-text"></div>
 
+    <br>
+    <input type="checkbox" name="show_path" id="show_path" checked="true">
+    <label for="show_path">Show path</label>
+
+    <br>
+    <br>
     <button id="solve-btn">Solve using A*</button>
     <div id="solve-info-text"></div>
 
-    <br>
     <br>
     <button id="download-btn">Download as .png</button>
 
