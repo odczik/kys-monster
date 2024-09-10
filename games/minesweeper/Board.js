@@ -1,4 +1,6 @@
 function Board(){
+    this.gameBoard = [];
+
     const gameContainer = document.querySelector(".game-container");
 
     gameContainer.style.gridTemplateColumns = "repeat(9, 1fr)"
@@ -9,5 +11,9 @@ function Board(){
             elm.classList.add("game-cell")
             gameContainer.appendChild(elm)
         }
+    }
+
+    this.spawnMines = () => {
+
     }
 }
