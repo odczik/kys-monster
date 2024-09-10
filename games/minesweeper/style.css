@@ -1,0 +1,22 @@
+.game-container {
+    border: 3px solid black;
+    width: 60vw;
+    height: 60vw;
+    position: absolute;
+    transform: translate(-50%, -50%);
+    top: 50%;
+    left: 50%;
+
+    display: grid;
+}
+
+.game-cell {
+    border: groove 7px;
+    background-color: grey;
+    /* box-shadow: inset 0 0 0px 1px #000; */
+    cursor: pointer;
+}
+.game-cell:hover {
+    border: ridge 7px;
+    background-color: rgb(170, 170, 170);
+}
