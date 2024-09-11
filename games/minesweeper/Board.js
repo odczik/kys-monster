@@ -1,5 +1,6 @@
 function Board(){
     this.gameBoard = [];
+    this.firstMove = true;
     
     const gameContainer = document.querySelector(".game-container");
     
@@ -10,6 +11,36 @@ function Board(){
     }
     this.getCoords = (index) => {
         return [Math.floor(index / 9), index % 9];
+    }
+    this.setColor = (mineCount, index) => {
+        let color = "";
+        switch(mineCount){
+            case 1:
+                color = "blue";
+                break;
+            case 2:
+                color = "green";
+                break;
+            case 3:
+                color = "red";
+                break;
+            case 4:
+                color = "purple";
+                break;
+            case 5:
+                color = "maroon";
+                break;
+            case 6:
+                color = "turquoise";
+                break;
+            case 7:
+                color = "black";
+                break;
+            case 8:
+                color = "grey";
+                break;
+        }
+        gameContainer.childNodes[index].style.color = color;
     }
 
 
@@ -42,7 +73,7 @@ function Board(){
         for(let row = 0; row < 9; row++){
             for(let col = 0; col < 9; col++){
                 if(this.gameBoard[row][col].isMine){
-                    gameContainer.childNodes[this.getIndex(row, col)].style.borderColor = "red"
+                    gameContainer.childNodes[this.getIndex(row, col)].style.borderColor = "lightgrey"
                 }
             }
         }
@@ -95,11 +126,44 @@ function Board(){
             gameContainer.childNodes[index].classList.add("revealed");
             gameContainer.childNodes[index].innerText = mineCount;
             if(mineCount > 0){
-                gameContainer.childNodes[index].style.color = "white";
+                this.setColor(mineCount, index);
             } else {
                 this.revealAdjacentTiles(tile.row, tile.col);
             }
         })
+    }
+
+    this.replaceMine = (row, col) => {
+        let minesToReplace = 0;
+        if(this.gameBoard[row][col].isMine){
+            this.gameBoard[row][col].isMine = false;
+            minesToReplace++;
+        }
+        gameContainer.childNodes[this.getIndex(row, col)].style.borderColor = "";
+        
+        let adjacentTiles = this.getAdjacentTiles(row, col);
+
+        adjacentTiles.forEach(tile => {
+            if(tile.isMine){
+                minesToReplace++;
+                tile.isMine = false;
+                gameContainer.childNodes[this.getIndex(tile.row, tile.col)].style.borderColor = "";
+            }
+        })
+
+        for(let i = 0; i < minesToReplace;){
+            const randomIndex = Math.floor(Math.random() * (81 - 1) + 1);
+            const [randomRow, randomCol] = this.getCoords(randomIndex);
+
+            if(!this.gameBoard[randomRow][randomCol].isMine){
+                if(Math.abs(row - randomRow) <= 1 && Math.abs(col - randomCol) <= 1) continue;
+
+                this.gameBoard[randomRow][randomCol].isMine = true;
+                gameContainer.childNodes[this.getIndex(randomRow, randomCol)].style.borderColor = "lightgrey";
+                i++;
+                minePlaced = true;
+            }
+        }
     }
 
     this.start = () => {
@@ -115,17 +179,25 @@ function Board(){
         const row = Math.floor(index / 9);
 
         if(this.gameBoard[row][col].isRevealed) return;
+
+        let mineCount = this.getAdjacentBombs(row, col);
+
+        if(this.firstMove && (this.gameBoard[row][col].isMine || mineCount > 0)){
+            this.replaceMine(row, col);
+            mineCount = this.getAdjacentBombs(row, col);
+        }
+        this.firstMove = false;
+
         if(this.gameBoard[row][col].isMine){
             console.log("Game Over")
             return;
         }
 
-        const mineCount = this.getAdjacentBombs(row, col);
         this.gameBoard[row][col].isRevealed = true;
         gameContainer.childNodes[index].classList.add("revealed");
         gameContainer.childNodes[index].innerText = mineCount;
         if(mineCount > 0){
-            gameContainer.childNodes[index].style.color = "white";
+            this.setColor(mineCount, index);
         } else {
             this.revealAdjacentTiles(row, col);
         }
