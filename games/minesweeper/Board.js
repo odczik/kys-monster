@@ -56,7 +56,6 @@ function Board(){
                 gameContainer.appendChild(elm)
             }
         }
-        console.log(this.gameBoard)
     }
 
     this.spawnMines = () => {
