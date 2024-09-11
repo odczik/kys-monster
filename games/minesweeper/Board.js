@@ -2,9 +2,9 @@ function Board(){
     this.gameBoard = [];
     this.firstMove = true;
     
-    const gameContainer = document.querySelector(".game-container");
+    this.gameContainer = document.querySelector(".game-container");
     
-    gameContainer.style.gridTemplateColumns = "repeat(9, 1fr)"
+    this.gameContainer.style.gridTemplateColumns = "repeat(9, 1fr)"
     
     this.getIndex = (row, col) => {
         return row * 9 + col;
@@ -40,7 +40,7 @@ function Board(){
                 color = "grey";
                 break;
         }
-        gameContainer.childNodes[index].style.color = color;
+        this.gameContainer.childNodes[index].style.color = color;
     }
 
 
@@ -53,7 +53,7 @@ function Board(){
                 elm.classList.add("game-cell")
                 elm.innerText = "0";
                 elm.style.color = "transparent";
-                gameContainer.appendChild(elm)
+                this.gameContainer.appendChild(elm)
             }
         }
     }
@@ -72,7 +72,7 @@ function Board(){
         for(let row = 0; row < 9; row++){
             for(let col = 0; col < 9; col++){
                 if(this.gameBoard[row][col].isMine){
-                    gameContainer.childNodes[this.getIndex(row, col)].style.borderColor = "lightgrey"
+                    this.gameContainer.childNodes[this.getIndex(row, col)].style.borderColor = "var(--debug-color)";
                 }
             }
         }
@@ -122,8 +122,8 @@ function Board(){
             const mineCount = this.getAdjacentBombs(tile.row, tile.col);
 
             this.gameBoard[tile.row][tile.col].isRevealed = true;
-            gameContainer.childNodes[index].classList.add("revealed");
-            gameContainer.childNodes[index].innerText = mineCount;
+            this.gameContainer.childNodes[index].classList.add("revealed");
+            this.gameContainer.childNodes[index].innerText = mineCount;
             if(mineCount > 0){
                 this.setColor(mineCount, index);
             } else {
@@ -138,7 +138,7 @@ function Board(){
             this.gameBoard[row][col].isMine = false;
             minesToReplace++;
         }
-        gameContainer.childNodes[this.getIndex(row, col)].style.borderColor = "";
+        this.gameContainer.childNodes[this.getIndex(row, col)].style.borderColor = "";
         
         let adjacentTiles = this.getAdjacentTiles(row, col);
 
@@ -146,7 +146,7 @@ function Board(){
             if(tile.isMine){
                 minesToReplace++;
                 tile.isMine = false;
-                gameContainer.childNodes[this.getIndex(tile.row, tile.col)].style.borderColor = "";
+                this.gameContainer.childNodes[this.getIndex(tile.row, tile.col)].style.borderColor = "";
             }
         })
 
@@ -158,7 +158,7 @@ function Board(){
                 if(Math.abs(row - randomRow) <= 1 && Math.abs(col - randomCol) <= 1) continue;
 
                 this.gameBoard[randomRow][randomCol].isMine = true;
-                gameContainer.childNodes[this.getIndex(randomRow, randomCol)].style.borderColor = "lightgrey";
+                this.gameContainer.childNodes[this.getIndex(randomRow, randomCol)].style.borderColor = "var(--debug-color)";
                 i++;
                 minePlaced = true;
             }
@@ -166,7 +166,7 @@ function Board(){
     }
 
     this.start = () => {
-        gameContainer.childNodes.forEach((elm, index) => {
+        this.gameContainer.childNodes.forEach((elm, index) => {
             elm.addEventListener("click", () => {
                 this.handleClick(index);
             });
@@ -193,8 +193,8 @@ function Board(){
         }
 
         this.gameBoard[row][col].isRevealed = true;
-        gameContainer.childNodes[index].classList.add("revealed");
-        gameContainer.childNodes[index].innerText = mineCount;
+        this.gameContainer.childNodes[index].classList.add("revealed");
+        this.gameContainer.childNodes[index].innerText = mineCount;
         if(mineCount > 0){
             this.setColor(mineCount, index);
         } else {

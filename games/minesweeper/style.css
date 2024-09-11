@@ -1,4 +1,6 @@
 .game-container {
+    --debug-color: black;
+
     border: 3px solid black;
 
     width: 90vw;
