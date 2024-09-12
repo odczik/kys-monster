@@ -37,7 +37,7 @@
 }
 .game-cell:hover {
     border: ridge 7px black;
-    background-color: rgb(170, 170, 170);
+    /* background-color: rgb(170, 170, 170); */
 }
 .game-cell.revealed {
     border: 3px solid rgb(70, 70, 70);
