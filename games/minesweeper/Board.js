@@ -1,6 +1,7 @@
 function Board(){
     this.gameBoard = [];
     this.firstMove = true;
+    this.markedMines = 0;
     
     this.gameContainer = document.querySelector(".game-container");
     
@@ -179,18 +180,22 @@ function Board(){
     // Attaches click event to all tiles
     this.start = () => {
         this.gameContainer.childNodes.forEach((elm, index) => {
-            elm.addEventListener("click", () => {
-                this.handleClick(index);
+            elm.addEventListener("click", (e) => {
+                this.handleLeftClick(index);
+            });
+            elm.addEventListener("contextmenu", (e) => {
+                this.handleRightClick(index, e);
             });
         });
     }
 
-    // Handles click events (no shit ikr)
-    this.handleClick = (index) => {
-        const col = index % 9;
-        const row = Math.floor(index / 9);
+    // Handles left click events (no shit ikr)
+    this.handleLeftClick = (index) => {
+        const [row, col] = this.getCoords(index);
+        const tile = this.gameBoard[row][col]
 
-        if(this.gameBoard[row][col].isRevealed) return;
+        if(tile.isRevealed) return;
+        if(tile.marked) return this.handleRightClick(index);
 
         let mineCount = this.getAdjacentBombs(row, col);
 
@@ -213,5 +218,31 @@ function Board(){
         } else {
             this.revealAdjacentTiles(row, col);
         }
+
+        // Check if player won
+        let tilesRevealed = 0;
+        this.gameBoard.forEach(row => {
+            row.forEach(tile => {
+                if(tile.isRevealed) tilesRevealed++;
+            })
+        })
+        if(tilesRevealed === 71){
+            alert("You won!")
+        }
+    }
+    // Handles right click events (no shit ikr)
+    this.handleRightClick = (index, e) => {
+        if(e) e.preventDefault();
+
+        const [row, col] = this.getCoords(index);
+        const tile = this.gameBoard[row][col]
+
+        if(tile.isRevealed) return;
+
+        tile.marked = !tile.marked;
+        this.gameContainer.childNodes[index].style.backgroundColor = tile.marked ? "#333" : "grey"
+
+        tile.marked ? this.markedMines++ : this.markedMines--;
+        document.querySelector(".flags").innerText = "Flags: " + this.markedMines;
     }
 }
