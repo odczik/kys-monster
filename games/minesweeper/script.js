@@ -4,6 +4,7 @@ Game.init();
 Game.spawnMines();
 Game.start();
 
+document.getElementById("debug").checked = false;
 document.getElementById("debug").addEventListener("change", (e) => {
     let color;
     e.target.checked ? color = "red" : color = "black";
