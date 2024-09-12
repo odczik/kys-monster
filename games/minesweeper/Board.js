@@ -5,13 +5,16 @@ function Board(){
     this.gameContainer = document.querySelector(".game-container");
     
     this.gameContainer.style.gridTemplateColumns = "repeat(9, 1fr)"
-    
+
+    // Converts x & y coordinates to index
     this.getIndex = (row, col) => {
         return row * 9 + col;
     }
+    // Converts index to x & y coordinates
     this.getCoords = (index) => {
         return [Math.floor(index / 9), index % 9];
     }
+    // Sets color of the tile based on the number of mines around it
     this.setColor = (mineCount, index) => {
         let color = "";
         switch(mineCount){
@@ -44,6 +47,7 @@ function Board(){
     }
 
 
+    // Initializes the game board by creating all the necessary elements
     this.init = () => {
         for(let i = 0; i < 9; i++){
             this.gameBoard.push([]);
@@ -58,7 +62,9 @@ function Board(){
         }
     }
 
+    // Randomly spawns 10 mines
     this.spawnMines = () => {
+        // Spawn mines
         for(let i = 0; i < 10;){
             const randomIndex = Math.floor(Math.random() * (81 - 1) + 1);
             const [row, col] = this.getCoords(randomIndex);
@@ -69,6 +75,7 @@ function Board(){
             }
         }
 
+        // Set their color for debugging purpouses
         for(let row = 0; row < 9; row++){
             for(let col = 0; col < 9; col++){
                 if(this.gameBoard[row][col].isMine){
@@ -78,8 +85,9 @@ function Board(){
         }
     }
 
+    // Returns the adjacent tiles (array of objects)
     this.getAdjacentTiles = (row, col) => {
-        let getAdjacentTiles = [];
+        let adjacentTiles = [];
         const adjacentCoords = [
             [-1, -1], [-1, 0], [-1, 1],
             [ 0, -1],          [ 0, 1],
@@ -95,11 +103,12 @@ function Board(){
             adjacentTile.row = adjacentRow;
             adjacentTile.col = adjacentCol;
 
-            if(adjacentTile) getAdjacentTiles.push(adjacentTile);
+            if(adjacentTile) adjacentTiles.push(adjacentTile);
         })
-        return getAdjacentTiles;
+        return adjacentTiles;
     }
 
+    // Returns number of bombs in adjacent tiles
     this.getAdjacentBombs = (row, col) => {
         let mineCount = 0;
         const adjacentTiles = this.getAdjacentTiles(row, col);
@@ -111,6 +120,7 @@ function Board(){
         return mineCount;
     }
 
+    // Reveals all adjacent tiles with no mine count (recursive)
     this.revealAdjacentTiles = (row, col) => {
         let adjacentTiles = this.getAdjacentTiles(row, col);
         adjacentTiles = JSON.parse(JSON.stringify(adjacentTiles));
@@ -132,6 +142,7 @@ function Board(){
         })
     }
 
+    // Replaces mines in a 3x3 square in case first move have any adjacent bombs
     this.replaceMine = (row, col) => {
         let minesToReplace = 0;
         if(this.gameBoard[row][col].isMine){
@@ -165,6 +176,7 @@ function Board(){
         }
     }
 
+    // Attaches click event to all tiles
     this.start = () => {
         this.gameContainer.childNodes.forEach((elm, index) => {
             elm.addEventListener("click", () => {
@@ -173,6 +185,7 @@ function Board(){
         });
     }
 
+    // Handles click events (no shit ikr)
     this.handleClick = (index) => {
         const col = index % 9;
         const row = Math.floor(index / 9);
@@ -188,7 +201,7 @@ function Board(){
         this.firstMove = false;
 
         if(this.gameBoard[row][col].isMine){
-            console.log("Game Over")
+            alert("Game Over")
             return;
         }
 
