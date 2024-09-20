@@ -7,16 +7,14 @@ function Board(){
     this.numberOfMines = 10;
     
     this.gameContainer = document.querySelector(".game-container");
-    
-    this.gameContainer.style.gridTemplateColumns = "repeat(9, 1fr)"
 
     // Converts x & y coordinates to index
     this.getIndex = (row, col) => {
-        return row * 9 + col;
+        return row * this.size + col;
     }
     // Converts index to x & y coordinates
     this.getCoords = (index) => {
-        return [Math.floor(index / 9), index % 9];
+        return [Math.floor(index / this.size), index % this.size];
     }
     // Sets color of the tile based on the number of mines around it
     this.setColor = (mineCount, index) => {
@@ -49,28 +47,43 @@ function Board(){
         }
         this.gameContainer.childNodes[index].style.color = color;
     }
+    this.reset = () => {
+        this.gameBoard = [];
+        this.gameContainer.innerHTML = "";
+        this.gameContainer.style.gridTemplateColumns = `repeat(${this.size}, 1fr)`;
+        this.firstMove = true;
+    }
 
     this.setDifficulty = (difficulty) => {
         switch(difficulty){
             case "easy":
                 this.size = 9;
                 this.numberOfMines = 10;
+                this.gameContainer.style.fontSize = "min(5vw, 35px)";
                 break;
             case "medium":
                 this.size = 16;
                 this.numberOfMines = 40;
+                this.gameContainer.style.fontSize = "";
                 break;
             case "hard":
                 this.size = 24;
                 this.numberOfMines = 99;
+                this.gameContainer.style.fontSize = "min(2vw, 9px)";
+                break;
+            case "custom":
+                this.size = parseInt(document.getElementById("size").value);
+                this.numberOfMines = parseInt(document.getElementById("mines").value);
+                this.gameContainer.style.fontSize = `9px`;
                 break;
         }
-        this.gameBoard = [];
-        this.gameContainer.innerHTML = "";
-        this.gameContainer.style.gridTemplateColumns = `repeat(${this.size}, 1fr)`;
+
+        this.reset();
         this.init();
         this.spawnMines();
         this.start();
+
+        return [this.size, this.numberOfMines];
     }
 
 
@@ -124,7 +137,7 @@ function Board(){
         adjacentCoords.forEach(coord => {
             const adjacentRow = row + coord[0];
             const adjacentCol = col + coord[1];
-            if(adjacentRow < 0 || adjacentRow >= 9 || adjacentCol < 0 || adjacentCol >= 9) return;
+            if(adjacentRow < 0 || adjacentRow >= this.size || adjacentCol < 0 || adjacentCol >= this.size) return;
 
             let adjacentTile = this.gameBoard[adjacentRow][adjacentCol]
             adjacentTile.row = adjacentRow;
@@ -219,10 +232,10 @@ function Board(){
     this.handleLeftClick = (index) => {
         const [row, col] = this.getCoords(index);
         const tile = this.gameBoard[row][col]
-
+        
         if(tile.isRevealed) return;
         if(tile.marked) return this.handleRightClick(index);
-
+        
         let mineCount = this.getAdjacentBombs(row, col);
 
         if(this.firstMove && (this.gameBoard[row][col].isMine || mineCount > 0)){
@@ -252,7 +265,7 @@ function Board(){
                 if(tile.isRevealed) tilesRevealed++;
             })
         })
-        if(tilesRevealed === 71){
+        if(tilesRevealed === Math.pow(this.size, 2) - this.numberOfMines){
             alert("You won!")
         }
     }
