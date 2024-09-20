@@ -1,8 +1,10 @@
 const Game = new Board;
 
-Game.init();
-Game.spawnMines();
-Game.start();
+document.getElementById("easy").addEventListener("click", () => Game.setDifficulty("easy"));
+document.getElementById("medium").addEventListener("click", () => Game.setDifficulty("medium"));
+document.getElementById("hard").addEventListener("click", () => Game.setDifficulty("hard"));
+
+document.getElementById("easy").click();
 
 document.getElementById("debug").checked = false;
 document.getElementById("debug").addEventListener("change", (e) => {

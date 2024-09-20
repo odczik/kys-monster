@@ -2,6 +2,9 @@ function Board(){
     this.gameBoard = [];
     this.firstMove = true;
     this.markedMines = 0;
+
+    this.size = 9;
+    this.numberOfMines = 10;
     
     this.gameContainer = document.querySelector(".game-container");
     
@@ -47,12 +50,35 @@ function Board(){
         this.gameContainer.childNodes[index].style.color = color;
     }
 
+    this.setDifficulty = (difficulty) => {
+        switch(difficulty){
+            case "easy":
+                this.size = 9;
+                this.numberOfMines = 10;
+                break;
+            case "medium":
+                this.size = 16;
+                this.numberOfMines = 40;
+                break;
+            case "hard":
+                this.size = 24;
+                this.numberOfMines = 99;
+                break;
+        }
+        this.gameBoard = [];
+        this.gameContainer.innerHTML = "";
+        this.gameContainer.style.gridTemplateColumns = `repeat(${this.size}, 1fr)`;
+        this.init();
+        this.spawnMines();
+        this.start();
+    }
+
 
     // Initializes the game board by creating all the necessary elements
     this.init = () => {
-        for(let i = 0; i < 9; i++){
+        for(let i = 0; i < this.size; i++){
             this.gameBoard.push([]);
-            for(let j = 0; j < 9; j++){
+            for(let j = 0; j < this.size; j++){
                 this.gameBoard[i].push({});
                 var elm = document.createElement("div");
                 elm.classList.add("game-cell")
@@ -63,11 +89,11 @@ function Board(){
         }
     }
 
-    // Randomly spawns 10 mines
+    // Randomly spawns X mines
     this.spawnMines = () => {
         // Spawn mines
-        for(let i = 0; i < 10;){
-            const randomIndex = Math.floor(Math.random() * (81 - 1) + 1);
+        for(let i = 0; i < this.numberOfMines;){
+            const randomIndex = Math.floor(Math.random() * (Math.pow(this.size, 2) - 1) + 1);
             const [row, col] = this.getCoords(randomIndex);
             
             if(!this.gameBoard[row][col].isMine){
@@ -77,8 +103,8 @@ function Board(){
         }
 
         // Set their color for debugging purpouses
-        for(let row = 0; row < 9; row++){
-            for(let col = 0; col < 9; col++){
+        for(let row = 0; row < this.size; row++){
+            for(let col = 0; col < this.size; col++){
                 if(this.gameBoard[row][col].isMine){
                     this.gameContainer.childNodes[this.getIndex(row, col)].style.borderColor = "var(--debug-color)";
                 }
@@ -180,7 +206,7 @@ function Board(){
     // Attaches click event to all tiles
     this.start = () => {
         this.gameContainer.childNodes.forEach((elm, index) => {
-            elm.addEventListener("click", (e) => {
+            elm.addEventListener("click", () => {
                 this.handleLeftClick(index);
             });
             elm.addEventListener("contextmenu", (e) => {
