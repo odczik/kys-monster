@@ -41,4 +41,5 @@
 }
 .game-cell.revealed {
     border: 3px solid rgb(70, 70, 70);
+    cursor: default;
 }

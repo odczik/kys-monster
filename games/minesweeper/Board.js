@@ -72,8 +72,16 @@ function Board(){
                 this.gameContainer.style.fontSize = "min(2vw, 9px)";
                 break;
             case "custom":
-                this.size = parseInt(document.getElementById("size").value);
-                this.numberOfMines = parseInt(document.getElementById("mines").value);
+                const size = parseInt(document.getElementById("size").value);
+                const mines = parseInt(document.getElementById("mines").value);
+
+                if(mines >= Math.pow(size, 2) - 9){
+                    alert("Too many mines!");
+                    return;
+                }
+
+                this.size = size;
+                this.numberOfMines = mines;
                 this.gameContainer.style.fontSize = `9px`;
                 break;
         }
