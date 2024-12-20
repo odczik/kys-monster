@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+    body {
+        background-color: rgb(10, 10, 10);
+        margin: 0;
+        overflow: hidden;
+    }
+    .container {
+        display: flex;
+        flex-wrap: wrap;
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+    }
+    .box {
+        width: 80px;
+        height: 80px;
+        background-color: transparent;
+        margin: 0;
+        display: inline-block;
+        border-radius: 25px;
+        transition: 1.5s ease-out;
+    }
+    .box:hover {
+        background-color: rgb(255, 255, 255);
+        transition: 0.05s ease-out;
+    }
+</style>
+<body>
+    <div class="container">
+
+    </div>
+    <script>
+        let rainIntervalMs = 3000;
+        let rainRandMultiplier = 1;
+
+        function adjustBoxes() {
+            const container = document.querySelector('.container');
+
+            let boxSize = 80;
+            const minBoxSize = 75;
+            const maxBoxSize = 100;
+
+            const boxesPerRow = Math.round(container.clientWidth / boxSize);
+            const boxesPerColumn = Math.ceil(container.clientHeight / boxSize);
+
+            boxSize = container.clientWidth / boxesPerRow;
+
+            // Remove existing boxes
+            while (container.firstChild) {
+                container.removeChild(container.firstChild);
+            }
+
+            // Add new boxes
+            for (let i = 0; i < boxesPerRow * boxesPerColumn; i++) {
+                const box = document.createElement('div');
+                box.className = 'box';
+                container.appendChild(box);
+            }
+
+            // Adjust box size if necessary
+            const boxes = container.getElementsByClassName('box');
+            for (let box of boxes) {
+                box.style.width = `${boxSize}px`;
+                box.style.height = `${boxSize}px`;
+                box.style.borderRadius = `${boxSize / 3}px`;
+            }
+
+            // Rain effect
+            setInterval(() => {
+                for (let box of boxes) {
+                    if(Math.floor(Math.random() * (boxesPerRow * rainRandMultiplier))) continue;
+                    // simulate hover event
+                    box.style.transition = '0.05s ease-out';
+                    box.style.backgroundColor = 'white';
+                    setTimeout(() => {
+                        box.style = "";
+                        box.style.width = `${boxSize}px`;
+                        box.style.height = `${boxSize}px`;
+                        box.style.borderRadius = `${boxSize / 3}px`;
+                    }, 50);
+                }
+            }, rainIntervalMs);
+        }
+
+        window.addEventListener('resize', adjustBoxes);
+        window.addEventListener('load', adjustBoxes);
+    </script>
+</body>
+</html>
