@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+    body {
+        background-color: #383838;
+        font-family: Arial, sans-serif;
+        color: white;
+        text-align: center;
+
+        margin: 0;
+        padding: 0;
+        height: 100vh;
+    }
+    canvas {
+        border: 2px solid black;
+        position: relative;
+        background-color: #dbdbdb;
+    }
+    #pid-controls {
+        position: absolute;
+        top: 0;
+        left: 0;
+        padding: 10px;
+    }
+    #simulator {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+    }
+    #controls {
+        position: relative;
+        bottom: 0;
+    }
+</style>
+<body>
+    <div id="pid-controls">
+        <label for="kp" id="kpValue">Kp: </label>
+        <br>
+        <input type="range" name="kp" id="kp" min="0" max="5" value="0" step="0.01">
+        <br>
+        <label for="ki" id="kiValue">Ki: </label>
+        <br>
+        <input type="range" name="ki" id="ki" min="0" max="5" value="0" step="0.01">
+        <br>
+        <label for="kd" id="kdValue">Kd: </label>
+        <br>
+        <input type="range" name="kd" id="kd" min="0" max="5" value="0" step="0.01">
+    </div>
+    <div id="simulator">
+        <canvas></canvas>
+        <div id="controls">
+            <label for="angle">Angle</label>
+            <br>
+            <input type="range" name="angle" id="angle" min="0" max="360" value="0" step="1">
+            <br>
+            <label for="velocity">Joystick</label>
+            <br>
+            <input type="range" name="velocity" id="velocity" min="-8" max="8" value="0" step="0.1">
+        </div>
+    </div>
+
+    <script src="simulator.js"></script>
+    <script src="pid.js"></script>
+    <script src="main.js"></script>
+</body>
+</html>
