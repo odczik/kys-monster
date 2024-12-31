@@ -33,8 +33,37 @@
         background-color: rgb(255, 255, 255);
         transition: 0.05s ease-out;
     }
+    .blur {
+        position: absolute;
+        z-index: 10;
+        pointer-events: none;
+    }
+    .blur1 {
+        top: 0;
+        left: 0;
+        height: 50%;
+        width: 50%;
+        backdrop-filter: blur(100px);
+    }
+    .blur2 {
+        top: 0;
+        right: 0;
+        height: 50%;
+        width: 50%;
+        backdrop-filter: blur(50px);
+    }
+    .blur3 {
+        bottom: 0;
+        left: 0;
+        height: 50%;
+        width: 50%;
+        backdrop-filter: blur(5px);
+    }
 </style>
 <body>
+    <div class="blur blur1"></div>
+    <div class="blur blur2"></div>
+    <div class="blur blur3"></div>
     <div class="container">
 
     </div>
