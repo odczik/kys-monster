@@ -55,14 +55,12 @@ document.addEventListener('keyup', (e) => {
 const fovSlider = document.getElementById('fov');
 const fovValue = document.getElementById('fov-value');
 fovSlider.addEventListener('input', () => {
-    player.FOV = fovSlider.value;
-    player.DR = (player.FOV / player.rays) * Math.PI / 180;
+    player.setFov(fovSlider.value);
     fovValue.innerText = "FOV: " + player.FOV;
 });
 const raysSlider = document.getElementById('rays');
 const raysValue = document.getElementById('rays-value');
 raysSlider.addEventListener('input', () => {
-    player.rays = raysSlider.value;
-    player.DR = (player.FOV / player.rays) * Math.PI / 180;
+    player.setRays(raysSlider.value);
     raysValue.innerText = "Rays: " + player.rays;
 });

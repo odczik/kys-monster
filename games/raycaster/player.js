@@ -11,6 +11,16 @@ function Player(startX, startY, tdCtx, fpCtx) {
     // this.DR = 0.0174533;
     this.DR = (this.FOV / this.rays) * Math.PI / 180;
 
+    this.setFov = (fov) => {
+        player.FOV = fov;
+        player.DR = (player.FOV / player.rays) * Math.PI / 180;
+    }
+
+    this.setRays = (rays) => {
+        player.rays = rays;
+        player.DR = (player.FOV / player.rays) * Math.PI / 180;
+    }
+
     this.update = (buttons) => {
         if (buttons['w']) {
             this.x += Math.cos(this.direction * Math.PI / 180) * this.speed;
@@ -184,6 +194,17 @@ function Player(startX, startY, tdCtx, fpCtx) {
             // Draw wall
             fpCtx.fillStyle = `rgb(100, 100, ${wallColor})`;
             fpCtx.fillRect(i * fpCanvas.width / this.rays, fpCanvas.height / 2 - wallHeight / 2, fpCanvas.width / this.rays, wallHeight);
+
+            // Draw floor
+            const grad = fpCtx.createLinearGradient(0, 0, 0, 960);
+            grad.addColorStop(0, "lightblue");
+            grad.addColorStop(1, "darkblue");
+            // const grad = fpCtx.createRadialGradient(480, 1000, 10, 480, 640, 960);
+            // grad.addColorStop(0, "darkblue");
+            // grad.addColorStop(1, "lightblue");
+            fpCtx.fillStyle = grad;
+            fpCtx.fillRect(i * fpCanvas.width / this.rays, fpCanvas.height / 2 + wallHeight / 2, fpCanvas.width / this.rays, fpCanvas.height / 2 - wallHeight / 2);
+
 
             // Update ray angle
             rayAngle += this.DR;
