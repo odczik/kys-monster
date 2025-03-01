@@ -24,11 +24,11 @@ canvas {
     flex-direction: column;
     gap: 15px;
 
-    padding: 15px;
+    /* padding: 15px; */
 }
 
 .settings-container {
-    width: 100%;
+    width: 90%;
 
     display: flex;
     justify-content: center;

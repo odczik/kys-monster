@@ -31,10 +31,18 @@ function Player(startX, startY, tdCtx, fpCtx) {
             this.y -= Math.sin(this.direction * Math.PI / 180) * this.speed;
         }
         if (buttons['a']) {
+            this.x -= Math.cos((this.direction + 90) * Math.PI / 180) * this.speed;
+            this.y -= Math.sin((this.direction + 90) * Math.PI / 180) * this.speed;
+        }
+        if (buttons['d']) {
+            this.x -= Math.cos((this.direction - 90) * Math.PI / 180) * this.speed;
+            this.y -= Math.sin((this.direction - 90) * Math.PI / 180) * this.speed;
+        }
+        if (buttons['q'] || buttons['ArrowLeft']) {
             this.direction -= this.turnSpeed;
             if(this.direction < 0) this.direction = 359;
         }
-        if (buttons['d']) {
+        if (buttons['e'] || buttons['ArrowRight']) {
             this.direction += this.turnSpeed;
             if(this.direction >= 360) this.direction = 0;
         }
