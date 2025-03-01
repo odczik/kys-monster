@@ -1,0 +1,59 @@
+body {
+    margin: 0;
+    padding: 0;
+    /* overflow: hidden; */
+
+    background-color: whitesmoke;
+
+    width: 100vw;
+    height: 100vh;
+}
+
+canvas {
+    border: 5px solid black;
+    background-color: grey;
+}
+
+.container {
+    width: 100%;
+    height: 100%;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    gap: 15px;
+
+    padding: 15px;
+}
+
+.settings-container {
+    width: 100%;
+
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 15px;
+}
+.settings-container span {
+    font-size: 1.15em;
+
+    width: 230px;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-direction: row;
+    gap: 15px;
+}
+
+.render-container {
+    width: 100%;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: row;
+    gap: 15px;
+}

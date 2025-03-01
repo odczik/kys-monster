@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Raycaster</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <div class="settings-container">
+            <span>  
+                <label for="fov" id="fov-value">FOV: 60</label>
+                <input type="range" id="fov" step="1" min="1" max="360" value="60">
+            </span>
+            <span>
+                <label for="rays" id="rays-value">Rays: 960</label>
+                <input type="range" id="rays" step="1" min="1" max="960" value="960">
+            </span>
+        </div>
+        <div class="render-container">
+            <canvas width="512" height="512" id="top-down-canvas"></canvas>
+            <canvas width="960" height="640" id="first-person-canvas"></canvas>
+        </div>
+    </div>
+
+    <script src="player.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
