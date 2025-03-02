@@ -5,6 +5,7 @@ function Player(startX, startY, tdCtx, fpCtx) {
     this.speed = 2;
     this.turnSpeed = 3;
     this.size = 10;
+    this.fishEyeFix = true;
     this.FOV = 60;
     // this.rays = fpCanvas.width;
     this.rays = fpCanvas.width / 2;
@@ -108,7 +109,7 @@ function Player(startX, startY, tdCtx, fpCtx) {
                 dof = 8;
             }
 
-            // Max distance (depth of field)
+            // Hit detection
             while (dof < size) {
                 mapX = Math.floor((rayX / mapS) + (rayAngle > Math.PI ? - 0.0001 : null));
                 mapY = Math.floor((rayY / mapS) + (rayAngle > Math.PI ? - 0.0001 : null));
@@ -183,8 +184,7 @@ function Player(startX, startY, tdCtx, fpCtx) {
                 rayY = verticalY;
                 rayDistance = distanceV;
                 shade = 0;
-            }
-            if(distanceH < distanceV){
+            } else /*if(distanceH < distanceV)*/{
                 rayX = horizontalX;
                 rayY = horizontalY;
                 rayDistance = distanceH;
@@ -200,10 +200,11 @@ function Player(startX, startY, tdCtx, fpCtx) {
 
             /* DRAW 3D */
             // Correct distance (fish eye effect)
-            let ca= this.direction * Math.PI / 180 - rayAngle;
-            if(ca < 0) ca += 2 * Math.PI;
-            if(ca > 2 * Math.PI) ca -= 2 * Math.PI;
-            rayDistance *= Math.cos(ca);
+            if(this.fishEyeFix){
+                let ca = this.direction * Math.PI / 180 - rayAngle;
+                ca = normalizeAngle(ca);
+                rayDistance *= Math.cos(ca);
+            }
 
             // Wall height
             let wallHeight = mapS * fpCanvas.height / rayDistance;

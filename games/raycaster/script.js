@@ -64,6 +64,10 @@ raysSlider.addEventListener('input', () => {
     player.setRays(raysSlider.value);
     raysValue.innerText = "Rays: " + player.rays;
 });
+const fishEyeCheckbox = document.getElementById('fisheye');
+fishEyeCheckbox.addEventListener('change', () => {
+    player.fishEyeFix = fishEyeCheckbox.checked;
+});
 
 
 tdCanvas.addEventListener('click', (e) => {
