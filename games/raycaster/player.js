@@ -22,22 +22,35 @@ function Player(startX, startY, tdCtx, fpCtx) {
     }
 
     this.update = (buttons) => {
+        // Movement
+        let vector = { x: 0, y: 0 }
         if (buttons['w']) {
-            this.x += Math.cos(this.direction * Math.PI / 180) * this.speed;
-            this.y += Math.sin(this.direction * Math.PI / 180) * this.speed;
+            vector.x += Math.cos(this.direction * Math.PI / 180) * this.speed;
+            vector.y += Math.sin(this.direction * Math.PI / 180) * this.speed;
         }
         if (buttons['s']) {
-            this.x -= Math.cos(this.direction * Math.PI / 180) * this.speed;
-            this.y -= Math.sin(this.direction * Math.PI / 180) * this.speed;
+            vector.x -= Math.cos(this.direction * Math.PI / 180) * this.speed;
+            vector.y -= Math.sin(this.direction * Math.PI / 180) * this.speed;
         }
         if (buttons['a']) {
-            this.x -= Math.cos((this.direction + 90) * Math.PI / 180) * this.speed;
-            this.y -= Math.sin((this.direction + 90) * Math.PI / 180) * this.speed;
+            vector.x -= Math.cos((this.direction + 90) * Math.PI / 180) * this.speed;
+            vector.y -= Math.sin((this.direction + 90) * Math.PI / 180) * this.speed;
         }
         if (buttons['d']) {
-            this.x -= Math.cos((this.direction - 90) * Math.PI / 180) * this.speed;
-            this.y -= Math.sin((this.direction - 90) * Math.PI / 180) * this.speed;
+            vector.x -= Math.cos((this.direction - 90) * Math.PI / 180) * this.speed;
+            vector.y -= Math.sin((this.direction - 90) * Math.PI / 180) * this.speed;
         }
+
+        // Normalize vector
+        let distance = Math.sqrt(vector.x * vector.x + vector.y * vector.y);
+        if (distance != 0) {
+            vector.x /= distance;
+            vector.y /= distance;
+        }
+        this.x += vector.x * this.speed;
+        this.y += vector.y * this.speed;
+        
+        // Turn
         if (buttons['q'] || buttons['ArrowLeft']) {
             this.direction -= this.turnSpeed;
             if(this.direction < 0) this.direction = 359;
