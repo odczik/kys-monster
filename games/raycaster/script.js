@@ -64,3 +64,11 @@ raysSlider.addEventListener('input', () => {
     player.setRays(raysSlider.value);
     raysValue.innerText = "Rays: " + player.rays;
 });
+
+
+tdCanvas.addEventListener('click', (e) => {
+    let x = Math.floor(e.offsetX / mapS);
+    let y = Math.floor(e.offsetY / mapS);
+    if (map[y][x] === 0) map[y][x] = 1;
+    else map[y][x] = 0;
+});

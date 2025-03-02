@@ -57,3 +57,7 @@ canvas {
     flex-direction: row;
     gap: 15px;
 }
+
+#top-down-canvas {
+    cursor: pointer;
+}
