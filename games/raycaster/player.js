@@ -5,8 +5,9 @@ function Player(startX, startY, tdCtx, fpCtx) {
     this.speed = 2;
     this.turnSpeed = 3;
     this.size = 10;
-    this.radius = 10;
+    this.radius = 5;
     this.fishEyeFix = true;
+    this.collisions = true;
     this.FOV = 60;
     // this.rays = fpCanvas.width;
     this.rays = fpCanvas.width / 2;
@@ -55,23 +56,24 @@ function Player(startX, startY, tdCtx, fpCtx) {
         let newY = this.y + vector.y * this.speed;
         let collisionX = false, collisionY = false;
 
-        // Check for collisions in the x direction
-        for (let angle = 0; angle <= 360; angle += 10) {
-            let checkX = newX + Math.cos(angle * Math.PI / 180) * this.radius;
-            let checkY = this.y + Math.sin(angle * Math.PI / 180) * this.radius;
-            if (map[Math.floor(checkY / mapS)][Math.floor(checkX / mapS)] != 0) {
-                collisionX = true;
-                break;
+        if(this.collisions){
+            // Check for collisions in the x direction
+            for (let angle = 0; angle <= 360; angle += 10) {
+                let checkX = newX + Math.cos(angle * Math.PI / 180) * this.radius;
+                let checkY = this.y + Math.sin(angle * Math.PI / 180) * this.radius;
+                if (map[Math.floor(checkY / mapS)][Math.floor(checkX / mapS)] != 0) {
+                    collisionX = true;
+                    break;
+                }
             }
-        }
-
-        // Check for collisions in the y direction
-        for (let angle = 0; angle < 360; angle += 10) {
-            let checkX = this.x + Math.cos(angle * Math.PI / 180) * this.radius;
-            let checkY = newY + Math.sin(angle * Math.PI / 180) * this.radius;
-            if (map[Math.floor(checkY / mapS)][Math.floor(checkX / mapS)] != 0) {
-                collisionY = true;
-                break;
+            // Check for collisions in the y direction
+            for (let angle = 0; angle < 360; angle += 10) {
+                let checkX = this.x + Math.cos(angle * Math.PI / 180) * this.radius;
+                let checkY = newY + Math.sin(angle * Math.PI / 180) * this.radius;
+                if (map[Math.floor(checkY / mapS)][Math.floor(checkX / mapS)] != 0) {
+                    collisionY = true;
+                    break;
+                }
             }
         }
 
@@ -278,7 +280,7 @@ function Player(startX, startY, tdCtx, fpCtx) {
         // Hitbox
         tdCtx.strokeStyle = 'red';
         tdCtx.beginPath();
-        tdCtx.arc(this.x, this.y, this.radius*1.2, 0, 2 * Math.PI);
+        tdCtx.arc(this.x, this.y, this.radius * 1.1, 0, 2 * Math.PI);
         tdCtx.stroke();
     }
 }

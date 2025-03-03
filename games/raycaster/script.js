@@ -32,14 +32,23 @@ const renderMap = () => {
     }
 }
 
+let frames = [];
 function update() {
+    let timer = performance.now();
+
     tdCtx.clearRect(0, 0, tdCanvas.width, tdCanvas.height);
     fpCtx.clearRect(0, 0, fpCanvas.width, fpCanvas.height);
     
     renderMap();
-    
+
     player.update(buttons);
     player.render();
+
+    let fps = 1000 / (performance.now() - timer);
+    frames.push(fps);
+    if (frames.length > 100) frames.shift();
+    let avg = frames.reduce((a, b) => a + b) / frames.length;
+    document.getElementById('fps').innerText = "FPS: " + Math.floor(fps) + " / " + Math.floor(avg);
 
     requestAnimationFrame(update);
 }
@@ -67,6 +76,10 @@ raysSlider.addEventListener('input', () => {
 const fishEyeCheckbox = document.getElementById('fisheye');
 fishEyeCheckbox.addEventListener('change', () => {
     player.fishEyeFix = fishEyeCheckbox.checked;
+});
+const collisionsCheckbox = document.getElementById('collisions');
+collisionsCheckbox.addEventListener('change', () => {
+    player.collisions = collisionsCheckbox.checked;
 });
 
 
