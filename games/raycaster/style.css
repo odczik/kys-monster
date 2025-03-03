@@ -34,7 +34,7 @@ canvas {
     justify-content: center;
     align-items: flex-start;
     flex-direction: column;
-    gap: 15px;
+    gap: 5px;
 }
 .settings-container span {
     font-size: 1.15em;

@@ -1,3 +1,41 @@
+const texture = [
+    [1,1,1,1,1,1,1,1, 0,0,0,0,0,0,0,0, 1,1,1,1,1,1,1,1, 0,0,0,0,0,0,0,0],
+    [1,1,1,1,1,1,1,1, 0,0,0,0,0,0,0,0, 1,1,1,1,1,1,1,1, 0,0,0,0,0,0,0,0],
+    [1,1,1,1,1,1,1,1, 0,0,0,0,0,0,0,0, 1,1,1,1,1,1,1,1, 0,0,0,0,0,0,0,0],
+    [1,1,1,1,1,1,1,1, 0,0,0,0,0,0,0,0, 1,1,1,1,1,1,1,1, 0,0,0,0,0,0,0,0],
+    [1,1,1,1,1,1,1,1, 0,0,0,0,0,0,0,0, 1,1,1,1,1,1,1,1, 0,0,0,0,0,0,0,0],
+    [1,1,1,1,1,1,1,1, 0,0,0,0,0,0,0,0, 1,1,1,1,1,1,1,1, 0,0,0,0,0,0,0,0],
+    [1,1,1,1,1,1,1,1, 0,0,0,0,0,0,0,0, 1,1,1,1,1,1,1,1, 0,0,0,0,0,0,0,0],
+    [1,1,1,1,1,1,1,1, 0,0,0,0,0,0,0,0, 1,1,1,1,1,1,1,1, 0,0,0,0,0,0,0,0],
+    
+    [0,0,0,0,0,0,0,0, 1,1,1,1,1,1,1,1, 0,0,0,0,0,0,0,0, 1,1,1,1,1,1,1,1],
+    [0,0,0,0,0,0,0,0, 1,1,1,1,1,1,1,1, 0,0,0,0,0,0,0,0, 1,1,1,1,1,1,1,1],
+    [0,0,0,0,0,0,0,0, 1,1,1,1,1,1,1,1, 0,0,0,0,0,0,0,0, 1,1,1,1,1,1,1,1],
+    [0,0,0,0,0,0,0,0, 1,1,1,1,1,1,1,1, 0,0,0,0,0,0,0,0, 1,1,1,1,1,1,1,1],
+    [0,0,0,0,0,0,0,0, 1,1,1,1,1,1,1,1, 0,0,0,0,0,0,0,0, 1,1,1,1,1,1,1,1],
+    [0,0,0,0,0,0,0,0, 1,1,1,1,1,1,1,1, 0,0,0,0,0,0,0,0, 1,1,1,1,1,1,1,1],
+    [0,0,0,0,0,0,0,0, 1,1,1,1,1,1,1,1, 0,0,0,0,0,0,0,0, 1,1,1,1,1,1,1,1],
+    [0,0,0,0,0,0,0,0, 1,1,1,1,1,1,1,1, 0,0,0,0,0,0,0,0, 1,1,1,1,1,1,1,1],
+
+    [1,1,1,1,1,1,1,1, 0,0,0,0,0,0,0,0, 1,1,1,1,1,1,1,1, 0,0,0,0,0,0,0,0],
+    [1,1,1,1,1,1,1,1, 0,0,0,0,0,0,0,0, 1,1,1,1,1,1,1,1, 0,0,0,0,0,0,0,0],
+    [1,1,1,1,1,1,1,1, 0,0,0,0,0,0,0,0, 1,1,1,1,1,1,1,1, 0,0,0,0,0,0,0,0],
+    [1,1,1,1,1,1,1,1, 0,0,0,0,0,0,0,0, 1,1,1,1,1,1,1,1, 0,0,0,0,0,0,0,0],
+    [1,1,1,1,1,1,1,1, 0,0,0,0,0,0,0,0, 1,1,1,1,1,1,1,1, 0,0,0,0,0,0,0,0],
+    [1,1,1,1,1,1,1,1, 0,0,0,0,0,0,0,0, 1,1,1,1,1,1,1,1, 0,0,0,0,0,0,0,0],
+    [1,1,1,1,1,1,1,1, 0,0,0,0,0,0,0,0, 1,1,1,1,1,1,1,1, 0,0,0,0,0,0,0,0],
+    [1,1,1,1,1,1,1,1, 0,0,0,0,0,0,0,0, 1,1,1,1,1,1,1,1, 0,0,0,0,0,0,0,0],
+    
+    [0,0,0,0,0,0,0,0, 1,1,1,1,1,1,1,1, 0,0,0,0,0,0,0,0, 1,1,1,1,1,1,1,1],
+    [0,0,0,0,0,0,0,0, 1,1,1,1,1,1,1,1, 0,0,0,0,0,0,0,0, 1,1,1,1,1,1,1,1],
+    [0,0,0,0,0,0,0,0, 1,1,1,1,1,1,1,1, 0,0,0,0,0,0,0,0, 1,1,1,1,1,1,1,1],
+    [0,0,0,0,0,0,0,0, 1,1,1,1,1,1,1,1, 0,0,0,0,0,0,0,0, 1,1,1,1,1,1,1,1],
+    [0,0,0,0,0,0,0,0, 1,1,1,1,1,1,1,1, 0,0,0,0,0,0,0,0, 1,1,1,1,1,1,1,1],
+    [0,0,0,0,0,0,0,0, 1,1,1,1,1,1,1,1, 0,0,0,0,0,0,0,0, 1,1,1,1,1,1,1,1],
+    [0,0,0,0,0,0,0,0, 1,1,1,1,1,1,1,1, 0,0,0,0,0,0,0,0, 1,1,1,1,1,1,1,1],
+    [0,0,0,0,0,0,0,0, 1,1,1,1,1,1,1,1, 0,0,0,0,0,0,0,0, 1,1,1,1,1,1,1,1]
+]
+
 function Player(startX, startY, tdCtx, fpCtx) {
     this.x = startX;
     this.y = startY;
@@ -8,6 +46,7 @@ function Player(startX, startY, tdCtx, fpCtx) {
     this.radius = 5;
     this.fishEyeFix = true;
     this.collisions = true;
+    this.textures = true;
     this.FOV = 60;
     // this.rays = fpCanvas.width;
     this.rays = fpCanvas.width / 2;
@@ -43,6 +82,8 @@ function Player(startX, startY, tdCtx, fpCtx) {
             vector.x -= Math.cos((this.direction - 90) * Math.PI / 180) * this.speed;
             vector.y -= Math.sin((this.direction - 90) * Math.PI / 180) * this.speed;
         }
+        if(buttons[" "]) this.speed = 4;
+        else this.speed = 2;
 
         // Normalize vector
         let distance = Math.sqrt(vector.x * vector.x + vector.y * vector.y);
@@ -61,7 +102,14 @@ function Player(startX, startY, tdCtx, fpCtx) {
             for (let angle = 0; angle <= 360; angle += 10) {
                 let checkX = newX + Math.cos(angle * Math.PI / 180) * this.radius;
                 let checkY = this.y + Math.sin(angle * Math.PI / 180) * this.radius;
-                if (map[Math.floor(checkY / mapS)][Math.floor(checkX / mapS)] != 0) {
+                checkX = Math.floor(checkX / mapS);
+                checkY = Math.floor(checkY / mapS);
+                try {
+                    if (map[checkY][checkX] != 0) {
+                        collisionX = true;
+                        break;
+                    }
+                } catch {
                     collisionX = true;
                     break;
                 }
@@ -70,7 +118,14 @@ function Player(startX, startY, tdCtx, fpCtx) {
             for (let angle = 0; angle < 360; angle += 10) {
                 let checkX = this.x + Math.cos(angle * Math.PI / 180) * this.radius;
                 let checkY = newY + Math.sin(angle * Math.PI / 180) * this.radius;
-                if (map[Math.floor(checkY / mapS)][Math.floor(checkX / mapS)] != 0) {
+                checkX = Math.floor(checkX / mapS);
+                checkY = Math.floor(checkY / mapS);
+                try {
+                    if (map[checkY][checkX] != 0) {
+                        collisionY = true;
+                        break;
+                    }
+                } catch {
                     collisionY = true;
                     break;
                 }
@@ -238,22 +293,44 @@ function Player(startX, startY, tdCtx, fpCtx) {
 
             // Wall height
             let wallHeight = mapS * fpCanvas.height / rayDistance;
-            if(wallHeight > fpCanvas.height) wallHeight = fpCanvas.height;
+            // if(wallHeight > fpCanvas.height) wallHeight = fpCanvas.height;
 
-            // Wall color
-            const wallColor = (255 - rayDistance / 10) - shade;
 
             // Draw wall
-            fpCtx.fillStyle = `rgb(100, 100, ${wallColor})`;
-            fpCtx.fillRect(i * fpCanvas.width / this.rays, fpCanvas.height / 2 - wallHeight / 2, fpCanvas.width / this.rays, wallHeight);
+            if(!this.textures){
+                // No texture
+                let wallColor = (255 - rayDistance / 10) - shade;
+                fpCtx.fillStyle = `rgb(${wallColor}, 100, ${wallColor})`;
+                fpCtx.fillRect(i * fpCanvas.width / this.rays, fpCanvas.height / 2 - wallHeight / 2, fpCanvas.width / this.rays, wallHeight);
+            } else {
+                // Texture
+                let textureY = 0;
+                let pexelStep = wallHeight / texture.length;
+                let textureX;
+                if(shade){
+                    textureX = Math.floor(rayX / 2) % (mapS / 2);
+                    if(rayAngle < Math.PI) textureX = mapS / 2 - textureX - 1;
+                } else {
+                    textureX = Math.floor(rayY / 2) % (mapS / 2);
+                    if(rayAngle > Math.PI / 2 && rayAngle < 3 * Math.PI / 2) textureX = mapS / 2 - textureX - 1;
+                }
+                for(let pexel = 0; pexel < wallHeight; pexel+=pexelStep){
+                    if(textureY >= texture.length) break;
+                    // Wall color
+                    let wallColor = (255 - rayDistance / 10) - shade;
+                    wallColor = wallColor - texture[textureY][textureX] * 255;
+                    if(wallColor < 0) wallColor = 0;
+    
+                    fpCtx.fillStyle = `rgb(${wallColor}, ${wallColor}, ${wallColor})`;
+                    fpCtx.fillRect(i * fpCanvas.width / this.rays, fpCanvas.height / 2 - wallHeight / 2 + pexel, fpCanvas.width / this.rays, pexelStep);
+                    textureY += 1;
+                }
+            }
 
             // Draw floor
             const grad = fpCtx.createLinearGradient(0, 0, 0, 960);
             grad.addColorStop(0, "lightblue");
             grad.addColorStop(1, "darkblue");
-            // const grad = fpCtx.createRadialGradient(480, 1000, 10, 480, 640, 960);
-            // grad.addColorStop(0, "darkblue");
-            // grad.addColorStop(1, "lightblue");
             fpCtx.fillStyle = grad;
             fpCtx.fillRect(i * fpCanvas.width / this.rays, fpCanvas.height / 2 + wallHeight / 2, fpCanvas.width / this.rays, fpCanvas.height / 2 - wallHeight / 2);
 

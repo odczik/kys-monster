@@ -81,6 +81,10 @@ const collisionsCheckbox = document.getElementById('collisions');
 collisionsCheckbox.addEventListener('change', () => {
     player.collisions = collisionsCheckbox.checked;
 });
+const texturesCheckbox = document.getElementById('textures');
+texturesCheckbox.addEventListener('change', () => {
+    player.textures = texturesCheckbox.checked;
+});
 
 
 tdCanvas.addEventListener('click', (e) => {
