@@ -307,6 +307,7 @@ function Player(startX, startY, tdCtx, fpCtx) {
                 let textureY = 0;
                 let pexelStep = wallHeight / texture.length;
                 let textureX;
+                let wallColor = (255 - rayDistance / 10) - shade;
                 if(shade){
                     textureX = Math.floor(rayX / 2) % (mapS / 2);
                     if(rayAngle < Math.PI) textureX = mapS / 2 - textureX - 1;
@@ -317,11 +318,10 @@ function Player(startX, startY, tdCtx, fpCtx) {
                 for(let pexel = 0; pexel < wallHeight; pexel+=pexelStep){
                     if(textureY >= texture.length) break;
                     // Wall color
-                    let wallColor = (255 - rayDistance / 10) - shade;
-                    wallColor = wallColor - texture[textureY][textureX] * 255;
-                    if(wallColor < 0) wallColor = 0;
+                    let c = wallColor - texture[textureY][textureX] * 255;
+                    if(c < 0) c = 0;
     
-                    fpCtx.fillStyle = `rgb(${wallColor}, ${wallColor}, ${wallColor})`;
+                    fpCtx.fillStyle = `rgb(${c}, ${c}, ${c})`;
                     fpCtx.fillRect(i * fpCanvas.width / this.rays, fpCanvas.height / 2 - wallHeight / 2 + pexel, fpCanvas.width / this.rays, pexelStep);
                     textureY += 1;
                 }
