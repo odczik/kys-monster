@@ -5,6 +5,7 @@ function Player(startX, startY, tdCtx, fpCtx) {
     this.speed = 2;
     this.turnSpeed = 3;
     this.size = 10;
+    this.radius = 10;
     this.fishEyeFix = true;
     this.FOV = 60;
     // this.rays = fpCanvas.width;
@@ -48,8 +49,35 @@ function Player(startX, startY, tdCtx, fpCtx) {
             vector.x /= distance;
             vector.y /= distance;
         }
-        this.x += vector.x * this.speed;
-        this.y += vector.y * this.speed;
+
+        // Collision detection with circular hitbox
+        let newX = this.x + vector.x * this.speed;
+        let newY = this.y + vector.y * this.speed;
+        let collisionX = false, collisionY = false;
+
+        // Check for collisions in the x direction
+        for (let angle = 0; angle <= 360; angle += 10) {
+            let checkX = newX + Math.cos(angle * Math.PI / 180) * this.radius;
+            let checkY = this.y + Math.sin(angle * Math.PI / 180) * this.radius;
+            if (map[Math.floor(checkY / mapS)][Math.floor(checkX / mapS)] != 0) {
+                collisionX = true;
+                break;
+            }
+        }
+
+        // Check for collisions in the y direction
+        for (let angle = 0; angle < 360; angle += 10) {
+            let checkX = this.x + Math.cos(angle * Math.PI / 180) * this.radius;
+            let checkY = newY + Math.sin(angle * Math.PI / 180) * this.radius;
+            if (map[Math.floor(checkY / mapS)][Math.floor(checkX / mapS)] != 0) {
+                collisionY = true;
+                break;
+            }
+        }
+
+        // Update position based on collision detection
+        if (!collisionX) this.x = newX;
+        if (!collisionY) this.y = newY;
         
         // Turn
         if (buttons['q'] || buttons['ArrowLeft']) {
@@ -246,6 +274,11 @@ function Player(startX, startY, tdCtx, fpCtx) {
         tdCtx.beginPath();
         tdCtx.moveTo(this.x, this.y);
         tdCtx.lineTo(this.x + Math.cos(this.direction * Math.PI / 180) * 20, this.y + Math.sin(this.direction * Math.PI / 180) * 20);
+        tdCtx.stroke();
+        // Hitbox
+        tdCtx.strokeStyle = 'red';
+        tdCtx.beginPath();
+        tdCtx.arc(this.x, this.y, this.radius*1.2, 0, 2 * Math.PI);
         tdCtx.stroke();
     }
 }

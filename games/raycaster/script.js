@@ -35,10 +35,10 @@ const renderMap = () => {
 function update() {
     tdCtx.clearRect(0, 0, tdCanvas.width, tdCanvas.height);
     fpCtx.clearRect(0, 0, fpCanvas.width, fpCanvas.height);
-
-    player.update(buttons);
-
+    
     renderMap();
+    
+    player.update(buttons);
     player.render();
 
     requestAnimationFrame(update);
