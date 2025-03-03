@@ -61,21 +61,25 @@ document.addEventListener('keyup', (e) => {
     buttons[e.key] = false;
 });
 
+const fishEyeCheckbox = document.getElementById('fisheye');
+fishEyeCheckbox.addEventListener('change', () => {
+    player.fishEyeFix = fishEyeCheckbox.checked;
+});
 const fovSlider = document.getElementById('fov');
 const fovValue = document.getElementById('fov-value');
 fovSlider.addEventListener('input', () => {
     player.setFov(fovSlider.value);
     fovValue.innerText = "FOV: " + player.FOV;
+    if(player.FOV > 180){
+        player.fishEyeFix = false;
+        fishEyeCheckbox.checked = false;
+    }
 });
 const raysSlider = document.getElementById('rays');
 const raysValue = document.getElementById('rays-value');
 raysSlider.addEventListener('input', () => {
     player.setRays(raysSlider.value);
     raysValue.innerText = "Rays: " + player.rays;
-});
-const fishEyeCheckbox = document.getElementById('fisheye');
-fishEyeCheckbox.addEventListener('change', () => {
-    player.fishEyeFix = fishEyeCheckbox.checked;
 });
 const collisionsCheckbox = document.getElementById('collisions');
 collisionsCheckbox.addEventListener('change', () => {
@@ -92,4 +96,47 @@ tdCanvas.addEventListener('click', (e) => {
     let y = Math.floor(e.offsetY / mapS);
     if (map[y][x] === 0) map[y][x] = 1;
     else map[y][x] = 0;
+});
+
+const resetButton = document.getElementById('reset');
+resetButton.addEventListener('click', () => {
+    player.setRays(100)
+    const interval = setInterval(() => {
+        if(player.rays == 1){
+            map = [
+                [1,1,1,1,1,1,1,1],
+                [1,0,0,0,0,0,0,1],
+                [1,0,1,0,0,0,0,1],
+                [1,0,1,0,0,0,0,1],
+                [1,0,0,0,0,0,0,1],
+                [1,0,0,0,0,1,0,1],
+                [1,0,0,0,0,0,0,1],
+                [1,1,1,1,1,1,1,1]
+            ];
+            player.FOV = 60;
+            fovSlider.value = 60;
+            fovValue.innerText = "FOV: 60";
+            player.fishEyeFix = true;
+            fishEyeCheckbox.checked = true;
+            player.collisions = true;
+            collisionsCheckbox.checked = true;
+            player.textures = true;
+            texturesCheckbox.checked = true;
+            player.x = 2 * mapS + mapS / 2;
+            player.y = 5 * mapS + mapS / 2;
+            player.direction = 0;
+            player.speed = 2;
+            player.turnSpeed = 3;
+            player.size = 10;
+            player.radius = 5;
+        
+            player.setRays(960);
+            raysValue.innerText = "Rays: " +  player.rays;
+
+            clearInterval(interval);
+            return;
+        }
+        player.setRays(player.rays - 1);
+        raysValue.innerText = "Rays: " +  player.rays;
+    }, player.rays / 10);
 });
