@@ -33,8 +33,16 @@ const renderMap = () => {
 }
 
 let frames = [];
+let lastFrameTime = performance.now();
 function update() {
-    let timer = performance.now();
+    let currentFrameTime = performance.now();
+    let fps = 1000 / (currentFrameTime - lastFrameTime);
+    lastFrameTime = currentFrameTime;
+
+    frames.push(fps);
+    if (frames.length > 100) frames.shift();
+    let avg = frames.reduce((a, b) => a + b) / frames.length;
+    document.getElementById('fps').innerText = "FPS: " + Math.floor(fps) + " / " + Math.floor(avg);
 
     tdCtx.clearRect(0, 0, tdCanvas.width, tdCanvas.height);
     fpCtx.clearRect(0, 0, fpCanvas.width, fpCanvas.height);
@@ -43,12 +51,6 @@ function update() {
 
     player.update(buttons);
     player.render();
-
-    let fps = 1000 / (performance.now() - timer);
-    frames.push(fps);
-    if (frames.length > 100) frames.shift();
-    let avg = frames.reduce((a, b) => a + b) / frames.length;
-    document.getElementById('fps').innerText = "FPS: " + Math.floor(fps) + " / " + Math.floor(avg);
 
     requestAnimationFrame(update);
 }
@@ -130,7 +132,7 @@ resetButton.addEventListener('click', () => {
             player.size = 10;
             player.radius = 5;
         
-            player.setRays(960);
+            player.setRays(480);
             raysValue.innerText = "Rays: " +  player.rays;
 
             clearInterval(interval);

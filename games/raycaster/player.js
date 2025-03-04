@@ -293,9 +293,9 @@ function Player(startX, startY, tdCtx, fpCtx) {
 
             // Wall height
             let wallHeight = mapS * fpCanvas.height / rayDistance;
+            wallHeight = Math.floor(wallHeight);
             // if(wallHeight > fpCanvas.height) wallHeight = fpCanvas.height;
-
-
+            
             // Draw wall
             if(!this.textures){
                 // No texture
