@@ -8,8 +8,8 @@ const video = document.createElement('video');
 video.style.height = '500px';
 document.body.appendChild(video);
 
-let resolution = 20;
-let scale = 25; // Scale factor for the output image
+let resolution = 50;
+let scale = 10; // Scale factor for the output image
 let isProcessing = false; // Flag to prevent processing overlap
 let animationId; // To store the animation frame ID
 let stream = null; // To store the media stream
@@ -153,8 +153,16 @@ function drawImage() {
                 offset = scale / 2;
             }
             const pixelIndex = outputArray[y * newWidth + x];
+
             // Calculate radius based on the pixel value
-            const radius = pixelIndex / 255 * scale * 0.55;
+            let radius;
+            const colorScaling = document.getElementById("color").value;
+            if(document.getElementById("invert").checked) {
+                radius = pixelIndex / 255 * scale * colorScaling;
+            } else {
+                radius = 255 /pixelIndex * scale * (colorScaling / 10);
+            }
+
             ctx.fillStyle = `black`;
             ctx.beginPath();
             ctx.arc(x * scale + scale / 2 + offset, y * scale + scale / 2, radius, 0, Math.PI * 2);
@@ -168,7 +176,7 @@ function drawImage() {
 startBtn.addEventListener('click', setupWebcam);
 stopBtn.addEventListener('click', stopWebcam);
 
-document.getElementById("res").addEventListener("change", (e) => {
+document.getElementById("res").addEventListener("input", (e) => {
     resolution = e.target.value;
     scale = 500 / resolution;
 });
