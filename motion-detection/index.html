@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Webcam Effect</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            height: 100vh;
+            background-color: #f0f0f0;
+            margin: 0;
+        }
+        canvas {
+            border: 1px solid black;
+            flex-grow: 1;
+            flex-shrink: 1;
+        }
+        video {
+            border: 1px solid black;
+            flex-grow: 1;
+            flex-shrink: 1;
+        }
+        .controls {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="controls">
+        <span>
+            <label for="thres">Threshold:</label>
+            <input type="range" name="thres" id="thres" step="1" min="1" max="150" value="20">
+        </span>
+        <span>
+            <label for="fade">Fade out:</label>
+            <input type="range" name="fade" id="fade" step="1" min="1" max="1500" value="500">
+        </span>
+        <span>
+            <label for="amount">Min motion area:</label>
+            <input type="range" name="amount" id="amount" step="1" min="0" max="4" value="4">
+        </span>
+        <button id="startBtn">Start Camera</button>
+        <button id="stopBtn">Stop Camera</button>
+    </div>
+    <canvas></canvas>
+    <script src="script.js"></script>
+</body>
+</html>
