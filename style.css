@@ -8,6 +8,28 @@ body {
     font-family: "Silkscreen", sans-serif;
     font-weight: 700;
     overflow: hidden;
+
+    display: flex;
+    flex-direction: row-reverse;
+    justify-content: space-between;
+}
+
+.info {
+    width: 35%;
+}
+
+@media screen and (max-width: 800px) {
+    body {
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+    }
+    .info {
+        width: 90%;
+    }
+    #container {
+        width: 100%;
+    }
 }
 
 #container {
@@ -15,7 +37,10 @@ body {
     left: 1em;
     font-size: 1.3em;
     height: 100vh;
+    width: 60%;
     overflow: auto;
+
+    scrollbar-width: none;
 }
 
 footer {
@@ -74,11 +99,11 @@ a {
 }
 
 @media screen and (min-width: 500px) {
-  body{font-size: 150%;}
+    body{font-size: 150%;}
 }
 
 @media screen and (min-width: 700px) {
-  body{font-size: 200%;}
+    body{font-size: 200%;}
 }
 
 @keyframes textShadow {
