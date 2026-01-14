@@ -1,0 +1,14 @@
+{
+    "compilerOptions": {
+        "target": "ES2015",
+        "module": "ES2015",
+        "outDir": "./scripts",
+        "rootDir": "./scripts",
+        "noImplicitAny": true,
+        "removeComments": true,
+        "sourceMap": true,
+        "strict": true
+    },
+    "include": ["scripts/*.ts"],
+    "exclude": ["scripts/*.js"]
+}
