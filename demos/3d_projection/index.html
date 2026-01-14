@@ -70,6 +70,121 @@
             margin: 5px 0;
             font-size: 13px;
         }
+        #geometryEditor {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background-color: rgb(0, 0, 0);
+            border: 2px solid rgb(0, 100, 0);
+            padding: 15px;
+            border-radius: 5px;
+            z-index: 10;
+            max-height: 80vh;
+            overflow-y: auto;
+            width: 300px;
+        }
+        #geometryEditor h3 {
+            margin: 0 0 10px 0;
+            font-size: 18px;
+        }
+        #geometryEditor h4 {
+            margin: 15px 0 8px 0;
+            font-size: 16px;
+        }
+        .geometry-list {
+            max-height: 200px;
+            overflow-y: auto;
+            border: 1px solid rgb(0, 100, 0);
+            padding: 5px;
+            margin-bottom: 10px;
+        }
+        .geometry-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 4px;
+            margin: 2px 0;
+            background-color: rgba(0, 100, 0, 0.1);
+            font-size: 12px;
+            gap: 8px;
+        }
+        .geometry-item > span {
+            flex: 1;
+            min-width: 0;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+        .geometry-item > div {
+            display: flex;
+            gap: 3px;
+            flex-shrink: 0;
+        }
+        .geometry-item button {
+            background-color: transparent;
+            border: 1px solid rgb(0, 100, 0);
+            color: rgb(0, 100, 0);
+            padding: 2px 6px;
+            cursor: pointer;
+            border-radius: 3px;
+            font-family: monospace;
+            font-size: 11px;
+            white-space: nowrap;
+        }
+        .geometry-item button:hover {
+            background-color: rgb(0, 100, 0);
+            color: black;
+        }
+        .add-button {
+            width: 100%;
+            background-color: transparent;
+            border: 1px solid rgb(0, 100, 0);
+            color: rgb(0, 100, 0);
+            padding: 8px;
+            cursor: pointer;
+            border-radius: 3px;
+            font-family: monospace;
+            margin-top: 5px;
+        }
+        .add-button:hover {
+            background-color: rgb(0, 100, 0);
+            color: black;
+        }
+        #locateButton {
+            width: 100%;
+            background-color: transparent;
+            border: 1px solid rgb(0, 100, 0);
+            color: rgb(0, 100, 0);
+            padding: 8px;
+            cursor: pointer;
+            border-radius: 3px;
+            font-family: monospace;
+            margin-bottom: 15px;
+        }
+        #locateButton:hover {
+            background-color: rgb(0, 100, 0);
+            color: black;
+        }
+        #locateButton.active {
+            background-color: rgb(0, 100, 0);
+            color: black;
+        }
+        .input-group {
+            display: flex;
+            gap: 5px;
+            margin: 5px 0;
+        }
+        .input-group input {
+            flex: 1;
+            min-width: 0;
+            background-color: transparent;
+            border: 1px solid rgb(0, 100, 0);
+            color: rgb(0, 100, 0);
+            padding: 4px;
+            font-family: monospace;
+            font-size: 12px;
+            box-sizing: border-box;
+        }
     </style>
 </head>
 <body>
@@ -97,6 +212,25 @@
             <p><strong>Q/E</strong> - Up/Down</p>
             <p><strong>Arrows</strong> - Look Around</p>
         </div>
+    </div>
+    <div id="geometryEditor">
+        <h3>Geometry Editor</h3>
+        <button id="locateButton">Locate Vertices</button>
+        <h4>Vertices</h4>
+        <div id="verticesList" class="geometry-list"></div>
+        <div class="input-group">
+            <input type="number" id="vertexX" placeholder="X" step="0.1" value="0">
+            <input type="number" id="vertexY" placeholder="Y" step="0.1" value="0">
+            <input type="number" id="vertexZ" placeholder="Z" step="0.1" value="1">
+        </div>
+        <button class="add-button" id="addVertex">Add Vertex</button>
+        
+        <h4>Faces</h4>
+        <div id="facesList" class="geometry-list"></div>
+        <div class="input-group">
+            <input type="text" id="faceIndices" placeholder="e.g. 0,1,2,3">
+        </div>
+        <button class="add-button" id="addFace">Add Face</button>
     </div>
     <canvas id="canvas"></canvas>
     <script type="module" src="./scripts/script.js"></script>
