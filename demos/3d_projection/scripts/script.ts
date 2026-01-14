@@ -177,10 +177,10 @@ const logic = () => {
     if(pressedButtons.has("q")) offsetY -= speed;
     if(pressedButtons.has("e")) offsetY += speed;
     
-    if(pressedButtons.has("ArrowLeft")) yaw -= 0.01;
-    if(pressedButtons.has("ArrowRight")) yaw += 0.01;
-    if(pressedButtons.has("ArrowUp")) pitch -= 0.01;
-    if(pressedButtons.has("ArrowDown")) pitch += 0.01;
+    if(pressedButtons.has("ArrowLeft")) yaw -= 0.02;
+    if(pressedButtons.has("ArrowRight")) yaw += 0.02;
+    if(pressedButtons.has("ArrowUp")) pitch -= 0.02;
+    if(pressedButtons.has("ArrowDown")) pitch += 0.02;
 }
 
 const loop = () => {

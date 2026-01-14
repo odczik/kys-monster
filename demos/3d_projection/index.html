@@ -57,6 +57,19 @@
         .color-picker-container label {
             margin-bottom: 5px;
         }
+        .controls-section {
+            margin-top: 15px;
+            padding-top: 15px;
+            border-top: 1px solid rgb(0, 100, 0);
+        }
+        .controls-section h4 {
+            margin: 0 0 10px 0;
+            font-size: 16px;
+        }
+        .controls-section p {
+            margin: 5px 0;
+            font-size: 13px;
+        }
     </style>
 </head>
 <body>
@@ -77,6 +90,12 @@
         <div class="color-picker-container">
             <label>UI Color:</label>
             <input type="color" id="uiColor" value="#006400">
+        </div>
+        <div class="controls-section">
+            <h4>Controls</h4>
+            <p><strong>WASD</strong> - Move</p>
+            <p><strong>Q/E</strong> - Up/Down</p>
+            <p><strong>Arrows</strong> - Look Around</p>
         </div>
     </div>
     <canvas id="canvas"></canvas>
