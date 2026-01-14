@@ -3,12 +3,16 @@ import type { Point3D, Point2D } from "./types.js";
 const canvas = document.getElementById('canvas') as HTMLCanvasElement;
 const ctx = canvas.getContext('2d') as CanvasRenderingContext2D;
 
-canvas.width = window.innerWidth;
+canvas.width = window.innerHeight;
 canvas.height = window.innerHeight;
 
-const FOREGROUND = "#00FF00";
+let FOREGROUND = "#00FF00";
 const BACKGROUND = "#0F0F0F";
+let UI_COLOR = "#006400";
 const s: number = 10;
+
+let renderVertices = false;
+let renderFaces = true;
 
 let offsetX: number = 0,
     offsetY: number = 0,
@@ -22,10 +26,10 @@ let vertices: Point3D[] = [
     {x: 0.25, y: 0.25, z: 1},
     {x: 0.25, y: -0.25, z: 1},
     
-    {x: -0.25, y: -0.25, z: 1.25},
-    {x: -0.25, y: 0.25, z: 1.25},
-    {x: 0.25, y: 0.25, z: 1.25},
-    {x: 0.25, y: -0.25, z: 1.25}
+    {x: -0.25, y: -0.25, z: 1.5},
+    {x: -0.25, y: 0.25, z: 1.5},
+    {x: 0.25, y: 0.25, z: 1.5},
+    {x: 0.25, y: -0.25, z: 1.5}
 ];
 
 let faces: number[][] = [
@@ -37,41 +41,34 @@ let faces: number[][] = [
     [3,7]
 ]
 
-const rotateEuler = ({x, y, z}: Point3D) => {
-    let c: Point3D = {
-        x: Math.cos(pitch),
-        y: Math.cos(yaw),
-        z
-    };
-    let s = {
-        x: Math.sin(pitch),
-        y: Math.sin(yaw),
-        z
-    };
+const rotateCamera = ({x, y, z}: Point3D) => {
+    // Inverse rotation for camera (negate angles)
+    let cy = Math.cos(-yaw);
+    let sy = Math.sin(-yaw);
+    let cp = Math.cos(-pitch);
+    let sp = Math.sin(-pitch);
 
-    let r: Point3D = {x, y, z};
+    // Yaw rotation (around Y axis)
+    let rx = x * cy + z * sy;
+    let rz = -x * sy + z * cy;
 
-    r = {
-        x: r.x * c.y + r.z * s.y,
-        y,
-        z: -r.x * s.y + r.z * c.y
-    }
+    // Pitch rotation (around X axis)
+    let ry = y * cp - rz * sp;
+    rz = y * sp + rz * cp;
 
-    return r;
+    return { x: rx, y: ry, z: rz };
 }
 
 const offsetAndRotate = (p: Point3D) => {
-    const c: Point3D = {
-        x: -offsetX,
-        y: -offsetY,
-        z: -offsetZ
-    }
-
-    return {
-        x: p.x + offsetX,
-        y: p.y + offsetY,
-        z: p.z + offsetZ
-    }
+    // First apply camera offset (translate world relative to camera)
+    const translated = {
+        x: p.x - offsetX,
+        y: p.y - offsetY,
+        z: p.z - offsetZ
+    };
+    
+    // Then rotate from camera's perspective
+    return rotateCamera(translated);
 }
 
 const project = ({x, y, z}: Point3D) => {
@@ -132,29 +129,58 @@ const draw = () => {
     ctx.fillRect(0, 0, canvas.width, canvas.height);
 
     // Render vertices
-    vertices.forEach(vertex => {
-        drawPoint(vertex);
-    })
+    if(renderVertices) {
+        vertices.forEach(vertex => {
+            drawPoint(vertex);
+        })
+    }
 
     // Render faces
-    faces.forEach(face => {
-        drawFace(face);
-    })
+    if(renderFaces) {
+        faces.forEach(face => {
+            drawFace(face);
+        })
+    }
 }
 
 let pressedButtons: Set<string> = new Set();
 const logic = () => {
-    if(pressedButtons.has("w")) offsetZ -= 0.01;
-    if(pressedButtons.has("s")) offsetZ += 0.01;
-    if(pressedButtons.has("d")) offsetX -= 0.01;
-    if(pressedButtons.has("a")) offsetX += 0.01;
-    if(pressedButtons.has("e")) offsetY -= 0.01;
-    if(pressedButtons.has("q")) offsetY += 0.01;
+    const speed = 0.01;
+    
+    // Calculate forward and right vectors based on yaw
+    const forward = {
+        x: Math.sin(yaw),
+        z: Math.cos(yaw)
+    };
+    const right = {
+        x: Math.cos(yaw),
+        z: -Math.sin(yaw)
+    };
+    
+    // Move relative to camera rotation
+    if(pressedButtons.has("w")) {
+        offsetX += forward.x * speed;
+        offsetZ += forward.z * speed;
+    }
+    if(pressedButtons.has("s")) {
+        offsetX -= forward.x * speed;
+        offsetZ -= forward.z * speed;
+    }
+    if(pressedButtons.has("d")) {
+        offsetX += right.x * speed;
+        offsetZ += right.z * speed;
+    }
+    if(pressedButtons.has("a")) {
+        offsetX -= right.x * speed;
+        offsetZ -= right.z * speed;
+    }
+    if(pressedButtons.has("q")) offsetY -= speed;
+    if(pressedButtons.has("e")) offsetY += speed;
     
     if(pressedButtons.has("ArrowLeft")) yaw -= 0.01;
     if(pressedButtons.has("ArrowRight")) yaw += 0.01;
-    if(pressedButtons.has("ArrowDown")) pitch -= 0.01;
-    if(pressedButtons.has("ArrowUp")) pitch += 0.01;
+    if(pressedButtons.has("ArrowUp")) pitch -= 0.01;
+    if(pressedButtons.has("ArrowDown")) pitch += 0.01;
 }
 
 const loop = () => {
@@ -171,3 +197,35 @@ document.body.addEventListener("keydown", e => {
 document.body.addEventListener("keyup", e => {
     pressedButtons.delete(e.key);
 })
+
+// Settings checkboxes
+const renderVerticesCheckbox = document.getElementById('renderVertices') as HTMLInputElement;
+const renderFacesCheckbox = document.getElementById('renderFaces') as HTMLInputElement;
+
+renderVerticesCheckbox.addEventListener('change', () => {
+    renderVertices = renderVerticesCheckbox.checked;
+});
+
+renderFacesCheckbox.addEventListener('change', () => {
+    renderFaces = renderFacesCheckbox.checked;
+});
+
+// Color pickers
+const foregroundColorPicker = document.getElementById('foregroundColor') as HTMLInputElement;
+const uiColorPicker = document.getElementById('uiColor') as HTMLInputElement;
+
+foregroundColorPicker.addEventListener('input', () => {
+    FOREGROUND = foregroundColorPicker.value;
+});
+
+uiColorPicker.addEventListener('input', () => {
+    UI_COLOR = uiColorPicker.value;
+    document.body.style.color = UI_COLOR;
+    const settings = document.getElementById('settings')!;
+    settings.style.borderColor = UI_COLOR;
+    canvas.style.borderColor = UI_COLOR;
+    const colorInputs = document.querySelectorAll<HTMLInputElement>('#settings input[type="color"]');
+    colorInputs.forEach(input => {
+        input.style.borderColor = UI_COLOR;
+    });
+});
