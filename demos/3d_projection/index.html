@@ -5,26 +5,29 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>3D Projection</title>
     <style>
+        :root {
+            --ui-color: rgb(0, 100, 0);
+        }
         body {
             margin: 0;
             overflow: hidden;
             background-color: #0F0F0F;
             font-family: monospace;
-            color: rgb(0, 100, 0);
+            color: var(--ui-color);
         }
         #canvas {
             display: block;
             position: relative;
             left: 50%;
             transform: translateX(-50%);
-            border: 3px solid rgb(0, 100, 0);
+            border: 3px solid var(--ui-color);
         }
         #settings {
             position: absolute;
             top: 20px;
             left: 20px;
             background-color: rgb(0, 0, 0);
-            border: 2px solid rgb(0, 100, 0);
+            border: 2px solid var(--ui-color);
             padding: 15px;
             border-radius: 5px;
             z-index: 10;
@@ -47,7 +50,7 @@
             cursor: pointer;
             width: 100%;
             height: 30px;
-            border: 1px solid rgb(0, 100, 0);
+            border: 1px solid var(--ui-color);
             background-color: transparent;
             margin-top: 5px;
         }
@@ -60,7 +63,7 @@
         .controls-section {
             margin-top: 15px;
             padding-top: 15px;
-            border-top: 1px solid rgb(0, 100, 0);
+            border-top: 1px solid var(--ui-color);
         }
         .controls-section h4 {
             margin: 0 0 10px 0;
@@ -75,7 +78,7 @@
             top: 20px;
             right: 20px;
             background-color: rgb(0, 0, 0);
-            border: 2px solid rgb(0, 100, 0);
+            border: 2px solid var(--ui-color);
             padding: 15px;
             border-radius: 5px;
             z-index: 10;
@@ -94,7 +97,7 @@
         .geometry-list {
             max-height: 200px;
             overflow-y: auto;
-            border: 1px solid rgb(0, 100, 0);
+            border: 1px solid var(--ui-color);
             padding: 5px;
             margin-bottom: 10px;
         }
@@ -122,8 +125,8 @@
         }
         .geometry-item button {
             background-color: transparent;
-            border: 1px solid rgb(0, 100, 0);
-            color: rgb(0, 100, 0);
+            border: 1px solid var(--ui-color);
+            color: var(--ui-color);
             padding: 2px 6px;
             cursor: pointer;
             border-radius: 3px;
@@ -132,14 +135,14 @@
             white-space: nowrap;
         }
         .geometry-item button:hover {
-            background-color: rgb(0, 100, 0);
+            background-color: var(--ui-color);
             color: black;
         }
         .add-button {
             width: 100%;
             background-color: transparent;
-            border: 1px solid rgb(0, 100, 0);
-            color: rgb(0, 100, 0);
+            border: 1px solid var(--ui-color);
+            color: var(--ui-color);
             padding: 8px;
             cursor: pointer;
             border-radius: 3px;
@@ -147,14 +150,14 @@
             margin-top: 5px;
         }
         .add-button:hover {
-            background-color: rgb(0, 100, 0);
+            background-color: var(--ui-color);
             color: black;
         }
         #locateButton {
             width: 100%;
             background-color: transparent;
-            border: 1px solid rgb(0, 100, 0);
-            color: rgb(0, 100, 0);
+            border: 1px solid var(--ui-color);
+            color: var(--ui-color);
             padding: 8px;
             cursor: pointer;
             border-radius: 3px;
@@ -162,11 +165,11 @@
             margin-bottom: 15px;
         }
         #locateButton:hover {
-            background-color: rgb(0, 100, 0);
+            background-color: var(--ui-color);
             color: black;
         }
         #locateButton.active {
-            background-color: rgb(0, 100, 0);
+            background-color: var(--ui-color);
             color: black;
         }
         .input-group {
@@ -178,8 +181,8 @@
             flex: 1;
             min-width: 0;
             background-color: transparent;
-            border: 1px solid rgb(0, 100, 0);
-            color: rgb(0, 100, 0);
+            border: 1px solid var(--ui-color);
+            color: var(--ui-color);
             padding: 4px;
             font-family: monospace;
             font-size: 12px;
